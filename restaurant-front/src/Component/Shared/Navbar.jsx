@@ -3,7 +3,7 @@ import { IoMenu } from "react-icons/io5";
 import { CgMenuMotion } from "react-icons/cg";
 
 import { useContext, useEffect, useRef, useState } from "react";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { MdOutlineSecurity } from "react-icons/md";
 import { RestaurantContext } from "../../ContextProvider/ContextProvider";
 import CustomLoading from "./CustomLoading/CustomLoading";
@@ -16,55 +16,22 @@ const CustomNavbar = () => {
     logOutUser,
     cartItems,
     cartDisplayLoading,
-    allProducts,
-    foundProducts,
-    setFoundProduct,
     customAlert,
   } = useContext(RestaurantContext);
   const [isCartOpen, setCartOpen] = useState(false);
   const [isProfileActive, setProfileActive] = useState(false);
   const [isMenuActive, setMenuActive] = useState(false);
-  const [showSearchItems, setShowSearchItems] = useState(false);
-  const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
-  const searchBoxRef = useRef();
   const cartBoxRef = useRef();
   const navMenuRef = useRef();
   const profileBoxRef = useRef();
-  const categoryNavRef = useRef();
-  const brandNavRef = useRef();
+
   const altUserPhoto =
     "https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg";
-
-  const handleSearchInput = (e) => {
-    const inputValue = e.target.value.toLowerCase();
-    setSearchInput(inputValue);
-    const foundItems = allProducts.filter((product) =>
-      product.name.toLowerCase().includes(inputValue)
-    );
-    setFoundProduct(foundItems);
-  };
-
-  useEffect(() => {
-    if (searchInput.length > 0) {
-      setShowSearchItems(true);
-    } else {
-      setShowSearchItems(false);
-    }
-  }, [searchInput]);
-
-  // hide searchBox on location change
-  useEffect(() => {
-    setShowSearchItems(false);
-  }, [location]);
 
   // hide absolute boxes when click outside
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (searchBoxRef.current && !searchBoxRef.current.contains(e.target)) {
-        setShowSearchItems(false);
-      }
       if (cartBoxRef.current && !cartBoxRef.current.contains(e.target)) {
         setCartOpen(false);
       }
@@ -73,17 +40,6 @@ const CustomNavbar = () => {
       }
       if (navMenuRef.current && !navMenuRef.current.contains(e.target)) {
         setMenuActive(false);
-      }
-      if (window.innerWidth >= 960) {
-        if (
-          categoryNavRef.current &&
-          !categoryNavRef.current.contains(e.target)
-        ) {
-          setCategoryOpen(false);
-        }
-        if (brandNavRef.current && !brandNavRef.current.contains(e.target)) {
-          setBrandsOpen(false);
-        }
       }
     };
 
@@ -103,20 +59,7 @@ const CustomNavbar = () => {
     });
   };
   //   SMALL DEVICE NAV-CARD STYLE
-  const [isCategoryOpen, setCategoryOpen] = useState(false);
-  const [isBrandsOpen, setBrandsOpen] = useState(false);
-  const specificationStyle = {
-    maxHeight: isCategoryOpen ? "100vh" : "0px",
-    overflow: "hidden",
-    transition: "max-height 0.7s ease-in-out",
-  };
-  const displayStyle = {
-    maxHeight: isBrandsOpen ? "100vh" : "0px",
-    overflow: "hidden",
-    transition: "max-height 0.7s ease-in-out",
-  };
-
-  const navLinks = isAdmin ? (
+  const navLinks = (
     <>
       <div className="flex lg:hidden gap-2 items-center">
         <Link to={"/"}>
@@ -129,30 +72,15 @@ const CustomNavbar = () => {
         </Link>
         <Link to={"/"}>
           <h2 className="lg:hidden font-semibold text-lg text-gray-100">
-            N-Tech
+            Restaurant
           </h2>
         </Link>
       </div>
-     
-    </>
-  ) : (
-    <>
-      <div className="flex lg:hidden gap-2 items-center">
-        <Link to={"/"}>
-          <img
-            className="w-8 md:w-12 rounded-full"
-            src="https://i.ibb.co/DrRq2bx/N-TECHNO.jpg"
-            alt="company-logo"
-            title="N-Tech"
-          />
-        </Link>
-        <Link to={"/"}>
-          <h2 className="lg:hidden font-semibold text-lg text-gray-100">
-            N-Tech
-          </h2>
-        </Link>
+      <div className="flex flex-col lg:flex-row gap-2 lg:gap-4">
+        <NavLink to={"/"}>Home</NavLink>
+        <NavLink to={"/menu"}>Menu</NavLink>
+        <NavLink to={"/shop"}>Shop</NavLink>
       </div>
-     
     </>
   );
 
@@ -173,8 +101,8 @@ const CustomNavbar = () => {
           <div className="flex flex-col gap-4 w-fit">{navLinks}</div>
         </div>
         {/* LEFT  */}
-        <div className="flex gap-2 items-center ">
-            {/* NAV-ICON FOR SMALL DEVICE  */}
+        <div className="flex gap-2 items-center w-60">
+          {/* NAV-ICON FOR SMALL DEVICE  */}
           <div className="lg:hidden pt-1">
             <button
               onClick={() => setMenuActive(!isMenuActive)}
@@ -193,12 +121,14 @@ const CustomNavbar = () => {
           </Link>
           <Link to={"/"}>
             <h2 className="hidden lg:inline-block font-semibold text-xl text-gray-900">
-              N-Tech
+              Restaurant
             </h2>
           </Link>
         </div>
+        {/* MIDDLE  */}
+        <div className="font-bold hidden lg:flex justify-center items-center gap-2">{navLinks}</div>
         {/* RIGHT  */}
-        <div className="">
+        <div className="justify-end w-60">
           {loading ? (
             <CustomLoading></CustomLoading>
           ) : (
