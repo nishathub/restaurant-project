@@ -9,6 +9,19 @@ import { RestaurantContext } from "../../ContextProvider/ContextProvider";
 import CustomLoading from "./CustomLoading/CustomLoading";
 
 const CustomNavbar = () => {
+  const [navBg, setNavBg] = useState(false);
+  const handleScroll = () => {
+    if (window.scrollY > 400) {
+      setNavBg(true);
+    } else {
+      setNavBg(false);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const {
     loading,
     user,
@@ -86,7 +99,7 @@ const CustomNavbar = () => {
 
   return (
     <div
-      className={`bg-[rgba(224,224,224,0.95)] h-[64px] lg:h-20 fixed w-full z-10 custom-login-register`}
+      className={`${navBg ? 'bg-[rgba(224,224,224,0.95)]' : 'bg-transparent'} h-[64px] lg:h-20 fixed w-full z-10 `}
     >
       <div className="navbar max-w-7xl mx-auto md:px-4 px-1 flex justify-between items-center h-full my-auto">
         {/* ABSOLUTE MENU  */}
@@ -126,7 +139,9 @@ const CustomNavbar = () => {
           </Link>
         </div>
         {/* MIDDLE  */}
-        <div className="font-bold hidden lg:flex justify-center items-center gap-2">{navLinks}</div>
+        <div className="font-bold hidden lg:flex justify-center items-center gap-2">
+          {navLinks}
+        </div>
         {/* RIGHT  */}
         <div className="justify-end w-60">
           {loading ? (

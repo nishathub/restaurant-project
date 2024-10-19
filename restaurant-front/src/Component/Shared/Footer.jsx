@@ -1,5 +1,5 @@
-import { FaFacebookF } from "react-icons/fa";
-import { FaXTwitter, FaYoutube } from "react-icons/fa6";
+import { FaFacebookF, FaPhoneAlt } from "react-icons/fa";
+import {  FaXTwitter, FaYoutube } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -9,12 +9,11 @@ const Footer = () => {
         <section className="py-8 xl:pt-16 max-w-7xl mx-auto footer px-8 items-start md:justify-items-center">
           <nav>
             <h6 className="font-bold mb-2 uppercase text-lg md:text-xl">
-              Policy
+              Contact Us
             </h6>
-            <a className="link link-hover">Return Policy</a>
-            <a className="link link-hover">Refund Policy</a>
-            <a className="link link-hover">Cancellation Policy</a>
-            <a className="link link-hover">Privacy Policy</a>
+            <p>Sat-Fri: 12PM - 12AM</p>
+            <p className="flex items-center gap-2"><span><FaPhoneAlt /></span>+8801523456789</p>
+            <p>Block-C, Road-11, Banani, Dhaka</p>
           </nav>
           <nav>
             <h6 className="font-bold mb-2 uppercase text-lg md:text-xl">
@@ -26,7 +25,7 @@ const Footer = () => {
           </nav>
           <nav>
             <h6 className="font-bold mb-2 uppercase text-lg md:text-xl">
-              Social
+              Get Connected
             </h6>
             <div className="grid grid-flow-col gap-4">
               <a className="text-lg md:text-2xl hover:text-blue-400 duration-300 cursor-pointer">
