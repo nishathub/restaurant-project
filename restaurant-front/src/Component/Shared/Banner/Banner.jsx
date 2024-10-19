@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import banner1 from "../../../assets/banner-images/banner-pizza.jpg";
 import banner2 from "../../../assets/banner-images/background-home-top.jpg";
-import banner3 from "../../../assets/banner-images/burger-offer.jpg";
+import banner3 from "../../../assets/banner-images/banner-soup.jpg";
 
 const Banner = () => {
   const [imgSource, setImageSource] = useState(banner1);
@@ -22,7 +22,7 @@ const Banner = () => {
   }, [location]);
   return (
     <div
-      className="h-[700px]"
+      className="h-[500px] lg:h-[700px]"
       style={{
         backgroundImage: `url(${imgSource})`,
         backgroundSize: "cover",
@@ -33,7 +33,7 @@ const Banner = () => {
         {/* ABSOLUTE <DIV></DIV> */}
         <div className="absolute left-5 top-1/2 -translate-y-1/2 text-white">
           <h6 className="text-xl font-bold bg-red-700 p-2 rounded-md mb-4 w-fit">HALAL & HYGIENIC</h6>
-          <h4 className="text-7xl font-bold mb-6 max-w-md">{bannerText}</h4>
+          <h4 className="text-4xl lg:text-7xl font-bold mb-8 max-w-60 lg:max-w-md">{bannerText}</h4>
           <Link className="bg-red-700 py-3 px-6" to={"/menu"}>Menu</Link>
         </div>
       </div>
