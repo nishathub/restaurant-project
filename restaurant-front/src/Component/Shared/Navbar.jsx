@@ -11,7 +11,7 @@ import CustomLoading from "./CustomLoading/CustomLoading";
 const CustomNavbar = () => {
   const [navBg, setNavBg] = useState(false);
   const handleScroll = () => {
-    if (window.scrollY > 400) {
+    if (window.scrollY > 200) {
       setNavBg(true);
     } else {
       setNavBg(false);
@@ -99,7 +99,7 @@ const CustomNavbar = () => {
 
   return (
     <div
-      className={`${navBg ? 'bg-[rgba(224,224,224,0.95)]' : 'bg-transparent'} h-[64px] lg:h-20 fixed w-full z-10 `}
+      className={`${navBg ? 'bg-black' : 'bg-black/30'} h-[64px] lg:h-20 fixed w-full z-10`}
     >
       <div className="navbar max-w-7xl mx-auto md:px-4 px-1 flex justify-between items-center h-full my-auto">
         {/* ABSOLUTE MENU  */}
@@ -133,13 +133,13 @@ const CustomNavbar = () => {
             />
           </Link>
           <Link to={"/"}>
-            <h2 className="hidden lg:inline-block font-semibold text-xl text-gray-900">
+            <h2 className="hidden lg:inline-block font-semibold text-xl text-gray-200">
               Restaurant
             </h2>
           </Link>
         </div>
         {/* MIDDLE  */}
-        <div className="font-bold hidden lg:flex justify-center items-center gap-2">
+        <div className="font-bold hidden lg:flex justify-center items-center gap-2 text-gray-200 tracking-wide">
           {navLinks}
         </div>
         {/* RIGHT  */}
@@ -160,16 +160,16 @@ const CustomNavbar = () => {
                     <h2
                       title="Admin"
                       className={`text-xl ${
-                        isAdmin ? "text-orange-900" : "hidden"
+                        isAdmin ? "text-orange-400" : "hidden"
                       }`}
                     >
                       <MdOutlineSecurity />
                     </h2>
-                    <h2 className="md:text-lg text-gray-900 font-semibold hidden lg:block">
+                    <h2 className="md:text-lg text-gray-200 font-semibold hidden lg:block">
                       {user?.displayName ? user.displayName : ""}
                     </h2>
                     <h2
-                      className={`md:text-lg text-gray-900 font-semibold lg:hidden`}
+                      className={`md:text-lg text-gray-200 font-semibold lg:hidden`}
                     >
                       {user?.displayName?.length < 10
                         ? user.displayName
@@ -179,7 +179,7 @@ const CustomNavbar = () => {
                   {/* CART  */}
                   <div ref={cartBoxRef} className="relative">
                     {/* ABSOLUTE BADGE */}
-                    <p className="absolute -top-2 -right-2 bg-black text-sm text-white px-2 rounded-full">
+                    <p className="absolute -top-2 -right-2 bg-gray-700 text-sm text-white px-2 rounded-full">
                       {cartDisplayLoading ? (
                         <CustomLoading size={12}></CustomLoading>
                       ) : (
@@ -209,7 +209,7 @@ const CustomNavbar = () => {
                       )}
                     </div>
                     <button onClick={() => setCartOpen(!isCartOpen)}>
-                      <p className="text-black text-xl p-2 hover:text-white hover:bg-black/70 duration-300 rounded-full">
+                      <p className="hover:text-gray-300 text-xl p-2 text-white duration-300 rounded-full">
                         <MdOutlineShoppingCart />
                       </p>
                     </button>
