@@ -34,7 +34,7 @@ const Banner = () => {
         <div className="absolute left-5 top-1/2 -translate-y-1/2 text-white">
           <h6 className="text-xl font-bold bg-red-700 p-2 rounded-md mb-4 w-fit">HALAL & HYGIENIC</h6>
           <h4 className="text-4xl lg:text-7xl font-bold mb-8 max-w-60 lg:max-w-md">{bannerText}</h4>
-          <Link className="bg-red-700 py-3 px-6" to={"/menu"}>Menu</Link>
+          <Link className="bg-red-700 hover:bg-red-800 py-3 px-6 rounded-md" to={"/menu"}>Our Menu</Link>
         </div>
       </div>
       {/* BG-IMAGE  */}

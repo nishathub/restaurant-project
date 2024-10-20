@@ -1,23 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 import MenuItem from "../../Shared/MenuItem/MenuItem";
+import { Link } from "react-router-dom";
+import { RestaurantContext } from "../../../ContextProvider/ContextProvider";
 
 const PopularMenu = () => {
-    const [popularItem, setPopularItem] = useState([]);
-    useEffect(()=> {
-        try {
-            fetch('menu.json')
-            .then(res => res.json())
-            .then(data => {
-                const popularData = data.filter(item => item.category === 'popular');
-                setPopularItem(popularData);
-            })
-            .catch(err => console.log(err, 'error from try block'))
-        } catch (error) {
-            console.log('error from menu fetch catch block ', error)
-        }
-    },[])
-
+  const { popularItem } = useContext(RestaurantContext);
   return (
     <div className="max-w-7xl mx-auto my-12 px-4">
       <section>
@@ -27,11 +15,16 @@ const PopularMenu = () => {
         ></SectionTitle>
       </section>
       <div className="grid grid-col-1 xl:grid-cols-2 items-center justify-center gap-8 mt-12 lg:mt-20">
-        {
-            popularItem.map(item => 
-                <MenuItem key={item._id} item ={item}></MenuItem>
-            )
-        }
+        {popularItem.map((item) => (
+          <MenuItem key={item._id} item={item}></MenuItem>
+        ))}
+      </div>
+      <div className="text-center mt-8">
+        <Link to={"/menu"}>
+          <button className="p-4 hover:bg-red-700 border-b-4 border-red-700 rounded-md duration-300 text-gray-200">
+            View Full Menu
+          </button>
+        </Link>
       </div>
     </div>
   );

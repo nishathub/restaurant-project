@@ -1,5 +1,14 @@
 [
     {
+        "_id": "642c155b2c4774f05c36ebbb",
+        "name": "Tom Yum",
+        "recipe": "Creamy hot and sour soup with brown bread",
+        "specialty": "A flavorful and aromatic creamy hot and sour soup, perfectly balanced with tangy and spicy notes. Paired with hearty brown bread, it's a delicious and comforting meal.",
+        "image": "https://i.ibb.co.com/Cw2b603/signature-dish-2.jpg",
+        "category": "signature",
+        "price": 17.7
+    },
+    {
         "_id": "642c155b2c4774f05c36eeaa",
         "name": "Haddock",
         "recipe": "Chargrilled fresh tuna steak (served medium rare) on classic Niçoise salad with French beans.",
