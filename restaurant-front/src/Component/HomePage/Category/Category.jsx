@@ -10,7 +10,7 @@ const Category = () => {
   return (
     <div className="py-12 bg-red-700">
       <div className="marquee-container mb-6">
-        <p className="marquee capitalize text-2xl text-gray-200">
+        <p className="marquee capitalize lg:text-2xl text-gray-200">
         <span className="text-3xl lg:text-5xl">🛵</span> Free delivery everyday Gulshan : 0150 111 8888 (12pm - 1am), Uttara :
           0150 111 8888 (12pm - 11pm), Mirpur : 0150 111 8888 (12pm - 11pm),
           Bashundhara : 0150 111 8888 (12pm - 10pm), Banani : 0170 999 0777
