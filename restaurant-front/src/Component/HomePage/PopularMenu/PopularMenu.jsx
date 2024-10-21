@@ -17,7 +17,7 @@ const PopularMenu = () => {
       <section>
         <SectionTitle
           heading={"Fan Favorite Items"}
-          subHeading={"All Prices are Inclusive of VAT & Supplementary Duty"}
+          subHeading={"Be Part of the trend now"}
         ></SectionTitle>
       </section>
       {isFetchMenuLoading ? (

@@ -5,7 +5,7 @@ import banner1 from "../../../assets/menuCategory-images/banner-pizza.jpg";
 const Banner = () => {
   return (
     <div
-      className="h-[450px] lg:h-[600px]"
+      className="h-[450px] lg:h-[700px]"
       style={{
         backgroundImage: `url(${banner1})`,
         backgroundSize: "cover",

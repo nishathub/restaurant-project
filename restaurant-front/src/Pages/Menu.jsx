@@ -37,7 +37,7 @@ const Menu = () => {
       <Helmet>
         <title>Menu</title>
       </Helmet>
-      <PageCover pageName="Our Menu"></PageCover>
+      <PageCover pageName="Our Menu" image={soupImage}></PageCover>
       <SectionTitle
         heading={"Today's Offer"}
         subHeading={"Hurry up"}
