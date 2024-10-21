@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
-import { RestaurantContext } from "../../../ContextProvider/ContextProvider";
 import { Link } from "react-router-dom";
+import useMenu from "../../../Hooks/useMenu";
+import CustomLoading from "../../Shared/CustomLoading/CustomLoading";
 
 const SignatureDish = () => {
-  const { signatureItem } = useContext(RestaurantContext);
+  const [allMenuItems, isFetchMenuLoading] = useMenu();
+  const signatureItem = !isFetchMenuLoading && allMenuItems.find((item) => item.category === "signature");
   const { name, recipe, price, specialty, image } = signatureItem;
   const [scrollY, setScrollY] = useState(0);
   // Parallax Effect of Signature bg
@@ -20,7 +22,9 @@ const SignatureDish = () => {
     };
   }, []);
   const backgroundPositionY = scrollY * -0.05;
-
+if(isFetchMenuLoading){
+  return <div className="flex items-center justify-center"><CustomLoading size={32}></CustomLoading></div>
+}
   return (
     <div
       className=""

@@ -8,27 +8,7 @@ const ContextProvider = ({ children }) => {
   const cartItems = [];
   const cartDisplayLoading = false;
   const allProducts = [2, 3, 4];
-  const [popularItem, setPopularItem] = useState([]);
-  const [signatureItem, setSignatureItem] = useState({});
-  useEffect(() => {
-    try {
-      fetch("menu.json")
-        .then((res) => res.json())
-        .then((data) => {
-          const popularData = data.filter(
-            (item) => item.category === "popular"
-          );
-          const signatureItem = data.find(
-            (item) => item.category === "signature"
-          );
-          setSignatureItem(signatureItem);
-          setPopularItem(popularData);
-        })
-        .catch((err) => console.log(err, "error from try block"));
-    } catch (error) {
-      console.log("error from menu fetch catch block ", error);
-    }
-  }, []);
+
 
   // CUSTOM ALERT (SIMILAR TO TOAST)
   const customAlert = (alertText) => {
@@ -47,8 +27,6 @@ const ContextProvider = ({ children }) => {
     cartItems,
     cartDisplayLoading,
     allProducts,
-    popularItem,
-    signatureItem,
     customAlert,
   };
   return (
