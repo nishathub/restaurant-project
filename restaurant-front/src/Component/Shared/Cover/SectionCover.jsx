@@ -20,7 +20,7 @@ const SectionCover = ({
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  const backgroundPositionY = scrollY * -0.1;
+  const backgroundPositionY = scrollY * -0.03;
   return (
     <div
       className="h-[60vh] flex justify-center items-center"
@@ -28,11 +28,11 @@ const SectionCover = ({
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
+        // backgroundAttachment: "fixed",
         backgroundPosition: `center ${backgroundPositionY}px`,
       }}
     >
-      <div className="h-72 w-[90vw] md:w-[70vw] rounded-md flex flex-col items-center justify-center p-12 bg-white/90 text-gray-800">
+      <div className="h-60 w-[90vw] md:w-[70vw] rounded-md flex flex-col items-center justify-center p-12 bg-white/90 text-gray-800">
         <div className="py-2 px-4 border-y border-gray-800 mb-6">
           <h4 className="text-2xl lg:text-4xl uppercase cinzel-regular">
             {SectionName}

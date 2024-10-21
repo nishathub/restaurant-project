@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import Banner from "../Component/Shared/Banner/Banner";
+import PageCover from "../Component/Shared/Cover/PageCover";
 
 const Shop = () => {
   return (
@@ -7,7 +8,7 @@ const Shop = () => {
       <Helmet>
         <title>Shop</title>
       </Helmet>
-      <Banner></Banner>
+      <PageCover pageName="our shop" ></PageCover>
     </div>
   );
 };
