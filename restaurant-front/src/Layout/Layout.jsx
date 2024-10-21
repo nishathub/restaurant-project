@@ -6,7 +6,7 @@ import './restaurant-style.css';
 
 const Layout = () => {
     return (
-        <div className='flex flex-col min-h-screen'>
+        <div className='flex flex-col min-h-screen lora-regular'>
             <Navbar></Navbar>
             <div className='flex-grow'>
             <Outlet></Outlet>

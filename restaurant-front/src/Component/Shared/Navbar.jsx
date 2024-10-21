@@ -1,12 +1,12 @@
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { IoMenu } from "react-icons/io5";
 import { CgMenuMotion } from "react-icons/cg";
-
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { MdOutlineSecurity } from "react-icons/md";
 import { RestaurantContext } from "../../ContextProvider/ContextProvider";
 import CustomLoading from "./CustomLoading/CustomLoading";
+import savouryumLogo from "../../../src/assets/restaurant-logo.png";
 
 const CustomNavbar = () => {
   const [navBg, setNavBg] = useState(false);
@@ -74,22 +74,7 @@ const CustomNavbar = () => {
   //   SMALL DEVICE NAV-CARD STYLE
   const navLinks = (
     <>
-      <div className="flex lg:hidden gap-2 items-center">
-        <Link to={"/"}>
-          <img
-            className="w-8 md:w-12 rounded-full"
-            src="https://i.ibb.co/DrRq2bx/N-TECHNO.jpg"
-            alt="company-logo"
-            title="N-Tech"
-          />
-        </Link>
-        <Link to={"/"}>
-          <h2 className="lg:hidden font-semibold text-lg text-gray-100">
-            Restaurant
-          </h2>
-        </Link>
-      </div>
-      <div className="flex flex-col lg:flex-row gap-2 lg:gap-4">
+      <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 cinzel-regular">
         <NavLink to={"/"}>Home</NavLink>
         <NavLink to={"/menu"}>Menu</NavLink>
         <NavLink to={"/shop"}>Shop</NavLink>
@@ -99,7 +84,9 @@ const CustomNavbar = () => {
 
   return (
     <div
-      className={`${navBg ? 'bg-black' : 'bg-black/30'} h-[64px] lg:h-20 fixed w-full z-10`}
+      className={`${
+        navBg ? "bg-black" : "bg-black/50"
+      } h-20 lg:h-24 fixed w-full z-10`}
     >
       <div className="navbar max-w-7xl mx-auto md:px-4 px-1 flex justify-between items-center h-full my-auto">
         {/* ABSOLUTE MENU  */}
@@ -119,27 +106,32 @@ const CustomNavbar = () => {
           <div className="lg:hidden pt-1">
             <button
               onClick={() => setMenuActive(!isMenuActive)}
-              className="text-3xl text-gray-900"
+              className="text-3xl text-gray-200"
             >
               {isMenuActive ? <CgMenuMotion /> : <IoMenu />}
             </button>
           </div>
-          <Link to={"/"}>
+          <Link className="w-8 lg:w-12 rounded-full" to={"/"}>
             <img
-              className="w-8 md:w-12 rounded-full"
-              src="https://i.ibb.co/DrRq2bx/N-TECHNO.jpg"
-              alt="company-logo"
-              title="N-Tech"
+              className=""
+              src={savouryumLogo}
+              alt="Savouryum-logo"
+              title="Savouryum"
             />
           </Link>
           <Link to={"/"}>
-            <h2 className="hidden lg:inline-block font-semibold text-xl text-gray-200">
-              Restaurant
-            </h2>
+            <div className="">
+              <h2 className="text-xl first-letter:text-2xl text-gray-200 uppercase tracking-wide cinzel-semibold">
+                savouryum
+              </h2>
+              <p className="text-gray-200 text-xs tracking-[6px] uppercase cinzel-regular">
+                Restaurant
+              </p>
+            </div>
           </Link>
         </div>
         {/* MIDDLE  */}
-        <div className="font-bold hidden lg:flex justify-center items-center gap-2 text-gray-200 tracking-wide">
+        <div className="hidden lg:flex justify-center items-center gap-2 text-gray-200  tracking-wider">
           {navLinks}
         </div>
         {/* RIGHT  */}
@@ -160,16 +152,16 @@ const CustomNavbar = () => {
                     <h2
                       title="Admin"
                       className={`text-xl ${
-                        isAdmin ? "text-orange-400" : "hidden"
+                        isAdmin ? "text-green-500" : "hidden"
                       }`}
                     >
                       <MdOutlineSecurity />
                     </h2>
-                    <h2 className="md:text-lg text-gray-200 font-semibold hidden lg:block">
+                    <h2 className="hidden lg:block text-gray-200">
                       {user?.displayName ? user.displayName : ""}
                     </h2>
                     <h2
-                      className={`md:text-lg text-gray-200 font-semibold lg:hidden`}
+                      className={`lg:hidden text-gray-200`}
                     >
                       {user?.displayName?.length < 10
                         ? user.displayName
@@ -237,7 +229,7 @@ const CustomNavbar = () => {
                           </li>
                           <li
                             className={`${
-                              isAdmin ? "text-orange-400 text-sm" : "hidden"
+                              isAdmin ? "text-green-400 text-sm" : "hidden"
                             } text-center`}
                           >
                             <div className="flex items-center gap-2 mx-auto">

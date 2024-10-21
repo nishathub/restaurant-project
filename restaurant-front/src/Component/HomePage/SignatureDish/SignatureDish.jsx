@@ -44,12 +44,12 @@ const SignatureDish = () => {
             <img className="rounded-md" src={image} alt="signature-dish" />
           </div>
           <div className="space-y-2 lg:space-y-4 text-gray-200">
-            <h4 className="text-2xl lg:text-4xl font-bold">{name}</h4>
-            <p className="md:text-lg capitalize">{recipe}</p>
-            <p className="md:text-lg capitalize italic">{specialty}</p>
-            <p className="text-xl font-bold">${price}</p>
+            <h4 className="text-2xl lg:text-4xl cinzel-bold">{name}</h4>
+            <p className="md:text-lg">{recipe}</p>
+            <p className="md:text-lg italic">{specialty}</p>
+            <p className="text-xl cinzel-semibold">${price}</p>
             <Link to={"/"}>
-              <button className="p-2 lg:p-4 mt-2 lg:mt-4 hover:bg-red-700 border-b-4 border-red-700 rounded-md duration-300 text-gray-200">
+              <button className="p-2 lg:p-4 mt-2 lg:mt-4 hover:bg-red-700 border-b-4 border-red-700 rounded-md duration-300 text-gray-200 cinzel-regular">
                 Order Now
               </button>
             </Link>

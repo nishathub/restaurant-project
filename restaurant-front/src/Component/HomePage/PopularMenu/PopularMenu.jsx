@@ -14,14 +14,14 @@ const PopularMenu = () => {
           subHeading={"All Prices are Inclusive of VAT & Supplementary Duty"}
         ></SectionTitle>
       </section>
-      <div className="grid grid-col-1 xl:grid-cols-2 items-center justify-center gap-8 mt-12 lg:mt-20">
+      <div className="grid grid-col-1 xl:grid-cols-2 items-center justify-center gap-8 mt-12 md:mt-20">
         {popularItem.map((item) => (
           <MenuItem key={item._id} item={item}></MenuItem>
         ))}
       </div>
       <div className="text-center mt-8">
         <Link to={"/menu"}>
-          <button className="p-4 hover:bg-red-700 border-b-4 border-red-700 rounded-md duration-300 text-gray-200">
+          <button className="p-4 hover:bg-red-700 border-b-4 border-red-700 rounded-md duration-300 cinzel-regular text-gray-200">
             View Full Menu
           </button>
         </Link>

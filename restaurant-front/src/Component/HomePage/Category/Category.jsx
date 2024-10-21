@@ -19,7 +19,7 @@ const Category = () => {
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row flex-wrap gap-12 lg:gap-20 justify-center items-center">
+      <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row flex-wrap gap-12 lg:gap-20 justify-center items-center cinzel-bold">
         <Link to={"/"} className="">
           <img className="w-20 md:w-24 lg:w-32 lg:mb-4" src={pizza} alt="soup-photo" />
           <h6 className="text-center text-lg lg:text-2xl text-gray-200 font-bold">

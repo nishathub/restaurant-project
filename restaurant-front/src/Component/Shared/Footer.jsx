@@ -8,7 +8,7 @@ const Footer = () => {
         {/* CONTACT INFO  */}
         <section className="py-8 xl:pt-16 max-w-7xl mx-auto footer px-8 items-start md:justify-items-center">
           <nav>
-            <h6 className="font-bold mb-2 uppercase text-lg md:text-xl">
+            <h6 className="font-bold mb-2 uppercase text-lg md:text-xl cinzel-bold">
               Contact Us
             </h6>
             <p>Sat-Fri: 12PM - 12AM</p>
@@ -16,7 +16,7 @@ const Footer = () => {
             <p>Block-C, Road-11, Banani, Dhaka</p>
           </nav>
           <nav>
-            <h6 className="font-bold mb-2 uppercase text-lg md:text-xl">
+            <h6 className="font-bold mb-2 uppercase text-lg md:text-xl cinzel-bold">
               About Us
             </h6>
             <a className="link link-hover">Terms and Conditions</a>
@@ -24,7 +24,7 @@ const Footer = () => {
             <a className="link link-hover">Announcement</a>
           </nav>
           <nav>
-            <h6 className="font-bold mb-2 uppercase text-lg md:text-xl">
+            <h6 className="font-bold mb-2 uppercase text-lg md:text-xl cinzel-bold">
               Get Connected
             </h6>
             <div className="grid grid-flow-col gap-4">

@@ -8,11 +8,11 @@ const MenuItem = ({item}) => {
             </div>
             <div className="flex items-start justify-between">
                 <div>
-                    <h4 className="text-xl font-semibold mb-2">{name}</h4>
+                    <h4 className="text-xl cinzel-semibold mb-2">{name}</h4>
                     <p className="text-sm max-w-80">{recipe}</p>
                 </div>
                 <div>
-                    <p className="text-lg">${price}</p>
+                    <p className="text-lg cinzel-semibold">${price}</p>
                 </div>
             </div>
         </div>
