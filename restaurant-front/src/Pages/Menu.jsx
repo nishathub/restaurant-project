@@ -12,26 +12,9 @@ import dessertImage from "../../src/assets/menuCategory-images/menu-dessert.jpg"
 import drinkImage from "../../src/assets/menuCategory-images/menu-drinks.jpg";
 
 const Menu = () => {
-  const [allMenuItems, isFetchMenuLoading] = useMenu([]);
-  const saladItems = isFetchMenuLoading
-    ? []
-    : allMenuItems.filter((item) => item.category === "salad");
-  const pizzaItems = isFetchMenuLoading
-    ? []
-    : allMenuItems.filter((item) => item.category === "pizza");
-  const soupItems = isFetchMenuLoading
-    ? []
-    : allMenuItems.filter((item) => item.category === "soup");
-  const dessertItems = isFetchMenuLoading
-    ? []
-    : allMenuItems.filter((item) => item.category === "dessert");
-  const drinksItems = isFetchMenuLoading
-    ? []
-    : allMenuItems.filter((item) => item.category === "drinks");
-  const offeredItems = isFetchMenuLoading
-    ? []
-    : allMenuItems.filter((item) => item.category === "offered");
-
+  const {offeredItems, soupItems, pizzaItems, saladItems, dessertItems, drinksItems, isFetchMenuLoading} = useMenu();
+  console.log(isFetchMenuLoading);
+  
   return (
     <div>
       <Helmet>
