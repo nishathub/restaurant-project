@@ -5,7 +5,7 @@ import useMenu from "../../../Hooks/useMenu";
 import CustomLoading from "../../Shared/CustomLoading/CustomLoading";
 
 const SignatureDish = () => {
-  const [allMenuItems, isFetchMenuLoading] = useMenu();
+  const {allMenuItems, isFetchMenuLoading} = useMenu();
   const signatureItem = !isFetchMenuLoading && allMenuItems.find((item) => item.category === "signature");
   const { name, recipe, price, specialty, image } = signatureItem;
   const [scrollY, setScrollY] = useState(0);

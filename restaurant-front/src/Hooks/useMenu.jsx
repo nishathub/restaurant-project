@@ -20,19 +20,19 @@ const useMenu = () => {
   }, []);
 
   const getCategoryItems = (categoryName) => {
-   return allMenuItems.filter(item => item.category === categoryName);
-  }
+    return allMenuItems.filter((item) => item.category === categoryName);
+  };
 
   return {
     allMenuItems,
     isFetchMenuLoading,
     errorMenuFetchMessage,
-    saladItems: getCategoryItems('salad'),
-    pizzaItems: getCategoryItems('pizza'),
-    soupItems: getCategoryItems('soup'),
-    dessertItems: getCategoryItems('dessert'),
-    drinksItems: getCategoryItems('drinks'),
-    offeredItems: getCategoryItems('offered'),
+    saladItems: getCategoryItems("salad"),
+    pizzaItems: getCategoryItems("pizza"),
+    soupItems: getCategoryItems("soup"),
+    dessertItems: getCategoryItems("dessert"),
+    drinksItems: getCategoryItems("drinks"),
+    offeredItems: getCategoryItems("offered"),
   };
 };
 

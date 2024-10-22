@@ -12,9 +12,16 @@ import dessertImage from "../../src/assets/menuCategory-images/menu-dessert.jpg"
 import drinkImage from "../../src/assets/menuCategory-images/menu-drinks.jpg";
 
 const Menu = () => {
-  const {offeredItems, soupItems, pizzaItems, saladItems, dessertItems, drinksItems, isFetchMenuLoading} = useMenu();
-  console.log(isFetchMenuLoading);
-  
+  const {
+    offeredItems,
+    soupItems,
+    pizzaItems,
+    saladItems,
+    dessertItems,
+    drinksItems,
+    isFetchMenuLoading,
+  } = useMenu();
+
   return (
     <div>
       <Helmet>
@@ -34,7 +41,7 @@ const Menu = () => {
       )}
 
       <SectionCover
-      image={soupImage}
+        image={soupImage}
         SectionName="Soups"
         details="Warm your soul with our hearty soups! Whether you crave creamy indulgence or a light broth, our selection of soups is the perfect start to your meal or a comforting choice on its own."
       ></SectionCover>

@@ -7,7 +7,7 @@ import useMenu from "../../../Hooks/useMenu";
 import CustomLoading from "../../Shared/CustomLoading/CustomLoading";
 
 const PopularMenu = () => {
-  const [allMenuItems, isFetchMenuLoading] = useMenu(); // custom hook
+  const {allMenuItems, isFetchMenuLoading} = useMenu(); // custom hook
   const popularItem = isFetchMenuLoading
     ? []
     : allMenuItems.filter((item) => item.category === "popular");
