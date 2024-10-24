@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet-async";
-import Banner from "../Component/Shared/Banner/Banner";
 import PageCover from "../Component/Shared/Cover/PageCover";
 import dessertImage from "../../src/assets/menuCategory-images/menu-dessert.jpg";
 import CustomTab from "../Component/Shared/CustomTab/CustomTab";
@@ -20,10 +19,26 @@ const Shop = () => {
   } = useMenu();
 
   const [displayMenuItems, setDisplayMenuItems] = useState(allMenuItems);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
   // Update displayMenuItems whenever allMenuItems changes
   useEffect(() => {
     setDisplayMenuItems(allMenuItems);
+    setCurrentPage(1); // reset to first page when menu changes
   }, [allMenuItems]);
+
+  // Calculate the index range for the current page
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = displayMenuItems.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Calculate total pages
+  const totalPages = Math.ceil(displayMenuItems.length / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div>
@@ -47,10 +62,25 @@ const Shop = () => {
             <CustomLoading size={32}></CustomLoading>
           </div>
         ) : (
-          <div className="flex flex-wrap gap-8 items-center justify-center">
-            {displayMenuItems.map((item) => (
-              <FoodItemCard key={item._id} item={item}></FoodItemCard>
-            ))}
+          <div>
+            <div className="flex flex-wrap gap-8 items-center justify-center">
+              {currentItems.map((item) => (
+                <FoodItemCard key={item._id} item={item}></FoodItemCard>
+              ))}
+            </div>
+
+            {/* Pagination */}
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-12">
+              {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`px-4 py-2 ${page === currentPage ? 'bg-red-700 text-white' : 'bg-gray-200 text-gray-800'}`}
+                >
+                  {page}
+                </button>
+              ))}
+            </div>
           </div>
         )}
       </div>
