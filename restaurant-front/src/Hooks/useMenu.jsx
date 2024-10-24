@@ -6,7 +6,7 @@ const useMenu = () => {
   const [errorMenuFetchMessage, setErrorMenuFetchMessage] = useState("");
 
   useEffect(() => {
-    fetch("menu.json")
+    fetch("http://localhost:5000/allMenu")
       .then((res) => res.json())
       .then((data) => {
         setAllMenuItems(data);

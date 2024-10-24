@@ -12,7 +12,16 @@ const getAllMenu = async (req, res) => {
     res.status(500).send(error);
   }
 };
+const getAllReviews = async (req, res) => {
+  try {
+    const products = await reviewsCollection().find().toArray();
+    res.send(products);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
 module.exports = {
   getAllMenu,
+  getAllReviews,
 };
