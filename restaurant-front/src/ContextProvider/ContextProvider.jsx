@@ -1,6 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
 export const RestaurantContext = createContext();
 const ContextProvider = ({ children }) => {
+  const [isToastActive, setToastActive] = useState(false);
+  const [toastText, setToastText] = useState("");
   const loading = false;
   const user = { displayName: "User-Name" };
   const isAdmin = true;
@@ -27,6 +29,8 @@ const ContextProvider = ({ children }) => {
     cartItems,
     cartDisplayLoading,
     allProducts,
+    toastText,
+    setToastActive,
     customAlert,
   };
   return (
