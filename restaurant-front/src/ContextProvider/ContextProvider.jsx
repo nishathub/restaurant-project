@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import auth from "../FirebaseAuth/FirebaseAuth";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 export const RestaurantContext = createContext();
 const ContextProvider = ({ children }) => {
   // FIREBASE AUTH STATE
@@ -61,6 +61,7 @@ const ContextProvider = ({ children }) => {
 
   const contextData = {
     loading,
+    userLoading,
     user,
     isAdmin,
     createNewUser,

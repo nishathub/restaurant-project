@@ -25,6 +25,7 @@ const CustomNavbar = () => {
   const {
     loading,
     user,
+    userLoading,
     isAdmin,
     logOutUser,
     cartItems,
@@ -136,7 +137,7 @@ const CustomNavbar = () => {
         </div>
         {/* RIGHT  */}
         <div className="justify-end w-60">
-          {loading ? (
+          {userLoading ? (
             <CustomLoading></CustomLoading>
           ) : (
             <div>

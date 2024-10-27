@@ -6,10 +6,10 @@ import CustomLoading from "../Component/Shared/CustomLoading/CustomLoading";
 import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
-    const { customAlert, signInUser, googleSignIn } =
+    const { customAlert, createNewUser, updateUser, googleSignIn } =
     useContext(RestaurantContext);
     const navigate = useNavigate();
-  const [isLoginLoading, setLoginLoading] = useState(false);
+    const [isCreateAccountLoading, setCreateAccountLoading] = useState(false);
   const [errorText, setErrorText] = useState("");
 
   const handleGoogleLogIn = () => {
@@ -26,10 +26,57 @@ const Register = () => {
       });
   };
 
-  const handleRegister = e => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+    setErrorText("");
+    const form = e.target;
 
-  }
+    const photo = form.photo.value;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    const hasCapital = /[A-Z]/;
+    const hasSpecial = /[~!@#_+)(*&^%$#-]/;
+    if (password.length < 6) {
+      setErrorText("Password must be at least 6 character");
+    } else if (!hasCapital.test(password)) {
+      setErrorText("Password should have at least one capital letter");
+    } else if (!hasSpecial.test(password)) {
+      setErrorText(
+        "Password should have at least one special Character (@#$...)"
+      );
+    } else {
+      setCreateAccountLoading(true);
+      try {
+        await createNewUser(email, password);
+        customAlert("Account Created");
+        // Redirect to Home Page
+        setTimeout(() => {
+          navigate("/");
+          customAlert("Redirected to Homepage");
+        }, 4000);
+        //Update user info
+        setTimeout(async () => {
+          await updateUser(name, photo);
+          customAlert("Info Updated");
+        }, 2000);
+        // form.reset();
+      } catch (error) {
+        if (error.code === "auth/email-already-in-use") {
+          setErrorText("This email is already associated with an account.");
+          customAlert("Email already in use");
+        } else {
+          setErrorText(error.message);
+          customAlert("Error occurred");
+        }
+      } finally {
+        setCreateAccountLoading(false);
+      }
+    }
+
+    // form.reset(); // clear the form
+  };
   return (
     <div className="mt-20 lg:mt-24 text-gray-200">
       <section className="py-4 lg:py-8 bg-gray-300">
@@ -46,7 +93,7 @@ const Register = () => {
           </div>
           {/* LOADING  */}
           <div>
-            {isLoginLoading && (
+            {isCreateAccountLoading && (
               <div className="absolute bg-white/40 inset-0 flex items-center justify-center ">
                 {" "}
                 <CustomLoading size={24}></CustomLoading>
@@ -61,9 +108,19 @@ const Register = () => {
               </label>
               <input
                 className="w-full px-6 py-3 rounded-sm bg-transparent border"
-                type="name"
+                type="text"
                 name="name"
                 required
+              />
+            </div>
+            <div>
+              <label>
+                <p className="text-sm mb-1">Photo Url (optional)</p>
+              </label>
+              <input
+                className="w-full px-6 py-3 rounded-sm bg-transparent border"
+                type="text"
+                name="photo"
               />
             </div>
             <div>
