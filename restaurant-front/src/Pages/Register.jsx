@@ -1,23 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
-import {
-  loadCaptchaEnginge,
-  LoadCanvasTemplate,
-  LoadCanvasTemplateNoReload,
-  validateCaptcha,
-} from "react-simple-captcha";
-
 import { FaGoogle } from "react-icons/fa";
 import { VscGithub } from "react-icons/vsc";
 import { useContext, useEffect, useState } from "react";
 import { RestaurantContext } from "../ContextProvider/ContextProvider";
 import CustomLoading from "../Component/Shared/CustomLoading/CustomLoading";
+import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const { customAlert, signInUser, googleSignIn } =
+const Register = () => {
+    const { customAlert, signInUser, googleSignIn } =
     useContext(RestaurantContext);
     const navigate = useNavigate();
-  const [isValidCaptcha, setValidCaptcha] = useState(true);
-  const [captchaInput, setCaptchaInput] = useState("");
   const [isLoginLoading, setLoginLoading] = useState(false);
   const [errorText, setErrorText] = useState("");
 
@@ -35,42 +26,10 @@ const Login = () => {
       });
   };
 
-  const handleLogin = async (e) => {
-      e.preventDefault();
-    setLoginLoading(true);
-    setErrorText("");
-    const form = e.target;
-    const userEmail = form.email.value;
-    const userPassword = form.password.value;
-    try {
-      await signInUser(userEmail, userPassword);
-      customAlert("Logged in by email");
-      setTimeout(() => {
-        navigate(attemptURL ? attemptURL : "/");
-      }, 1000);
-    } catch (error) {
-      setErrorText(error.message.slice(10));
-    } finally {
-      setLoginLoading(false);
-    }
-
-    // form.reset();
-  };
-  const handleValidateCaptcha = (e) => {
+  const handleRegister = e => {
     e.preventDefault();
-    if (validateCaptcha(captchaInput)) {
-      setValidCaptcha(false);
-      customAlert("Verified");
-    } else {
-      setValidCaptcha(true);
-      customAlert("Wrong Captcha!");
-    }
-  };
 
-  useEffect(() => {
-    loadCaptchaEnginge(6);
-  }, []);
-
+  }
   return (
     <div className="mt-20 lg:mt-24 text-gray-200">
       <section className="py-4 lg:py-8 bg-gray-300">
@@ -80,7 +39,7 @@ const Login = () => {
       </section>
       <div className="max-w-xl mx-auto px-4 py-12 lg:py-20">
         <div className="w-full mx-auto">
-          <h2 className="text-2xl lg:text-4xl cinzel-regular mb-8">Login</h2>
+          <h2 className="text-2xl lg:text-4xl cinzel-regular mb-8">Register</h2>
           {/* ERROR TEXT  */}
           <div>
             <h2 className="text-red-800 text-lg mb-6">{errorText}</h2>
@@ -95,7 +54,18 @@ const Login = () => {
             )}
           </div>
           {/* MAIN CODE  */}
-          <form onSubmit={handleLogin} className="space-y-6 lg:space-y-8">
+          <form onSubmit={handleRegister} className="space-y-6 lg:space-y-8">
+            <div>
+              <label>
+                <p className="text-sm mb-1">Name *</p>
+              </label>
+              <input
+                className="w-full px-6 py-3 rounded-sm bg-transparent border"
+                type="name"
+                name="name"
+                required
+              />
+            </div>
             <div>
               <label>
                 <p className="text-sm mb-1">Email address *</p>
@@ -118,44 +88,20 @@ const Login = () => {
                 required
               />
             </div>
-            <div>
-              <label>
-                <p className="text-sm mb-1">Verification *</p>
-              </label>
-              <div className="flex">
-                <div className="w-1/2 border">
-                  <LoadCanvasTemplate reloadColor="red" />
-                </div>
-                <input
-                  className="w-1/2 px-6 py-3 rounded-sm bg-transparent border"
-                  type="text"
-                  placeholder="Enter Captcha here"
-                  name="captcha"
-                  onChange={(e) => setCaptchaInput(e.target.value)}
-                />
-              </div>
-            </div>
             <div className="flex justify-between items-start">
               <input
                 className="py-2 px-6 rounded-sm btn bg-red-700 hover:bg-red-800"
                 type="submit"
-                value="Login"
-                disabled={isValidCaptcha}
-              />
-              <input
-                className="w-fit ml-auto py-1 px-4 rounded-sm bg-gray-700 hover:bg-gray-800 cursor-pointer"
-                type="button"
-                value="Verify"
-                onClick={handleValidateCaptcha}
+                value="Create Account"
               />
             </div>
           </form>
           {/* OTHER LOGINs */}
           <div className="mt-4 space-y-4">
             <div className="flex gap-2">
-              <p>New here?</p>
-              <Link className="italic" to={"/register"}>
-                Create a New Account
+              <p>Already have an account?</p>
+              <Link className="italic" to={"/login"}>
+                Sign in
               </Link>
             </div>
             <div className="mt-4 flex items-center gap-4">
@@ -191,4 +137,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

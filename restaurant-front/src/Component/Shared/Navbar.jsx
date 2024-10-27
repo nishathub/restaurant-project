@@ -160,9 +160,7 @@ const CustomNavbar = () => {
                     <h2 className="hidden lg:block text-gray-200">
                       {user?.displayName ? user.displayName : ""}
                     </h2>
-                    <h2
-                      className={`lg:hidden text-gray-200`}
-                    >
+                    <h2 className={`lg:hidden text-gray-200`}>
                       {user?.displayName?.length < 10
                         ? user.displayName
                         : user.displayName?.slice(0, 10) + ".."}
@@ -252,7 +250,10 @@ const CustomNavbar = () => {
                             </Link>
                           </li>
                           <li className="" onClick={handleLogOut}>
-                            <a className="btn btn-sm btn-error w-full">
+                            <a
+                              onClick={handleLogOut}
+                              className="btn btn-sm btn-error w-full"
+                            >
                               Logout
                             </a>
                           </li>
