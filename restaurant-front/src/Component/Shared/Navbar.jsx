@@ -7,6 +7,7 @@ import { MdOutlineSecurity } from "react-icons/md";
 import { RestaurantContext } from "../../ContextProvider/ContextProvider";
 import CustomLoading from "./CustomLoading/CustomLoading";
 import savouryumLogo from "../../../src/assets/restaurant-logo.png";
+import useCart from "../../Hooks/useCart";
 
 const CustomNavbar = () => {
   const [navBg, setNavBg] = useState(false);
@@ -31,6 +32,9 @@ const CustomNavbar = () => {
     cartDisplayLoading,
     customAlert,
   } = useContext(RestaurantContext);
+  const [userCartItems] = useCart();
+  console.log(userCartItems);
+  
   const [isCartOpen, setCartOpen] = useState(false);
   const [isProfileActive, setProfileActive] = useState(false);
   const [isMenuActive, setMenuActive] = useState(false);
@@ -173,7 +177,7 @@ const CustomNavbar = () => {
                       {cartDisplayLoading ? (
                         <CustomLoading size={12}></CustomLoading>
                       ) : (
-                        cartItems.length
+                        userCartItems.length
                       )}
                     </p>
                     {/* ABSOLUTE CART-BOX */}
@@ -181,10 +185,10 @@ const CustomNavbar = () => {
                       {isCartOpen && (
                         <div className="p-4 space-y-3">
                           <span className="font-bold text-gray-200 md:text-lg">
-                            {cartItems.length} Items
+                            {userCartItems.length} Items
                           </span>
                           <div>
-                            {cartItems.map((item) => (
+                            {userCartItems.map((item) => (
                               <h4 key={item._id}>{item.name}</h4>
                             ))}
                           </div>

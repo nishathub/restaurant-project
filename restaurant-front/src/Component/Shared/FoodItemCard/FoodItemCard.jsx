@@ -1,8 +1,7 @@
-import axios from "axios";
 import { useContext } from "react";
 import { RestaurantContext } from "../../../ContextProvider/ContextProvider";
 import { useLocation, useNavigate } from "react-router-dom";
-import useAxiosHook from "../../../Hooks/axiosHook";
+import useAxiosHook from "../../../Hooks/useAxiosHook";
 
 const FoodItemCard = ({ item }) => {
   const {_id, price, image, name, recipe } = item;
