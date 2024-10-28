@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { RestaurantContext } from "../../../ContextProvider/ContextProvider";
 import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosHook from "../../../Hooks/axiosHook";
 
 const FoodItemCard = ({ item }) => {
   const {_id, price, image, name, recipe } = item;
@@ -9,6 +10,7 @@ const FoodItemCard = ({ item }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const attemptURL = location?.pathname;
+  const axiosHook = useAxiosHook();
 
 
   const handleAddToCart = async (item) => {
@@ -21,7 +23,7 @@ const FoodItemCard = ({ item }) => {
     setAddCartLoading(true);
     try {
       // Fetch cart items to check if the item already exists
-      const response = await axios.get(`${restaurantAPI}/allCartItems/${user?.email}`);
+      const response = await axiosHook.get(`/allCartItems/${user?.email}`);
   
       const cartItems = response.data;
       const itemExists = cartItems.some(
@@ -32,7 +34,7 @@ const FoodItemCard = ({ item }) => {
         customAlert("Item already in the cart");
       } else {
         // Item not in the cart, proceed to add it
-        const addResponse = await axios.post(`${restaurantAPI}/allCartItems`, {
+        const addResponse = await axiosHook.post(`/allCartItems`, {
           menuId: _id,
           name: name,
           price: price,
