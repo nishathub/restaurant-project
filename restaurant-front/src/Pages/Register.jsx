@@ -6,10 +6,10 @@ import CustomLoading from "../Component/Shared/CustomLoading/CustomLoading";
 import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
-    const { customAlert, createNewUser, updateUser, googleSignIn } =
+  const { customAlert, createNewUser, updateUser, googleSignIn } =
     useContext(RestaurantContext);
-    const navigate = useNavigate();
-    const [isCreateAccountLoading, setCreateAccountLoading] = useState(false);
+  const navigate = useNavigate();
+  const [isCreateAccountLoading, setCreateAccountLoading] = useState(false);
   const [errorText, setErrorText] = useState("");
 
   const handleGoogleLogIn = () => {
@@ -38,6 +38,7 @@ const Register = () => {
 
     const hasCapital = /[A-Z]/;
     const hasSpecial = /[~!@#_+)(*&^%$#-]/;
+    const hasNumber = /[0-9]/;
     if (password.length < 6) {
       setErrorText("Password must be at least 6 character");
     } else if (!hasCapital.test(password)) {
@@ -46,6 +47,8 @@ const Register = () => {
       setErrorText(
         "Password should have at least one special Character (@#$...)"
       );
+    } else if (!hasNumber.test(password)) {
+      setErrorText("Password should have at least one digit.");
     } else {
       setCreateAccountLoading(true);
       try {
@@ -78,7 +81,7 @@ const Register = () => {
     // form.reset(); // clear the form
   };
   return (
-    <div className="mt-20 lg:mt-24 text-gray-200">
+    <div className="mt-20 lg:mt-24 text-gray-200 relative">
       <section className="py-4 lg:py-8 bg-gray-300">
         <h4 className="max-w-7xl mx-auto px-4 text-2xl lg:text-4xl text-gray-800 cinzel-regular">
           My Account
@@ -96,7 +99,7 @@ const Register = () => {
             {isCreateAccountLoading && (
               <div className="absolute bg-white/40 inset-0 flex items-center justify-center ">
                 {" "}
-                <CustomLoading size={24}></CustomLoading>
+                <CustomLoading size={32}></CustomLoading>
               </div>
             )}
           </div>

@@ -11,7 +11,6 @@ const ContextProvider = ({ children }) => {
   const [isToastActive, setToastActive] = useState(false);
   const [toastText, setToastText] = useState("");
   // CART
-  const loading = false;
   const cartItems = [];
   const cartDisplayLoading = false;
   const allProducts = [2, 3, 4];
@@ -60,7 +59,6 @@ const ContextProvider = ({ children }) => {
   };
 
   const contextData = {
-    loading,
     userLoading,
     user,
     isAdmin,

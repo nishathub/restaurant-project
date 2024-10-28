@@ -23,7 +23,6 @@ const CustomNavbar = () => {
   }, []);
 
   const {
-    loading,
     user,
     userLoading,
     isAdmin,

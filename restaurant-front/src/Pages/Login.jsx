@@ -72,7 +72,7 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="mt-20 lg:mt-24 text-gray-200">
+    <div className="mt-20 lg:mt-24 text-gray-200 relative">
       <section className="py-4 lg:py-8 bg-gray-300">
         <h4 className="max-w-7xl mx-auto px-4 text-2xl lg:text-4xl text-gray-800 cinzel-regular">
           My Account
@@ -90,7 +90,7 @@ const Login = () => {
             {isLoginLoading && (
               <div className="absolute bg-white/40 inset-0 flex items-center justify-center ">
                 {" "}
-                <CustomLoading size={24}></CustomLoading>
+                <CustomLoading size={32}></CustomLoading>
               </div>
             )}
           </div>
