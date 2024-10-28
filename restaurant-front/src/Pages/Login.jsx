@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -15,11 +15,13 @@ import CustomLoading from "../Component/Shared/CustomLoading/CustomLoading";
 const Login = () => {
   const { customAlert, signInUser, googleSignIn } =
     useContext(RestaurantContext);
-    const navigate = useNavigate();
   const [isValidCaptcha, setValidCaptcha] = useState(true);
   const [captchaInput, setCaptchaInput] = useState("");
   const [isLoginLoading, setLoginLoading] = useState(false);
   const [errorText, setErrorText] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const attemptURL = location?.state;
 
   const handleGoogleLogIn = () => {
     setErrorText("");
@@ -36,7 +38,7 @@ const Login = () => {
   };
 
   const handleLogin = async (e) => {
-      e.preventDefault();
+    e.preventDefault();
     setLoginLoading(true);
     setErrorText("");
     const form = e.target;
@@ -89,7 +91,6 @@ const Login = () => {
           <div>
             {isLoginLoading && (
               <div className="absolute bg-white/40 inset-0 flex items-center justify-center ">
-                {" "}
                 <CustomLoading size={32}></CustomLoading>
               </div>
             )}
