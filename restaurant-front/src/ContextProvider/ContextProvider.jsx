@@ -1,8 +1,17 @@
 import React, { createContext, useEffect, useState } from "react";
 import auth from "../FirebaseAuth/FirebaseAuth";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
 export const RestaurantContext = createContext();
 const ContextProvider = ({ children }) => {
+  // BACKEND API
+  const restaurantAPI = import.meta.env.VITE_SAVOURYUM_API;
   // FIREBASE AUTH STATE
   const [userLoading, setUserLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(true);
@@ -11,6 +20,7 @@ const ContextProvider = ({ children }) => {
   const [isToastActive, setToastActive] = useState(false);
   const [toastText, setToastText] = useState("");
   // CART
+  const [addCartLoading, setAddCartLoading] = useState(false);
   const cartItems = [];
   const cartDisplayLoading = false;
   const allProducts = [2, 3, 4];
@@ -59,6 +69,7 @@ const ContextProvider = ({ children }) => {
   };
 
   const contextData = {
+    restaurantAPI,
     userLoading,
     user,
     isAdmin,
@@ -67,6 +78,8 @@ const ContextProvider = ({ children }) => {
     googleSignIn,
     updateUser,
     logOutUser,
+    addCartLoading,
+    setAddCartLoading,
     cartItems,
     cartDisplayLoading,
     allProducts,
