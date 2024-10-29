@@ -6,21 +6,14 @@ import useSavourYumContext from "./useSavourYumContext";
 const useCart = () => {
     const axiosHook = useAxiosHook();
     const {user} = useSavourYumContext();
-    const { isPending, error, data : userCartItems } = useQuery({
-        queryKey: ['cartItems'],
+    const { isPending: isCartItemsLoading, error: cartItemsLoadingError, data : userCartItems } = useQuery({
+        queryKey: ['cartItems', user?.email],
         queryFn: async () => {
             const res = await axiosHook.get(`/allCartItems/${user?.email}`)
             return res.data;
         }
       })
-      // idea: state management in contextProvider, then handle these in components
-      if(isPending){
-
-      }
-      if(error) {
-
-      }
-      return [userCartItems]
+      return {isCartItemsLoading, cartItemsLoadingError, userCartItems}
 };
 
 export default useCart;

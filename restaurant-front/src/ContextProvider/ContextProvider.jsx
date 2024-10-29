@@ -21,8 +21,6 @@ const ContextProvider = ({ children }) => {
   const [toastText, setToastText] = useState("");
   // CART
   const [addCartLoading, setAddCartLoading] = useState(false);
-  const cartItems = [];
-  const cartDisplayLoading = false;
   const allProducts = [2, 3, 4];
 
   // FIREBASE AUTH
@@ -80,8 +78,6 @@ const ContextProvider = ({ children }) => {
     logOutUser,
     addCartLoading,
     setAddCartLoading,
-    cartItems,
-    cartDisplayLoading,
     allProducts,
     toastText,
     isToastActive,

@@ -28,11 +28,9 @@ const CustomNavbar = () => {
     userLoading,
     isAdmin,
     logOutUser,
-    cartItems,
-    cartDisplayLoading,
     customAlert,
   } = useContext(RestaurantContext);
-  const [userCartItems] = useCart();
+  const {isCartItemsLoading, cartItemsLoadingError, userCartItems} = useCart();
   console.log(userCartItems);
   
   const [isCartOpen, setCartOpen] = useState(false);
@@ -174,10 +172,10 @@ const CustomNavbar = () => {
                   <div ref={cartBoxRef} className="relative">
                     {/* ABSOLUTE BADGE */}
                     <p className="absolute -top-2 -right-2 bg-gray-700 text-sm text-white px-2 rounded-full">
-                      {cartDisplayLoading ? (
+                      {isCartItemsLoading ? (
                         <CustomLoading size={12}></CustomLoading>
                       ) : (
-                        userCartItems.length
+                        userCartItems?.length
                       )}
                     </p>
                     {/* ABSOLUTE CART-BOX */}
@@ -185,10 +183,10 @@ const CustomNavbar = () => {
                       {isCartOpen && (
                         <div className="p-4 space-y-3">
                           <span className="font-bold text-gray-200 md:text-lg">
-                            {userCartItems.length} Items
+                            {userCartItems?.length} Items
                           </span>
                           <div>
-                            {userCartItems.map((item) => (
+                            {userCartItems?.map((item) => (
                               <h4 key={item._id}>{item.name}</h4>
                             ))}
                           </div>
