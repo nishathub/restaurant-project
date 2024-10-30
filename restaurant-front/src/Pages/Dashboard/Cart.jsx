@@ -32,7 +32,6 @@ const Cart = () => {
     }
     
   }
-  console.log(isCartItemDeleteLoading);
   
   return (
     <div className="px-4 pt-8">
@@ -42,7 +41,7 @@ const Cart = () => {
           subHeading={"My Cart"}
         ></SectionTitle>
       </div>
-      {isCartItemsLoading ? (
+      {isCartItemsLoading || isCartItemDeleteLoading ? (
         <div className="flex justify-center items-center inset-0">
           <CustomLoading size={32}></CustomLoading>
         </div>
@@ -52,7 +51,7 @@ const Cart = () => {
         </p>
       ) : (
         <div className="bg-gray-700 text-gray-200 p-4 rounded-md space-y-4">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col gap-2 lg:flex-row lg:justify-between items-end lg:items-center">
             <h4 className="text-2xl cinzel-semibold">
               Total Items: {userCartItems?.length}
             </h4>

@@ -1,6 +1,4 @@
 import {
-  MdDashboard,
-  MdDevices,
   MdHome,
   MdMenuBook,
   MdRestaurant,
@@ -8,9 +6,6 @@ import {
 import { BiSolidFoodMenu } from "react-icons/bi";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 import { FaEnvelope, FaHome, FaShoppingBag, FaUsers } from "react-icons/fa";
-import { IoIosAddCircle } from "react-icons/io";
-import { MdCategory } from "react-icons/md";
-import { TbBrandBunpo } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import savouryumLogo from "../../../../src/assets/restaurant-logo.png";
 import {
