@@ -2,8 +2,10 @@ import { useContext } from "react";
 import { RestaurantContext } from "../../../ContextProvider/ContextProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosHook from "../../../Hooks/useAxiosHook";
+import useCart from "../../../Hooks/useCart";
 
 const FoodItemCard = ({ item }) => {
+    const {cartItemsRefetch} = useCart();
   const {_id, price, image, name, recipe } = item;
   const {user, setAddCartLoading, customAlert, restaurantAPI} = useContext(RestaurantContext);
   const navigate = useNavigate();
@@ -45,6 +47,7 @@ const FoodItemCard = ({ item }) => {
         if (addResponse.data.insertedId) {
           customAlert("Item Added to the Cart");
         }
+        cartItemsRefetch();
       }
     } catch (error) {
       console.error(error);
