@@ -3,7 +3,7 @@ import AdminDashboardNav from "../Component/Shared/DashboardMenu/AdminDashboardN
 
 const DashboardLayout = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4 flex">
+    <div className="max-w-7xl mx-auto flex border">
       <div>
         <AdminDashboardNav></AdminDashboardNav>
       </div>

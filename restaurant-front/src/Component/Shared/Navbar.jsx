@@ -191,7 +191,7 @@ const CustomNavbar = () => {
                             ))}
                           </div>
                           <div className="w-full">
-                            <Link to={"/cart"}>
+                            <Link to={"/dashboard/cart"}>
                               <button className="bg-gray-200 text-gray-800 font-bold p-1 rounded-md hover:bg-base-100 hover:text-gray-200 duration-300 w-full">
                                 View cart
                               </button>
