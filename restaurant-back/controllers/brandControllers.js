@@ -40,10 +40,21 @@ const createCartItem = async (req, res) => {
     res.status(500).send(error);
   }
 };
+const removeCartItem = async (req, res) => {
+  try {
+    const itemId = req.params.cartItemId;
+    const query = {_id : new ObjectId(itemId)};
+    const result = await cartItemCollection().deleteOne(query);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
 module.exports = {
   getAllMenu,
   getAllReviews,
   getUserCartItems,
   createCartItem,
+  removeCartItem,
 };

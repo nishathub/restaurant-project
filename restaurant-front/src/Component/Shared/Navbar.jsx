@@ -30,9 +30,7 @@ const CustomNavbar = () => {
     logOutUser,
     customAlert,
   } = useContext(RestaurantContext);
-  const {isCartItemsLoading, cartItemsLoadingError, userCartItems} = useCart();
-  console.log(userCartItems);
-  
+  const {isCartItemsLoading, cartItemsLoadingError, userCartItems} = useCart();  
   const [isCartOpen, setCartOpen] = useState(false);
   const [isProfileActive, setProfileActive] = useState(false);
   const [isMenuActive, setMenuActive] = useState(false);
@@ -159,10 +157,7 @@ const CustomNavbar = () => {
                     >
                       <MdOutlineSecurity />
                     </h2>
-                    <h2 className="hidden lg:block text-gray-200">
-                      {user?.displayName ? user.displayName : ""}
-                    </h2>
-                    <h2 className={`lg:hidden text-gray-200`}>
+                    <h2 className={`text-gray-200`}>
                       {user?.displayName?.length < 10
                         ? user.displayName
                         : user.displayName?.slice(0, 10) + ".."}

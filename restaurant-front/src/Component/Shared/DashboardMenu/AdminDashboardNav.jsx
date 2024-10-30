@@ -38,7 +38,7 @@ const AdminDashboardNav = () => {
   return (
     <div
       className={`${
-        isDashboardExpand ? "lg:w-60 w-12 px-4 pt-12 pb-8" : "w-12 pt-12 pb-8"
+        isDashboardExpand ? "lg:w-60 w-12 px-4 pt-8 pb-8" : "w-12 pt-8 pb-8"
       } duration-300 min-h-[100vh] bg-gray-900 text-gray-100`}
     >
       {/* HEADING  */}
