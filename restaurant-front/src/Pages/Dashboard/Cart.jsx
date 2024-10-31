@@ -3,36 +3,38 @@ import CustomLoading from "../../Component/Shared/CustomLoading/CustomLoading";
 import SectionTitle from "../../Component/Shared/SectionTitle/SectionTitle";
 import useCart from "../../Hooks/useCart";
 import { useState } from "react";
-import useAxiosHook from "../../Hooks/useAxiosHook";
 import useSavourYumContext from "../../Hooks/useSavourYumContext";
+import useAxiosHookProtected from "../../Hooks/useAxiosHookProtected";
 
 const Cart = () => {
-    const {customAlert} = useSavourYumContext();
-    const [isCartItemDeleteLoading, setCartItemDeleteLoading] = useState(false);
-    const axiosHook = useAxiosHook();
-  const {cartItemsRefetch, isCartItemsLoading, cartItemsLoadingError, userCartItems } =
-    useCart();
+  const { customAlert } = useSavourYumContext();
+  const [isCartItemDeleteLoading, setCartItemDeleteLoading] = useState(false);
+  const axiosHook = useAxiosHookProtected();
+  const {
+    cartItemsRefetch,
+    isCartItemsLoading,
+    cartItemsLoadingError,
+    userCartItems,
+  } = useCart();
   const totalCartPrice = userCartItems?.reduce((total, current) => {
     return total + current.price;
   }, 0);
   const handleDeleteCartItem = async (id) => {
     setCartItemDeleteLoading(true);
     try {
-       const deleteItem = await axiosHook.delete(`/allCartItems/${id}`);
-       console.log(deleteItem.data.deletedCount);
-       if(deleteItem.data.deletedCount){
+      const deleteItem = await axiosHook.delete(`/allCartItems/${id}`);
+      console.log(deleteItem.data.deletedCount);
+      if (deleteItem.data.deletedCount) {
         customAlert("Item Deleted");
-       }
-       cartItemsRefetch();
+      }
+      cartItemsRefetch();
     } catch (error) {
-        console.log(error);
-        
+      console.log(error);
     } finally {
-        setCartItemDeleteLoading(false)
+      setCartItemDeleteLoading(false);
     }
-    
-  }
-  
+  };
+
   return (
     <div className="px-4 pt-8">
       <div className="mb-12">
@@ -76,15 +78,12 @@ const Cart = () => {
                 <tbody key={index}>
                   {/* row 1 */}
                   <tr>
-                    <th>{index+1}</th>
+                    <th>{index + 1}</th>
                     <td>
                       <div className="flex items-center gap-3">
                         <div className="avatar">
                           <div className="mask mask-squircle h-12 w-12">
-                            <img
-                              src={item.image}
-                              alt="menu-item-image"
-                            />
+                            <img src={item.image} alt="menu-item-image" />
                           </div>
                         </div>
                       </div>
@@ -94,7 +93,12 @@ const Cart = () => {
                     </td>
                     <td>${item.price}</td>
                     <th>
-                      <button onClick={()=>handleDeleteCartItem(item._id)} className="text-2xl text-red-700"><MdDelete></MdDelete></button>
+                      <button
+                        onClick={() => handleDeleteCartItem(item._id)}
+                        className="text-2xl text-red-700"
+                      >
+                        <MdDelete></MdDelete>
+                      </button>
                     </th>
                   </tr>
                 </tbody>

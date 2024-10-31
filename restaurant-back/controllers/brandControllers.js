@@ -4,6 +4,7 @@ const { getDB } = require("../config/db");
 const menuCollection = () => getDB().collection("MENU"); // modified to a function and will be called later.
 const reviewsCollection = () => getDB().collection("REVIEWS"); // modified to a function and will be called later.
 const cartItemCollection = () => getDB().collection("CART_ITEMS"); // modified to a function and will be called later.
+const userCollection = () => getDB().collection("USERS"); // modified to a function and will be called later.
 
 const getAllMenu = async (req, res) => {
   try {
@@ -50,6 +51,15 @@ const removeCartItem = async (req, res) => {
     res.status(500).send(error);
   }
 };
+const createUser = async (req, res) => {
+  try {
+    const newUserInfo = req.body;
+    const result = await userCollection().insertOne(newUserInfo);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
 module.exports = {
   getAllMenu,
@@ -57,4 +67,5 @@ module.exports = {
   getUserCartItems,
   createCartItem,
   removeCartItem,
+  createUser,
 };

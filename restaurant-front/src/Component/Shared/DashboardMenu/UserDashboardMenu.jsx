@@ -13,10 +13,12 @@ import {
     IoIosArrowDroprightCircle,
   } from "react-icons/io";
   import { useEffect, useState } from "react";
+import useCart from "../../../Hooks/useCart";
   
   const UserDashboardNav
    = () => {
     const [isDashboardExpand, setDashboardExpand] = useState(true);
+    const {userCartItems} = useCart();
     const activeNavStyle = { color: "orange" };
     // Nav menu responsive action
     useEffect(() => {
@@ -120,7 +122,7 @@ import {
                 isDashboardExpand ? "hidden lg:inline-block" : "hidden"
               }`}
             >
-              My Cart
+              My Cart <span className={`${userCartItems?.length ? 'inline-block' : 'hidden'}`}>({userCartItems?.length})</span>
             </p>
           </Link>
           <button title="Payment History" className="flex items-center gap-4">
