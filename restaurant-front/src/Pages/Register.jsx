@@ -4,21 +4,31 @@ import { useContext, useEffect, useState } from "react";
 import { RestaurantContext } from "../ContextProvider/ContextProvider";
 import CustomLoading from "../Component/Shared/CustomLoading/CustomLoading";
 import { Link, useNavigate } from "react-router-dom";
+import useSavourYumContext from "../Hooks/useSavourYumContext";
+import useAxiosHookPublic from "../Hooks/useAxiosHookPublic";
 
 const Register = () => {
   const { customAlert, createNewUser, updateUser, googleSignIn } =
-    useContext(RestaurantContext);
+    useSavourYumContext();
+  const axiosPublic = useAxiosHookPublic();
   const navigate = useNavigate();
   const [isCreateAccountLoading, setCreateAccountLoading] = useState(false);
   const [errorText, setErrorText] = useState("");
 
-  const handleGoogleLogIn = () => {
+  const handleGoogleLogIn = async () => {
     setErrorText("");
-    googleSignIn()
+    await googleSignIn()
       .then((result) => {
+        console.log(result);
+        const userInfo = {
+          userName: result.user.displayName,
+          userPhotoUrl: result.user.photoURL,
+          userEmail: result.user.email,
+        };
+        axiosPublic.post("/allUsers", userInfo);
         customAlert("Logged in by google");
         setTimeout(() => {
-          navigate(attemptURL ? attemptURL : "/");
+          navigate("/");
         }, 1000);
       })
       .catch((error) => {
@@ -61,7 +71,15 @@ const Register = () => {
         }, 4000);
         //Update user info
         setTimeout(async () => {
+          // firebase update
           await updateUser(name, photo);
+          const userInfo = {
+            userName: name,
+            userPhotoUrl: photo,
+            userEmail: email,
+          };
+          // backend collection
+          await axiosPublic.post("/allUsers", userInfo);
           customAlert("Info Updated");
         }, 2000);
         // form.reset();
