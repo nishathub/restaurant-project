@@ -5,6 +5,7 @@ const {
   getUserCartItems,
   removeCartItem,
   createUser,
+  getAllUsers,
 } = require("../controllers/brandControllers");
 
 const express = require("express");
@@ -15,7 +16,8 @@ router.get("/allMenu", getAllMenu);
 router.get("/allReviews", getAllReviews);
 router.get("/allCartItems/:userEmail", getUserCartItems);
 router.post("/allCartItems", createCartItem);
-router.post("/allUsers", createUser);
 router.delete("/allCartItems/:cartItemId", removeCartItem);
+router.post("/allUsers", createUser);
+router.get("/allUsers", getAllUsers);
 
 module.exports = router;

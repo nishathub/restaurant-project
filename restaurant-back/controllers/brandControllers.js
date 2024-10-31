@@ -60,6 +60,14 @@ const createUser = async (req, res) => {
     res.status(500).send(error);
   }
 };
+const getAllUsers = async (req, res) => {
+  try {
+    const result = await userCollection().find().toArray();
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
 module.exports = {
   getAllMenu,
@@ -68,4 +76,5 @@ module.exports = {
   createCartItem,
   removeCartItem,
   createUser,
+  getAllUsers,
 };

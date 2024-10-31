@@ -14,26 +14,31 @@ const Register = () => {
   const navigate = useNavigate();
   const [isCreateAccountLoading, setCreateAccountLoading] = useState(false);
   const [errorText, setErrorText] = useState("");
-
   const handleGoogleLogIn = async () => {
     setErrorText("");
-    await googleSignIn()
-      .then((result) => {
-        console.log(result);
+    try {
+      const result = await googleSignIn();
+      customAlert("Logged in by google");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+      // Create New user in the backend userCollection
+      const response = await axiosPublic.get("/allUsers");
+      const allUsers = response.data;
+      const userExist = allUsers.some(
+        (user) => user.userEmail === result.user.email
+      );
+      if (!userExist && allUsers.length) {
         const userInfo = {
           userName: result.user.displayName,
           userPhotoUrl: result.user.photoURL,
           userEmail: result.user.email,
         };
         axiosPublic.post("/allUsers", userInfo);
-        customAlert("Logged in by google");
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
-      })
-      .catch((error) => {
-        setErrorText(error.message.slice(9));
-      });
+      }
+    } catch (error) {
+      setErrorText(error.message.slice(9));
+    }
   };
 
   const handleRegister = async (e) => {

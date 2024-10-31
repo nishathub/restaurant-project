@@ -11,10 +11,13 @@ import { VscGithub } from "react-icons/vsc";
 import { useContext, useEffect, useState } from "react";
 import { RestaurantContext } from "../ContextProvider/ContextProvider";
 import CustomLoading from "../Component/Shared/CustomLoading/CustomLoading";
+import useAxiosHookPublic from "../Hooks/useAxiosHookPublic";
 
 const Login = () => {
   const { customAlert, signInUser, googleSignIn } =
     useContext(RestaurantContext);
+  const axiosPublic = useAxiosHookPublic();
+
   const [isValidCaptcha, setValidCaptcha] = useState(true);
   const [captchaInput, setCaptchaInput] = useState("");
   const [isLoginLoading, setLoginLoading] = useState(false);
@@ -23,18 +26,31 @@ const Login = () => {
   const location = useLocation();
   const attemptURL = location?.state;
 
-  const handleGoogleLogIn = () => {
+  const handleGoogleLogIn = async () => {
     setErrorText("");
-    googleSignIn()
-      .then((result) => {
-        customAlert("Logged in by google");
-        setTimeout(() => {
-          navigate(attemptURL ? attemptURL : "/");
-        }, 1000);
-      })
-      .catch((error) => {
-        setErrorText(error.message.slice(9));
-      });
+    try {
+      const result = await googleSignIn();
+      customAlert("Logged in by google");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+      // Create New user in the backend userCollection
+      const response = await axiosPublic.get("/allUsers");
+      const allUsers = response.data;
+      const userExist = allUsers.some(
+        (user) => user.userEmail === result.user.email
+      );
+      if (!userExist && allUsers.length) {
+        const userInfo = {
+          userName: result.user.displayName,
+          userPhotoUrl: result.user.photoURL,
+          userEmail: result.user.email,
+        };
+        axiosPublic.post("/allUsers", userInfo);
+      }
+    } catch (error) {
+      setErrorText(error.message.slice(9));
+    }
   };
 
   const handleLogin = async (e) => {
