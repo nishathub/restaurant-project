@@ -44,7 +44,7 @@ const createCartItem = async (req, res) => {
 const removeCartItem = async (req, res) => {
   try {
     const itemId = req.params.cartItemId;
-    const query = {_id : new ObjectId(itemId)};
+    const query = { _id: new ObjectId(itemId) };
     const result = await cartItemCollection().deleteOne(query);
     res.send(result);
   } catch (error) {
@@ -54,6 +54,11 @@ const removeCartItem = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const newUserInfo = req.body;
+    const query = { userEmail: newUserInfo.userEmail };
+    const userExist = await userCollection().findOne(query);
+    if (userExist) {
+      return res.send({ message: "user already exist", insertedId: null });
+    }
     const result = await userCollection().insertOne(newUserInfo);
     res.send(result);
   } catch (error) {

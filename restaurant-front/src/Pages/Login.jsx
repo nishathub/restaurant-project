@@ -31,23 +31,16 @@ const Login = () => {
     try {
       const result = await googleSignIn();
       customAlert("Logged in by google");
+      const userInfo = {
+        userName: result.user.displayName,
+        userPhotoUrl: result.user.photoURL,
+        userEmail: result.user.email,
+      };
+      // Earlier we checked whether a user exist before creating a new here. Now, we do it in the backend
+      await axiosPublic.post("/allUsers", userInfo);
       setTimeout(() => {
         navigate("/");
       }, 1000);
-      // Create New user in the backend userCollection
-      const response = await axiosPublic.get("/allUsers");
-      const allUsers = response.data;
-      const userExist = allUsers.some(
-        (user) => user.userEmail === result.user.email
-      );
-      if (!userExist && allUsers.length) {
-        const userInfo = {
-          userName: result.user.displayName,
-          userPhotoUrl: result.user.photoURL,
-          userEmail: result.user.email,
-        };
-        axiosPublic.post("/allUsers", userInfo);
-      }
     } catch (error) {
       setErrorText(error.message.slice(9));
     }

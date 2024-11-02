@@ -23,14 +23,10 @@ const CustomNavbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const {
-    user,
-    userLoading,
-    isAdmin,
-    logOutUser,
-    customAlert,
-  } = useContext(RestaurantContext);
-  const {isCartItemsLoading, cartItemsLoadingError, userCartItems} = useCart();  
+  const { user, userLoading, isAdmin, logOutUser, customAlert } =
+    useContext(RestaurantContext);
+  const { isCartItemsLoading, cartItemsLoadingError, userCartItems } =
+    useCart();
   const [isCartOpen, setCartOpen] = useState(false);
   const [isProfileActive, setProfileActive] = useState(false);
   const [isMenuActive, setMenuActive] = useState(false);
@@ -65,6 +61,7 @@ const CustomNavbar = () => {
   const handleLogOut = () => {
     logOutUser().then(() => {
       customAlert("Logged out");
+      setProfileActive(false);
 
       setTimeout(() => {
         navigate("/login");
@@ -212,7 +209,7 @@ const CustomNavbar = () => {
                               <img
                                 className="rounded-full"
                                 alt="User-Photo"
-                                src={user?.photoURL || altUserPhoto}
+                                src={user?.photoURL}
                                 onError={(e) => {
                                   e.target.src = altUserPhoto;
                                 }}
@@ -264,7 +261,7 @@ const CustomNavbar = () => {
                       <img
                         className="rounded-full"
                         alt="User-Photo"
-                        src={user?.photoURL || altUserPhoto}
+                        src={user?.photoURL}
                         onError={(e) => {
                           e.target.src = altUserPhoto;
                         }}
