@@ -21,7 +21,7 @@ const Register = () => {
       customAlert("Logged in by google");
       const userInfo = {
         userName: result.user.displayName,
-        userPhotoUrl: result.user.photoURL,
+        userPhotoURL: result.user.photoURL,
         userEmail: result.user.email,
       };
       // Earlier we checked whether a user exist before creating a new here. Now, we do it in the backend
@@ -73,7 +73,7 @@ const Register = () => {
           await updateUser(name, photo);
           const userInfo = {
             userName: name,
-            userPhotoUrl: photo,
+            userPhotoURL: photo,
             userEmail: email,
           };
           // backend collection

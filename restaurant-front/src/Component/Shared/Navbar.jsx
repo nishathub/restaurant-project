@@ -203,8 +203,8 @@ const CustomNavbar = () => {
                     {/* ABSOLUTE PROFILE CARD  */}
                     <div className="absolute top-16 right-0">
                       {isProfileActive && (
-                        <ul className="mt-1 p-4 bg-base-100 rounded-sm w-52 md:w-80 space-y-3 ">
-                          <li>
+                        <div className="mt-1 p-4 bg-base-100 rounded-sm w-52 md:w-80 space-y-3 ">
+                          <div>
                             <div className="w-20 rounded-full mx-auto p-2">
                               <img
                                 className="rounded-full"
@@ -215,11 +215,11 @@ const CustomNavbar = () => {
                                 }}
                               />
                             </div>
-                          </li>
-                          <li className="md:text-lg text-gray-200 ">
+                          </div>
+                          <div className="md:text-lg text-gray-200 ">
                             {user.displayName}
-                          </li>
-                          <li
+                          </div>
+                          <div
                             className={`${
                               isAdmin ? "text-green-400 text-sm" : "hidden"
                             } text-center`}
@@ -230,28 +230,28 @@ const CustomNavbar = () => {
                               </p>
                               <p>Admin</p>
                             </div>
-                          </li>
-                          <li className="md:text-lg text-[#3BBFE3]">
+                          </div>
+                          <div className="md:text-lg text-[#3BBFE3]">
                             {user.email}
-                          </li>
+                          </div>
 
-                          <li className={`${isAdmin ? "" : "hidden"}`}>
+                          <div className={`${isAdmin ? "" : "hidden"}`}>
                             <Link
                               to={"/admin-dashboard"}
                               className="btn btn-sm btn-accent w-full"
                             >
                               Admin Dashboard
                             </Link>
-                          </li>
-                          <li className="" onClick={handleLogOut}>
+                          </div>
+                          <div className="" onClick={handleLogOut}>
                             <a
                               onClick={handleLogOut}
                               className="btn btn-sm btn-error w-full"
                             >
                               Logout
                             </a>
-                          </li>
-                        </ul>
+                          </div>
+                        </div>
                       )}
                     </div>
                     <button

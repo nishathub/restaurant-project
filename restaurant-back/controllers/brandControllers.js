@@ -73,6 +73,16 @@ const getAllUsers = async (req, res) => {
     res.status(500).send(error);
   }
 };
+const removeUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const query = { _id: new ObjectId(userId) };
+    const result = await userCollection().deleteOne(query);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
 module.exports = {
   getAllMenu,
@@ -82,4 +92,5 @@ module.exports = {
   removeCartItem,
   createUser,
   getAllUsers,
+  removeUser,
 };
