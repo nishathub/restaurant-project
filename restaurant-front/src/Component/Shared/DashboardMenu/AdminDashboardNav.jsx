@@ -134,7 +134,7 @@ const AdminDashboardNav = () => {
             Manage Bookings
           </p>
         </button>
-        <button title="Users" className="flex items-center gap-4">
+        <Link to={'/dashboard/allUsers'} title="Users" className="flex items-center gap-4">
           <p className="text-3xl">
             <FaUsers />
           </p>
@@ -145,7 +145,7 @@ const AdminDashboardNav = () => {
           >
             All Users
           </p>
-        </button>
+        </Link>
       </div>
       <div className="p-2 space-y-6 mr-auto lora-regular pt-8">
         <Link to={"/"} title="Home" className="flex items-center gap-4">
