@@ -7,6 +7,7 @@ const {
   createUser,
   getAllUsers,
   removeUser,
+  setUserRoll,
 } = require("../controllers/brandControllers");
 
 const express = require("express");
@@ -20,6 +21,7 @@ router.post("/allCartItems", createCartItem);
 router.delete("/allCartItems/:cartItemId", removeCartItem);
 router.post("/allUsers", createUser);
 router.get("/allUsers", getAllUsers);
+router.patch("/allUsers/:userId", setUserRoll);
 router.delete("/allUsers/:userId", removeUser);
 
 module.exports = router;

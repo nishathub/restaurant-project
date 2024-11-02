@@ -73,6 +73,21 @@ const getAllUsers = async (req, res) => {
     res.status(500).send(error);
   }
 };
+const setUserRoll = async (req, res) => {
+  try {
+    const filter = { _id: new ObjectId(req.params.userId) };
+    const options = { upsert: false };
+    const updateDoc = {
+      $set: {
+        userRoll: req.body.userRoll,
+      },
+    };
+    const result = await userCollection().updateOne(filter, updateDoc, options);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 const removeUser = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -93,4 +108,5 @@ module.exports = {
   createUser,
   getAllUsers,
   removeUser,
+  setUserRoll,
 };

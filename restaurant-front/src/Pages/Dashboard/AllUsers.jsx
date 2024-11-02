@@ -9,8 +9,10 @@ import { useQuery } from "@tanstack/react-query";
 import { FaUser, FaUsers } from "react-icons/fa";
 
 const AllUsers = () => {
-  const {isAdmin, customAlert } = useSavourYumContext();
-  const [isUserDeleteLoading, setUserDeleteLoading] = useState(false);
+  const { isAdmin, customAlert } = useSavourYumContext();
+  const [userActionLoading, setUserActionLoading] = useState(false);
+  const [clickedUserId, setClickedUserId] = useState(null);
+  const [isUserRollModalActive, setMakeUserRollModalActive] = useState(false);
   const altUserPhoto =
     "https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg";
   const axiosProtected = useAxiosHookProtected();
@@ -26,10 +28,32 @@ const AllUsers = () => {
       return response.data;
     },
   });
-  console.log(allUsersData);
 
+  const handleUserButtonClick = (_id) => {
+    setClickedUserId(_id);
+    setMakeUserRollModalActive(true);
+  };
+  const handleMakeUserRoll = async (roll) => {
+    try {
+      setUserActionLoading(true);
+      const updateInfo = { userRoll: roll };
+      const response = await axiosProtected.patch(
+        `/allUsers/${clickedUserId}`,
+        updateInfo
+      );
+      if (response.data.modifiedCount) {
+        customAlert("Updated Successfully");
+      }
+      setMakeUserRollModalActive(false);
+    } catch (error) {
+      console.log(error);
+      customAlert("Failed to update userRoll");
+    } finally {
+      setUserActionLoading(false);
+    }
+  };
   const handleDeleteUser = async (id) => {
-    setUserDeleteLoading(true);
+    setUserActionLoading(true);
     try {
       const deleteItem = await axiosProtected.delete(`/allUsers/${id}`);
       if (deleteItem.data.deletedCount) {
@@ -38,20 +62,57 @@ const AllUsers = () => {
       allUserRefetch();
     } catch (error) {
       console.log(error);
+      customAlert("Deleting Failed, try again");
     } finally {
-      setUserDeleteLoading(false);
+      setUserActionLoading(false);
     }
   };
 
   return (
     <div className="px-4 pt-8">
+      <div
+        className={`absolute bg-gray-500/30 flex inset-0 z-10 text-gray-800 lora-regular duration-500 ${
+          isUserRollModalActive
+            ? "opacity-100"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="w-80 h-60 m-auto flex flex-col justify-center items-center gap-2 bg-gray-300 rounded-md relative">
+          <button
+            onClick={() => setMakeUserRollModalActive(false)}
+            className="absolute right-0 top-0 btn btn-error btn-sm"
+          >
+            X
+          </button>
+          <h4 className="cinzel-semibold mb-4">Select a roll</h4>
+          <button
+            onClick={(e) => handleMakeUserRoll(e.target.innerText)}
+            className="btn w-32"
+          >
+            Admin
+          </button>
+          <button
+            onClick={(e) => handleMakeUserRoll(e.target.innerText)}
+            className="btn w-32"
+          >
+            Moderator
+          </button>
+          <button
+            onClick={(e) => handleMakeUserRoll(e.target.innerText)}
+            className="btn w-32"
+          >
+            Editor
+          </button>
+        </div>
+      </div>
+
       <div className="mb-12">
         <SectionTitle
           heading={"Manage All Users"}
           subHeading={"Count Matters"}
         ></SectionTitle>
       </div>
-      {isAllUserPending || isUserDeleteLoading ? (
+      {isAllUserPending || userActionLoading ? (
         <div className="flex justify-center items-center inset-0">
           <CustomLoading size={32}></CustomLoading>
         </div>
@@ -114,7 +175,10 @@ const AllUsers = () => {
                     </td>
                     <td>{item.userEmail}</td>
                     <td>
-                      <button className="text-2xl text-gray-400">
+                      <button
+                        onClick={() => handleUserButtonClick(item._id)}
+                        className="text-2xl text-gray-400"
+                      >
                         <FaUsers></FaUsers>
                       </button>
                     </td>
