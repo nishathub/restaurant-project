@@ -67,6 +67,8 @@ const createUser = async (req, res) => {
 };
 const getAllUsers = async (req, res) => {
   try {
+    const tokenJWT = req.headers.authorization;
+    console.log(tokenJWT);
     const result = await userCollection().find().toArray();
     res.send(result);
   } catch (error) {

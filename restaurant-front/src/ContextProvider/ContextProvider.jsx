@@ -8,8 +8,10 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
+import useAxiosHookProtected from "../Hooks/useAxiosHookProtected";
 export const RestaurantContext = createContext();
 const ContextProvider = ({ children }) => {
+  const axiosProtected = useAxiosHookProtected();
   // BACKEND API
   const restaurantAPI = import.meta.env.VITE_SAVOURYUM_API;
   // FIREBASE AUTH STATE
@@ -47,10 +49,18 @@ const ContextProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      if (currentUser?.email === "nishat@mail.com") {
-        setIsAdmin(true);
-      } else if (currentUser?.email !== "nishat@mail.com") {
-        setIsAdmin(false);
+      if (currentUser) {
+        const userEmail = currentUser.email;
+        axiosProtected
+          .post("/jwt", userEmail)
+          .then((res) => {
+            if(res.data.token){
+              localStorage.setItem('ACCESS_TOKEN_JWT', res.data.token)
+            }
+          })
+          .catch((err) => console.log(err))
+      } else {
+        localStorage.removeItem('ACCESS_TOKEN_JWT');
       }
       setUserLoading(false);
     });

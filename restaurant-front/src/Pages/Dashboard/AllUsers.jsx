@@ -24,7 +24,9 @@ const AllUsers = () => {
   } = useQuery({
     queryKey: ["allUsers"],
     queryFn: async () => {
-      const response = await axiosProtected.get("allUsers");
+      const response = await axiosProtected.get("allUsers", {
+        headers: { Authorization: localStorage.getItem("ACCESS_TOKEN_JWT") },
+      });
       return response.data;
     },
   });
