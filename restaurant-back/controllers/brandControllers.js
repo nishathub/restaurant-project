@@ -67,8 +67,6 @@ const createUser = async (req, res) => {
 };
 const getAllUsers = async (req, res) => {
   try {
-    const tokenJWT = req.headers.authorization;
-    console.log(tokenJWT);
     const result = await userCollection().find().toArray();
     res.send(result);
   } catch (error) {
@@ -90,6 +88,23 @@ const setUserRoll = async (req, res) => {
     res.status(500).send(error);
   }
 };
+// VERIFY USER ROLE
+const getUserRoll = async (req, res) => {
+  const userEmail = req.params.userEmail;
+  const decodeEmail = req.decoded.userInfo.userEmail;  
+  if(userEmail !== decodeEmail) {
+    return res.status(403).send({message : 'UnAuthorized Access'})
+  }
+  const query = {userEmail : userEmail};
+  const user = await userCollection().findOne(query);
+  let userRoll = null;
+  if(user){
+   userRoll = user?.userRoll;
+  }
+  
+  res.send(userRoll);
+
+}
 const removeUser = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -111,4 +126,5 @@ module.exports = {
   getAllUsers,
   removeUser,
   setUserRoll,
+  getUserRoll,
 };

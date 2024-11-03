@@ -8,6 +8,7 @@ const {
   getAllUsers,
   removeUser,
   setUserRoll,
+  getUserRoll,
 } = require("../controllers/brandControllers");
 
 const express = require("express");
@@ -16,16 +17,15 @@ const jwt = require("jsonwebtoken");
 
 // JWT MIDDLEWARE 
 const verifyTokenJWT = (req, res, next) => {
-  console.log('inside verify Token middleware : ', req.headers.authorization);
   if(!req.headers.authorization) {
-    return res.status(401).send({message : 'forbidden access'})
+    return res.status(401).send({message : 'forbidden access: No token'})
   }
   const tokenJWT = req.headers.authorization;
   jwt.verify(tokenJWT, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     if(err){
-      return res.status(401).send({message : 'forbidden access'})
+      return res.status(401).send({message : 'forbidden access: Invalid token'})
     }
-    req.decoded = decoded;
+    req.decoded = decoded;    
     next();
   })
 }
@@ -51,6 +51,8 @@ router.post("/allUsers", createUser);
 router.get("/allUsers", verifyTokenJWT, getAllUsers);
 router.patch("/allUsers/:userId", setUserRoll);
 router.delete("/allUsers/:userId", removeUser);
+// JWT
 router.post("/jwt", generateTokenJWT);
+router.get("/jwt/userRoll/:userEmail", verifyTokenJWT, getUserRoll);
 
 module.exports = router;

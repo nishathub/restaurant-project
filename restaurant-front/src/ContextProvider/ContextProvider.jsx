@@ -8,15 +8,15 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import useAxiosHookProtected from "../Hooks/useAxiosHookProtected";
+import useAxiosHookPublic from "../Hooks/useAxiosHookPublic";
 export const RestaurantContext = createContext();
 const ContextProvider = ({ children }) => {
-  const axiosProtected = useAxiosHookProtected();
+  const axiosPublic = useAxiosHookPublic();
   // BACKEND API
   const restaurantAPI = import.meta.env.VITE_SAVOURYUM_API;
   // FIREBASE AUTH STATE
   const [userLoading, setUserLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(true);
+  const isAdmin = true;
   const [user, setUser] = useState(null);
   // CUSTOM ALERT
   const [isToastActive, setToastActive] = useState(false);
@@ -51,8 +51,8 @@ const ContextProvider = ({ children }) => {
       setUser(currentUser);
       if (currentUser) {
         const userEmail = currentUser.email;
-        axiosProtected
-          .post("/jwt", userEmail)
+        axiosPublic
+          .post("/jwt", {userEmail})
           .then((res) => {
             if(res.data.token){
               localStorage.setItem('ACCESS_TOKEN_JWT', res.data.token)

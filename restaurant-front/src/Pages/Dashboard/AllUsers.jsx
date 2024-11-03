@@ -7,9 +7,13 @@ import useSavourYumContext from "../../Hooks/useSavourYumContext";
 import useAxiosHookProtected from "../../Hooks/useAxiosHookProtected";
 import { useQuery } from "@tanstack/react-query";
 import { FaUser, FaUsers } from "react-icons/fa";
+import useUserRoll from "../../Hooks/useUserRoll";
 
 const AllUsers = () => {
   const { isAdmin, customAlert } = useSavourYumContext();
+  const { userRollData } = useUserRoll();
+  console.log(userRollData);
+
   const [userActionLoading, setUserActionLoading] = useState(false);
   const [clickedUserId, setClickedUserId] = useState(null);
   const [isUserRollModalActive, setMakeUserRollModalActive] = useState(false);
@@ -24,9 +28,7 @@ const AllUsers = () => {
   } = useQuery({
     queryKey: ["allUsers"],
     queryFn: async () => {
-      const response = await axiosProtected.get("allUsers", {
-        headers: { Authorization: localStorage.getItem("ACCESS_TOKEN_JWT") },
-      });
+      const response = await axiosProtected.get("allUsers");
       return response.data;
     },
   });
@@ -72,6 +74,7 @@ const AllUsers = () => {
 
   return (
     <div className="px-4 pt-8">
+      {/* ABSOLUTE MODAL Start */}
       <div
         className={`absolute bg-gray-500/30 flex inset-0 z-10 text-gray-800 lora-regular duration-500 ${
           isUserRollModalActive
@@ -107,6 +110,7 @@ const AllUsers = () => {
           </button>
         </div>
       </div>
+      {/* ABSOLUTE MODAL END  */}
 
       <div className="mb-12">
         <SectionTitle
@@ -128,14 +132,14 @@ const AllUsers = () => {
             </h4>
             <div
               className={`${
-                isAdmin ? "text-green-400 text-sm" : "hidden"
+                userRollData ? "text-green-400 text-sm" : "hidden"
               } text-center`}
             >
               <div className="flex items-center gap-2 mx-auto">
                 <p>
                   <MdOutlineSecurity />
                 </p>
-                <p>Admin</p>
+                <p>{userRollData}</p>
               </div>
             </div>
           </div>
@@ -176,6 +180,7 @@ const AllUsers = () => {
                       <p className="">{item.userName}</p>
                     </td>
                     <td>{item.userEmail}</td>
+
                     <td>
                       <button
                         onClick={() => handleUserButtonClick(item._id)}
@@ -184,6 +189,7 @@ const AllUsers = () => {
                         <FaUsers></FaUsers>
                       </button>
                     </td>
+
                     <td>
                       <button
                         onClick={() => handleDeleteUser(item._id)}
