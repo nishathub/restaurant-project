@@ -7,13 +7,13 @@ import {
   import { RiCalendarScheduleFill } from "react-icons/ri";
   import { FaCreditCard, FaEnvelope, FaHome, FaShoppingBag, FaShoppingCart, FaUsers } from "react-icons/fa";
   import { Link } from "react-router-dom";
-  import savouryumLogo from "../../../../src/assets/restaurant-logo.png";
+  import savouryumLogo from "../../../src/assets/restaurant-logo.png";
   import {
     IoIosArrowDropleftCircle,
     IoIosArrowDroprightCircle,
   } from "react-icons/io";
   import { useEffect, useState } from "react";
-import useCart from "../../../Hooks/useCart";
+import useCart from "../../Hooks/useCart";
   
   const UserDashboardNav
    = () => {

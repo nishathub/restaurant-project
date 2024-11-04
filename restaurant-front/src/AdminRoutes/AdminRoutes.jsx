@@ -5,7 +5,7 @@ import CustomLoading from "../Component/Shared/CustomLoading/CustomLoading";
 import useUserRoll from "../Hooks/useUserRoll";
 
 const AdminRoutes = ({ children }) => {
-  const { userLoading, user, isAdmin, customAlert } = useContext(RestaurantContext);
+  const { userLoading, user, customAlert } = useContext(RestaurantContext);
   const {userRollData, isUserRollPending} = useUserRoll();
   const location = useLocation();
   const attemptURL = location.pathname;

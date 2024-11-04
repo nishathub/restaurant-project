@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
-import AdminDashboardNav from "../Component/Shared/DashboardMenu/AdminDashboardNav";
 import CustomToast from "../Component/Shared/CustomToast/CustomToast";
 import useSavourYumContext from "../Hooks/useSavourYumContext";
-import UserDashboardNav from "../Component/Shared/DashboardMenu/UserDashboardNav";
 import useUserRoll from "../Hooks/useUserRoll";
 import CustomLoading from "../Component/Shared/CustomLoading/CustomLoading";
+import AdminDashboardNav from "../Component/DashboardMenu/AdminDashboardNav";
+import UserDashboardNav from "../Component/DashboardMenu/UserDashboardNav";
 
 const DashboardLayout = () => {
   const { user } = useSavourYumContext();

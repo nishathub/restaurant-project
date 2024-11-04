@@ -7,7 +7,7 @@ import { BiSolidFoodMenu } from "react-icons/bi";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 import { FaEnvelope, FaHome, FaShoppingBag, FaUsers } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import savouryumLogo from "../../../../src/assets/restaurant-logo.png";
+import savouryumLogo from "../../../src/assets/restaurant-logo.png";
 import {
   IoIosArrowDropleftCircle,
   IoIosArrowDroprightCircle,
@@ -98,7 +98,7 @@ const AdminDashboardNav = () => {
             Admin Home
           </p>
         </Link>
-        <Link title="Add Items" className="flex items-center gap-4">
+        <Link to={'/dashboard/addItem'} title="Add Items" className="flex items-center gap-4">
           <p className="text-3xl">
             <MdRestaurant />
           </p>
