@@ -62,11 +62,15 @@ const AllUsers = () => {
   const handleDeleteUser = async (id) => {
     setUserActionLoading(true);
     try {
-      const deleteItem = await axiosProtected.delete(`/allUsers/${id}`);
-      if (deleteItem.data.deletedCount) {
-        customAlert("Item Deleted");
+      if (!isUserRollPending && userRollData === "Admin") {
+        const deleteItem = await axiosProtected.delete(`/allUsers/${id}`);
+        if (deleteItem.data.deletedCount) {
+          customAlert("Item Deleted");
+        }
+        allUserRefetch();
+      } else if (!isUserRollPending && userRollData !== "Admin") {
+        customAlert("Admin Access Only");
       }
-      allUserRefetch();
     } catch (error) {
       console.log(error);
       customAlert("Deleting Failed, try again");
