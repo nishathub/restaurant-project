@@ -21,7 +21,7 @@ const verifyTokenJWT = (req, res, next) => {
   if(!req.headers.authorization) {
     return res.status(401).send({message : 'forbidden access: No Token'})
   }
-  const tokenJWT = req.headers.authorization;
+  const tokenJWT = req.headers.authorization.split(" ")[1];  
   jwt.verify(tokenJWT, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     if(err){
       return res.status(403).send({message : 'forbidden access: Invalid Token'})

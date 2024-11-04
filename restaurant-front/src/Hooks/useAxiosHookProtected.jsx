@@ -9,7 +9,7 @@ const useAxiosHookProtected = () => {
     // Request Interceptor
     axiosHook.interceptors.request.use(function (config) {
         const tokenJWT = localStorage.getItem('ACCESS_TOKEN_JWT');
-        config.headers.authorization = tokenJWT;
+        config.headers.authorization = `Bearer ${tokenJWT}`;
         return config;
     }, function (error) {
         return Promise.reject(error);
