@@ -5,9 +5,8 @@ import useMenu from "../../../Hooks/useMenu";
 import CustomLoading from "../../Shared/CustomLoading/CustomLoading";
 
 const SignatureDish = () => {
-  const {allMenuItems, isFetchMenuLoading} = useMenu();
-  const signatureItem = !isFetchMenuLoading && allMenuItems.find((item) => item.category === "signature");
-  const { name, recipe, price, specialty, image } = signatureItem;
+  const {allMenuItems, isFetchMenuLoading, errorMenuFetchMessage} = useMenu();
+  const signatureItem = isFetchMenuLoading ? {} : allMenuItems.find((item) => item.category === "signature");
   const [scrollY, setScrollY] = useState(0);
   // Parallax Effect of Signature bg
   useEffect(() => {
@@ -25,11 +24,14 @@ const SignatureDish = () => {
 if(isFetchMenuLoading){
   return <div className="flex items-center justify-center"><CustomLoading size={32}></CustomLoading></div>
 }
+if(errorMenuFetchMessage){
+  return <p className="text-red-500 text-center">{errorMenuFetchMessage}</p>
+}
   return (
     <div
       className=""
       style={{
-        backgroundImage: `url(${image})`,
+        backgroundImage: `url(${signatureItem?.image})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "fixed",
@@ -45,13 +47,13 @@ if(isFetchMenuLoading){
         </section>
         <div className="max-w-3xl lg:max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 justify-items-center items-center">
           <div>
-            <img className="rounded-md" src={image} alt="signature-dish" />
+            <img className="rounded-md" src={signatureItem?.image} alt="signature-dish" />
           </div>
           <div className="space-y-2 lg:space-y-4 text-gray-200">
-            <p className="text-xl cinzel-semibold">${price}</p>
-            <h4 className="text-2xl lg:text-4xl cinzel-bold">{name}</h4>
-            <p className="md:text-lg">{recipe}</p>
-            <p className="md:text-lg italic">{specialty}</p>
+            <p className="text-xl cinzel-semibold">${signatureItem?.price}</p>
+            <h4 className="text-2xl lg:text-4xl cinzel-bold">{signatureItem?.name}</h4>
+            <p className="md:text-lg">{signatureItem?.recipe}</p>
+            <p className="md:text-lg italic">{signatureItem?.specialty}</p>
             <Link to={"/"}>
               <button className="p-2 lg:p-4 mt-2 lg:mt-4 hover:bg-red-700 border-b-4 border-red-700 rounded-md duration-300 text-gray-200 cinzel-regular">
                 Order Now

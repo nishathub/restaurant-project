@@ -10,6 +10,7 @@ const {
   setUserRoll,
   getUserRoll,
   userCollection,
+  AddMenuItem,
 } = require("../controllers/brandControllers");
 
 const express = require("express");
@@ -55,6 +56,7 @@ const generateTokenJWT = async (req, res) => {
 };
 
 router.get("/allMenu", getAllMenu);
+router.post("/allMenu", AddMenuItem);
 router.get("/allReviews", getAllReviews);
 router.get("/allCartItems/:userEmail", getUserCartItems);
 router.post("/allCartItems", createCartItem);
