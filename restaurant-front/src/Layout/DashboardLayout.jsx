@@ -3,14 +3,22 @@ import AdminDashboardNav from "../Component/Shared/DashboardMenu/AdminDashboardN
 import CustomToast from "../Component/Shared/CustomToast/CustomToast";
 import useSavourYumContext from "../Hooks/useSavourYumContext";
 import UserDashboardNav from "../Component/Shared/DashboardMenu/UserDashboardNav";
+import useUserRoll from "../Hooks/useUserRoll";
+import CustomLoading from "../Component/Shared/CustomLoading/CustomLoading";
 
 const DashboardLayout = () => {
-  const { user, isAdmin } = useSavourYumContext();
+  const { user } = useSavourYumContext();
+  const { userRollData, isUserRollPending } = useUserRoll();
+
   return (
     <div className="max-w-7xl mx-auto flex ">
       <CustomToast></CustomToast>
       <div>
-        {isAdmin ? (
+        {isUserRollPending ? (
+          <div className="h-full flex items-center justify-center">
+            <CustomLoading size={32}></CustomLoading>
+          </div>
+        ) : userRollData ? (
           <AdminDashboardNav></AdminDashboardNav>
         ) : user ? (
           <UserDashboardNav></UserDashboardNav>

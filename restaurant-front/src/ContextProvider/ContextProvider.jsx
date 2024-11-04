@@ -16,8 +16,8 @@ const ContextProvider = ({ children }) => {
   const restaurantAPI = import.meta.env.VITE_SAVOURYUM_API;
   // FIREBASE AUTH STATE
   const [userLoading, setUserLoading] = useState(true);
-  const isAdmin = true;
   const [user, setUser] = useState(null);
+  const isAdmin = true;
   // CUSTOM ALERT
   const [isToastActive, setToastActive] = useState(false);
   const [toastText, setToastText] = useState("");

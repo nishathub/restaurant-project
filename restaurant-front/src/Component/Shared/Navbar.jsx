@@ -8,6 +8,7 @@ import { RestaurantContext } from "../../ContextProvider/ContextProvider";
 import CustomLoading from "./CustomLoading/CustomLoading";
 import savouryumLogo from "../../../src/assets/restaurant-logo.png";
 import useCart from "../../Hooks/useCart";
+import useUserRoll from "../../Hooks/useUserRoll";
 
 const CustomNavbar = () => {
   const [navBg, setNavBg] = useState(false);
@@ -27,6 +28,7 @@ const CustomNavbar = () => {
     useContext(RestaurantContext);
   const { isCartItemsLoading, cartItemsLoadingError, userCartItems } =
     useCart();
+    const {isUserRollPending, userRollData} = useUserRoll();
   const [isCartOpen, setCartOpen] = useState(false);
   const [isProfileActive, setProfileActive] = useState(false);
   const [isMenuActive, setMenuActive] = useState(false);
@@ -133,7 +135,7 @@ const CustomNavbar = () => {
         </div>
         {/* RIGHT  */}
         <div className="justify-end w-60">
-          {userLoading && !user ? (
+          {userLoading? (
             <CustomLoading></CustomLoading>
           ) : (
             <div>
@@ -149,7 +151,7 @@ const CustomNavbar = () => {
                     <h2
                       title="Admin"
                       className={`text-xl ${
-                        isAdmin ? "text-green-500" : "hidden"
+                        userRollData ? "text-green-500" : "hidden"
                       }`}
                     >
                       <MdOutlineSecurity />
@@ -221,23 +223,23 @@ const CustomNavbar = () => {
                           </div>
                           <div
                             className={`${
-                              isAdmin ? "text-green-400 text-sm" : "hidden"
+                              userRollData ? "text-green-400 text-sm" : "hidden"
                             } text-center`}
                           >
                             <div className="flex items-center gap-2 mx-auto">
                               <p>
                                 <MdOutlineSecurity />
                               </p>
-                              <p>Admin</p>
+                              <p>{userRollData}</p>
                             </div>
                           </div>
-                          <div className="md:text-lg text-[#3BBFE3]">
+                          <div className=" text-[#3BBFE3]">
                             {user.email}
                           </div>
 
-                          <div className={`${isAdmin ? "" : "hidden"}`}>
+                          <div className={`${userRollData ? "" : "hidden"}`}>
                             <Link
-                              to={"/admin-dashboard"}
+                              to={"/dashboard"}
                               className="btn btn-sm btn-accent w-full"
                             >
                               Admin Dashboard

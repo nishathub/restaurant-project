@@ -12,7 +12,8 @@ const useUserRoll = () => {
             const response = await axiosProtected.get(`/jwt/userRoll/${user?.email}`);
             const userRoll = response.data;
             return userRoll;
-        }
+        },
+        enabled: !!user?.email, // Only fetch if user email exists
     });
     return {isUserRollRefetch, isUserRollPending, isUserRollError, userRollData};
 };

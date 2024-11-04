@@ -10,10 +10,8 @@ import { FaUser, FaUsers } from "react-icons/fa";
 import useUserRoll from "../../Hooks/useUserRoll";
 
 const AllUsers = () => {
-  const { isAdmin, customAlert } = useSavourYumContext();
-  const { userRollData } = useUserRoll();
-  console.log(userRollData);
-
+  const { customAlert } = useSavourYumContext();
+  const { isUserRollPending, userRollData } = useUserRoll();
   const [userActionLoading, setUserActionLoading] = useState(false);
   const [clickedUserId, setClickedUserId] = useState(null);
   const [isUserRollModalActive, setMakeUserRollModalActive] = useState(false);
@@ -34,8 +32,12 @@ const AllUsers = () => {
   });
 
   const handleUserButtonClick = (_id) => {
-    setClickedUserId(_id);
-    setMakeUserRollModalActive(true);
+    if (!isUserRollPending && userRollData === "Admin") {
+      setClickedUserId(_id);
+      setMakeUserRollModalActive(true);
+    } else if (!isUserRollPending && userRollData !== "Admin") {
+      return customAlert("Only Admin Can Change Roll");
+    }
   };
   const handleMakeUserRoll = async (roll) => {
     try {
@@ -47,6 +49,7 @@ const AllUsers = () => {
       );
       if (response.data.modifiedCount) {
         customAlert("Updated Successfully");
+        allUserRefetch();
       }
       setMakeUserRollModalActive(false);
     } catch (error) {
@@ -182,12 +185,21 @@ const AllUsers = () => {
                     <td>{item.userEmail}</td>
 
                     <td>
-                      <button
-                        onClick={() => handleUserButtonClick(item._id)}
-                        className="text-2xl text-gray-400"
-                      >
-                        <FaUsers></FaUsers>
-                      </button>
+                      {item?.userRoll ? (
+                        <p
+                          className="text-green-400 hover:text-orange-400 cursor-pointer"
+                          onClick={() => handleUserButtonClick(item._id)}
+                        >
+                          {item.userRoll}
+                        </p>
+                      ) : (
+                        <button
+                          onClick={() => handleUserButtonClick(item._id)}
+                          className="text-2xl text-gray-400"
+                        >
+                          <FaUsers></FaUsers>
+                        </button>
+                      )}
                     </td>
 
                     <td>
