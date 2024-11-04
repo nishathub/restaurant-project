@@ -93,7 +93,7 @@ const getUserRoll = async (req, res) => {
   const userEmail = req.params.userEmail;
   const decodeEmail = req.decoded.userInfo.userEmail;  
   if(userEmail !== decodeEmail) {
-    return res.status(403).send({message : 'UnAuthorized Access'})
+    return res.status(403).send({message : 'UnAuthorized Access: Invalid Token'})
   }
   const query = {userEmail : userEmail};
   const user = await userCollection().findOne(query);
@@ -117,6 +117,7 @@ const removeUser = async (req, res) => {
 };
 
 module.exports = {
+  userCollection,
   getAllMenu,
   getAllReviews,
   getUserCartItems,

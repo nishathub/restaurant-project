@@ -1,12 +1,11 @@
 import { MdDelete, MdOutlineSecurity } from "react-icons/md";
 import CustomLoading from "../../Component/Shared/CustomLoading/CustomLoading";
 import SectionTitle from "../../Component/Shared/SectionTitle/SectionTitle";
-import useCart from "../../Hooks/useCart";
 import { useState } from "react";
 import useSavourYumContext from "../../Hooks/useSavourYumContext";
 import useAxiosHookProtected from "../../Hooks/useAxiosHookProtected";
 import { useQuery } from "@tanstack/react-query";
-import { FaUser, FaUsers } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 import useUserRoll from "../../Hooks/useUserRoll";
 
 const AllUsers = () => {

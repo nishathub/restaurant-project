@@ -9,6 +9,7 @@ const {
   removeUser,
   setUserRoll,
   getUserRoll,
+  userCollection,
 } = require("../controllers/brandControllers");
 
 const express = require("express");
@@ -18,16 +19,27 @@ const jwt = require("jsonwebtoken");
 // JWT MIDDLEWARE 
 const verifyTokenJWT = (req, res, next) => {
   if(!req.headers.authorization) {
-    return res.status(401).send({message : 'forbidden access: No token'})
+    return res.status(401).send({message : 'forbidden access: No Token'})
   }
   const tokenJWT = req.headers.authorization;
   jwt.verify(tokenJWT, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     if(err){
-      return res.status(401).send({message : 'forbidden access: Invalid token'})
+      return res.status(403).send({message : 'forbidden access: Invalid Token'})
     }
     req.decoded = decoded;    
     next();
   })
+}
+// Verify Admin
+const verifyAdmin = async(req, res, next) => {
+  const decodeEmail = req.decoded.userInfo.userEmail;
+  const query = {userEmail : decodeEmail};
+  const user = await userCollection().findOne(query);
+  const isAdmin = user?.userRoll === "Admin";
+  if(!isAdmin){
+    return res.status(403).send({message : 'forbidden access: Invalid Token'})
+  }
+  next();
 }
 // JWT GENERATE AND SEND TO FRONT
 const generateTokenJWT = async (req, res) => {
@@ -49,8 +61,8 @@ router.post("/allCartItems", createCartItem);
 router.delete("/allCartItems/:cartItemId", removeCartItem);
 router.post("/allUsers", createUser);
 router.get("/allUsers", verifyTokenJWT, getAllUsers);
-router.patch("/allUsers/:userId", setUserRoll);
-router.delete("/allUsers/:userId", removeUser);
+router.patch("/allUsers/:userId", verifyTokenJWT, verifyAdmin, setUserRoll);
+router.delete("/allUsers/:userId", verifyTokenJWT, verifyAdmin, removeUser);
 // JWT
 router.post("/jwt", generateTokenJWT);
 router.get("/jwt/userRoll/:userEmail", verifyTokenJWT, getUserRoll);
