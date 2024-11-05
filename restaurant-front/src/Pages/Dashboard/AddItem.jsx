@@ -5,46 +5,56 @@ import useAxiosHookPublic from "../../Hooks/useAxiosHookPublic";
 import useAxiosHookProtected from "../../Hooks/useAxiosHookProtected";
 import { useState } from "react";
 import useSavourYumContext from "../../Hooks/useSavourYumContext";
+import useUserRoll from "../../Hooks/useUserRoll";
 
 const AddItem = () => {
   const axiosPublic = useAxiosHookPublic();
   const axiosProtected = useAxiosHookProtected();
+  const { userRollData } = useUserRoll();
+
   const { customAlert } = useSavourYumContext();
   const [isAddItemLoading, setAddItemLoading] = useState(false);
   const {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm();
   const onSubmit = async (formData) => {
     try {
       setAddItemLoading(true);
-      const imageBB_API = import.meta.env.VITE_IMAGEBB_API;
-      const imageFile = { image: formData.image[0] };
-      const imagePostRes = await axiosPublic.post(imageBB_API, imageFile, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      if (userRollData === "Admin") {
+        const imageBB_API = import.meta.env.VITE_IMAGEBB_API;
+        const imageFile = { image: formData.image[0] };
+        const imagePostRes = await axiosPublic.post(imageBB_API, imageFile, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
-      if (!imagePostRes.data.success) {
-        console.log("failed to post image to imageBB");
-        return customAlert("Failed to post Item");
-      }
-      if (imagePostRes.data.success) {
-        const newMenuItem = {
-          name: formData.name,
-          recipe: formData.recipe,
-          image: imagePostRes.data.data.display_url,
-          category: formData.category,
-          price: formData.price,
-        };
-        const postMenuRes = await axiosProtected.post("/allMenu", newMenuItem);
-        console.log(postMenuRes.data);
-        if(postMenuRes.data.insertedId){
-            customAlert("Menu Added")
+        if (!imagePostRes.data.success) {
+          console.log("failed to post image to imageBB");
+          return customAlert("Failed to post Item");
         }
-        
+        if (imagePostRes.data.success) {
+          const newMenuItem = {
+            name: formData.name,
+            recipe: formData.recipe,
+            image: imagePostRes.data.data.display_url,
+            category: formData.category,
+            price: formData.price,
+          };
+          const postMenuRes = await axiosProtected.post(
+            "/allMenu",
+            newMenuItem
+          );
+          if (postMenuRes.data.insertedId) {
+            customAlert("Menu Added");
+            reset();
+          }
+        }
+      } else {
+        customAlert("Admin Access Only!");
       }
     } catch (error) {
       console.log("from AddItem catch block", error);
@@ -143,11 +153,18 @@ const AddItem = () => {
               </p>
             )}
           </label>
-          <input
-            {...register("image")}
-            type="file"
-            className="file-input w-full max-w-xs"
-          />
+          <div>
+            <input
+              {...register("image", { required: true })}
+              type="file"
+              className="file-input w-full max-w-xs"
+            />
+            {errors.image?.type === "required" && (
+              <p className="text-red-500 ml-4 mt-1" role="alert">
+                Image is required
+              </p>
+            )}
+          </div>
           <div>
             <button type="submit" className="btn cinzel-semibold">
               Add Item <FaUtensils />

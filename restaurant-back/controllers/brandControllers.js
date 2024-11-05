@@ -100,7 +100,7 @@ const setUserRoll = async (req, res) => {
 // VERIFY USER ROLE
 const getUserRoll = async (req, res) => {
   const userEmail = req.params.userEmail;
-  const decodeEmail = req.decoded.userInfo.userEmail;  
+  const decodeEmail = req.decoded.userInfo.userEmail;   
   if(userEmail !== decodeEmail) {
     return res.status(403).send({message : 'UnAuthorized Access: Invalid Token'})
   }

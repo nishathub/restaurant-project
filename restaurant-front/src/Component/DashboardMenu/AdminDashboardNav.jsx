@@ -110,7 +110,7 @@ const AdminDashboardNav = () => {
             Add Items
           </p>
         </Link>
-        <button title="Manage Items" className="flex items-center gap-4">
+        <Link to={'/dashboard/manageItems'} title="Manage Items" className="flex items-center gap-4">
           <p className="text-3xl">
             <MdMenuBook />
           </p>
@@ -121,7 +121,7 @@ const AdminDashboardNav = () => {
           >
             Manage Items
           </p>
-        </button>
+        </Link>
         <button title="Manage Bookings" className="flex items-center gap-4">
           <p className="text-3xl">
             <BsFillBookmarkStarFill />

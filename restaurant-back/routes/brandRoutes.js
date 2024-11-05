@@ -56,7 +56,7 @@ const generateTokenJWT = async (req, res) => {
 };
 
 router.get("/allMenu", getAllMenu);
-router.post("/allMenu", AddMenuItem);
+router.post("/allMenu", verifyTokenJWT, verifyAdmin, AddMenuItem);
 router.get("/allReviews", getAllReviews);
 router.get("/allCartItems/:userEmail", getUserCartItems);
 router.post("/allCartItems", createCartItem);

@@ -1,31 +1,54 @@
 import axios from "axios";
 import useSavourYumContext from "./useSavourYumContext";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-const axiosHook = axios.create({ baseURL: import.meta.env.VITE_SAVOURYUM_API });
+const axiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_SAVOURYUM_API
+});
+
 const useAxiosHookProtected = () => {
-    const {customAlert} = useSavourYumContext();
-    const navigate = useNavigate();
-    // Request Interceptor
-    axiosHook.interceptors.request.use(function (config) {
-        const tokenJWT = localStorage.getItem('ACCESS_TOKEN_JWT');
-        config.headers.authorization = `Bearer ${tokenJWT}`;
+  const { user, userLoading, customAlert } = useSavourYumContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Only set up interceptors if user is authenticated and token exists
+    if (!user || userLoading || !localStorage.getItem("ACCESS_TOKEN_JWT")) {
+      return;
+    }
+
+    const requestInterceptor = axiosInstance.interceptors.request.use(
+      (config) => {
+        const tokenJWT = localStorage.getItem("ACCESS_TOKEN_JWT");
+        if (tokenJWT) {
+          config.headers.authorization = `Bearer ${tokenJWT}`;
+        }
         return config;
-    }, function (error) {
-        return Promise.reject(error);
-    })
-    // Response Interceptor
-    axiosHook.interceptors.response.use(function (response) {
-        return response
-    }, function (error) {
-        console.log('error object inside interceptor response: ', error.response.status);
-        const statusCode = error.response.status;
-        if(statusCode === 401 || statusCode === 403){
-            customAlert("UnAuthorized Access!!");
-            navigate('/');
+      },
+      (error) => Promise.reject(error)
+    );
+
+    const responseInterceptor = axiosInstance.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        console.log("Error object inside interceptor response: ", error);
+        const statusCode = error.response?.status;
+        if (statusCode === 401 || statusCode === 403) {
+          customAlert("Unauthorized Access!");
+          navigate("/");
         }
         return Promise.reject(error);
-    })
-  return axiosHook;
+      }
+    );
+
+    // Cleanup interceptors when the component is unmounted or user state changes
+    return () => {
+      axiosInstance.interceptors.request.eject(requestInterceptor);
+      axiosInstance.interceptors.response.eject(responseInterceptor);
+    };
+  }, [user, userLoading, navigate, customAlert]);
+
+  return axiosInstance;
 };
+
 export default useAxiosHookProtected;
