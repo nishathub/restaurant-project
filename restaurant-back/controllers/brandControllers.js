@@ -23,6 +23,39 @@ const AddMenuItem = async (req, res) => {
     res.status(500).send(error);
   }
 };
+const updateMenuItem = async (req, res) => {
+  try {
+    const filter = { _id: new ObjectId(req.params.menuItemId) };
+    const options = { upsert: false };
+    let updateDoc = {};
+    // if we do not select any image, we do not update this field, it will remain unchanged.
+    if (req.body.recipeImage === "") {
+      updateDoc = {
+        $set: {
+          name: req.body.recipeName,
+          recipe: req.body.recipeDetails,
+          category: req.body.recipeCategory,
+          price: req.body.recipePrice,
+        },
+      };
+    } else { // if we selected new image, we update it
+      
+      updateDoc = {
+        $set: {
+          name: req.body.recipeName,
+          recipe: req.body.recipeDetails,
+          image: req.body.recipeImage,
+          category: req.body.recipeCategory,
+          price: req.body.recipePrice,
+        },
+      };
+    }    
+    const result = await menuCollection().updateOne(filter, updateDoc, options);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 const removeMenuItem = async (req, res) => {
   try {
     const itemId = req.params.menuItemId;
@@ -110,20 +143,21 @@ const setUserRoll = async (req, res) => {
 // VERIFY USER ROLE
 const getUserRoll = async (req, res) => {
   const userEmail = req.params.userEmail;
-  const decodeEmail = req.decoded.userInfo.userEmail;   
-  if(userEmail !== decodeEmail) {
-    return res.status(403).send({message : 'UnAuthorized Access: Invalid Token'})
+  const decodeEmail = req.decoded.userInfo.userEmail;
+  if (userEmail !== decodeEmail) {
+    return res
+      .status(403)
+      .send({ message: "UnAuthorized Access: Invalid Token" });
   }
-  const query = {userEmail : userEmail};
+  const query = { userEmail: userEmail };
   const user = await userCollection().findOne(query);
   let userRoll = null;
-  if(user){
-   userRoll = user?.userRoll;
+  if (user) {
+    userRoll = user?.userRoll;
   }
-  
-  res.send(userRoll);
 
-}
+  res.send(userRoll);
+};
 const removeUser = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -139,6 +173,7 @@ module.exports = {
   userCollection,
   getAllMenu,
   AddMenuItem,
+  updateMenuItem,
   removeMenuItem,
   getAllReviews,
   getUserCartItems,

@@ -7,6 +7,7 @@ import useAxiosHookProtected from "../../Hooks/useAxiosHookProtected";
 import { FaEdit } from "react-icons/fa";
 import useUserRoll from "../../Hooks/useUserRoll";
 import useMenu from "../../Hooks/useMenu";
+import { useNavigate } from "react-router-dom";
 
 const ManageItems = () => {
   const { customAlert } = useSavourYumContext();
@@ -22,6 +23,7 @@ const ManageItems = () => {
   const [isEditItemModalActive, setEditItemModalActive] = useState(false);
   const [isDeleteItemModalActive, setDeleteItemModalActive] = useState(false);
   const axiosProtected = useAxiosHookProtected();
+  const navigate = useNavigate();
 
   const handleItemEditButtonClick = (_id) => {
     if (!isUserRollPending && userRollData === "Admin") {
@@ -223,7 +225,7 @@ const ManageItems = () => {
                     <td>${item.price}</td>
 
                     <td>
-                      <button>
+                      <button onClick={()=> navigate(`/dashboard/updateItem/${item._id}`)}>
                         <p className="text-lg">
                           <FaEdit />
                         </p>
