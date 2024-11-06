@@ -14,6 +14,8 @@ const AllUsers = () => {
   const [userActionLoading, setUserActionLoading] = useState(false);
   const [clickedUserId, setClickedUserId] = useState(null);
   const [isUserRollModalActive, setMakeUserRollModalActive] = useState(false);
+  const [isDeleteItemModalActive, setDeleteItemModalActive] = useState(false);
+
   const altUserPhoto =
     "https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg";
   const axiosProtected = useAxiosHookProtected();
@@ -58,15 +60,26 @@ const AllUsers = () => {
       setUserActionLoading(false);
     }
   };
-  const handleDeleteUser = async (id) => {
+  const handleDeleteButtonClick = (_id) => {
+    if (!isUserRollPending && userRollData === "Admin") {
+      setClickedUserId(_id);
+      setDeleteItemModalActive(true);
+    } else if (!isUserRollPending && userRollData !== "Admin") {
+      return customAlert("Only Admin Can Delete Item");
+    }
+  };
+  const handleDeleteUser = async () => {
     setUserActionLoading(true);
     try {
       if (!isUserRollPending && userRollData === "Admin") {
-        const deleteItem = await axiosProtected.delete(`/allUsers/${id}`);
+        const deleteItem = await axiosProtected.delete(
+          `/allUsers/${clickedUserId}`
+        );
         if (deleteItem.data.deletedCount) {
-          customAlert("Item Deleted");
+          customAlert("User Deleted");
         }
         allUserRefetch();
+        setDeleteItemModalActive(false);
       } else if (!isUserRollPending && userRollData !== "Admin") {
         customAlert("Admin Access Only");
       }
@@ -117,6 +130,36 @@ const AllUsers = () => {
         </div>
       </div>
       {/* ABSOLUTE MODAL END  */}
+      {/* ABSOLUTE MODAL to DELETE Item Start */}
+      <div
+        className={`absolute bg-gray-500/30 flex inset-0 z-10 text-gray-800 lora-regular duration-500 ${
+          isDeleteItemModalActive
+            ? "opacity-100"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="w-80 h-60 m-auto flex flex-col justify-center items-center gap-2 bg-gray-300 rounded-md relative">
+          <button
+            onClick={() => setDeleteItemModalActive(false)}
+            className="absolute right-0 top-0 btn btn-error btn-sm"
+          >
+            X
+          </button>
+          <h4 className="cinzel-semibold mb-4">Are you sure?</h4>
+          <div className="flex gap-6">
+            <button className="btn btn-error" onClick={handleDeleteUser}>
+              Delete
+            </button>
+            <button
+              className="btn"
+              onClick={() => setDeleteItemModalActive(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+      {/* ABSOLUTE MODAL to DELETE Item END  */}
 
       <div className="mb-12">
         <SectionTitle
@@ -207,7 +250,7 @@ const AllUsers = () => {
 
                     <td>
                       <button
-                        onClick={() => handleDeleteUser(item._id)}
+                        onClick={() => handleDeleteButtonClick(item._id)}
                         className="text-2xl text-red-700"
                       >
                         <MdDelete></MdDelete>
