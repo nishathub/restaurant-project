@@ -75,7 +75,7 @@ const ManageItems = () => {
       }
     } catch (error) {
       console.log(error);
-      customAlert("Error!!");
+      customAlert("Error Deleting Item!!");
     } finally {
       setItemActionLoading(false);
       setDeleteItemModalActive(false);

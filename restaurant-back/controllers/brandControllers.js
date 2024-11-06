@@ -23,6 +23,16 @@ const AddMenuItem = async (req, res) => {
     res.status(500).send(error);
   }
 };
+const removeMenuItem = async (req, res) => {
+  try {
+    const itemId = req.params.menuItemId;
+    const query = { _id: new ObjectId(itemId) };
+    const result = await menuCollection().deleteOne(query);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 const getAllReviews = async (req, res) => {
   try {
     const products = await reviewsCollection().find().toArray();
@@ -129,6 +139,7 @@ module.exports = {
   userCollection,
   getAllMenu,
   AddMenuItem,
+  removeMenuItem,
   getAllReviews,
   getUserCartItems,
   createCartItem,

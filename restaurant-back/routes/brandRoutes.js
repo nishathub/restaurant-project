@@ -11,6 +11,7 @@ const {
   getUserRoll,
   userCollection,
   AddMenuItem,
+  removeMenuItem,
 } = require("../controllers/brandControllers");
 
 const express = require("express");
@@ -57,10 +58,11 @@ const generateTokenJWT = async (req, res) => {
 
 router.get("/allMenu", getAllMenu);
 router.post("/allMenu", verifyTokenJWT, verifyAdmin, AddMenuItem);
+router.delete("/allMenu/:menuItemId",verifyTokenJWT, verifyAdmin, removeMenuItem);
 router.get("/allReviews", getAllReviews);
 router.get("/allCartItems/:userEmail", getUserCartItems);
 router.post("/allCartItems", createCartItem);
-router.delete("/allCartItems/:cartItemId", removeCartItem);
+router.delete("/allCartItems/:cartItemId",verifyTokenJWT, removeCartItem);
 router.post("/allUsers", createUser);
 router.get("/allUsers", verifyTokenJWT, getAllUsers);
 router.patch("/allUsers/:userId", verifyTokenJWT, verifyAdmin, setUserRoll);
