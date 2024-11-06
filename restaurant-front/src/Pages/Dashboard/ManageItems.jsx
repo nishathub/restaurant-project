@@ -4,7 +4,6 @@ import SectionTitle from "../../Component/Shared/SectionTitle/SectionTitle";
 import { useState } from "react";
 import useSavourYumContext from "../../Hooks/useSavourYumContext";
 import useAxiosHookProtected from "../../Hooks/useAxiosHookProtected";
-import { useQuery } from "@tanstack/react-query";
 import { FaEdit } from "react-icons/fa";
 import useUserRoll from "../../Hooks/useUserRoll";
 import useMenu from "../../Hooks/useMenu";
@@ -12,87 +11,90 @@ import useMenu from "../../Hooks/useMenu";
 const ManageItems = () => {
   const { customAlert } = useSavourYumContext();
   const { isUserRollPending, userRollData } = useUserRoll();
-  const { allMenuItems, isFetchMenuLoading, errorMenuFetchMessage } = useMenu();
-  const [userActionLoading, setUserActionLoading] = useState(false);
-  const [clickedUserId, setClickedUserId] = useState(null);
-  const [isUserRollModalActive, setMakeUserRollModalActive] = useState(false);
-  const altUserPhoto =
-    "https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg";
-  const axiosProtected = useAxiosHookProtected();
   const {
-    refetch: allUserRefetch,
-    isPending: isAllUserPending,
-    error: isAllUserLoadingError,
-    data: allUsersData,
-  } = useQuery({
-    queryKey: ["allUsers"],
-    queryFn: async () => {
-      const response = await axiosProtected.get("allUsers");
-      return response.data;
-    },
-  });
+    allMenuItems,
+    isFetchMenuLoading,
+    errorMenuFetchMessage,
+    setAllMenuRefetch,
+  } = useMenu();
+  const [userActionLoading, setItemActionLoading] = useState(false);
+  const [clickedItemId, setClickedItemId] = useState(null);
+  const [isEditItemModalActive, setEditItemModalActive] = useState(false);
+  const [isDeleteItemModalActive, setDeleteItemModalActive] = useState(false);
+  const axiosProtected = useAxiosHookProtected();
 
-  const handleUserButtonClick = (_id) => {
+  const handleItemEditButtonClick = (_id) => {
     if (!isUserRollPending && userRollData === "Admin") {
-      setClickedUserId(_id);
-      setMakeUserRollModalActive(true);
+      setClickedItemId(_id);
+      setEditItemModalActive(true);
     } else if (!isUserRollPending && userRollData !== "Admin") {
-      return customAlert("Only Admin Can Change Roll");
+      return customAlert("Only Admin Can Edit Item");
     }
   };
   const handleMakeUserRoll = async (roll) => {
     try {
-      setUserActionLoading(true);
+      setItemActionLoading(true);
       const updateInfo = { userRoll: roll };
       const response = await axiosProtected.patch(
-        `/allUsers/${clickedUserId}`,
+        `/allUsers/${clickedItemId}`,
         updateInfo
       );
       if (response.data.modifiedCount) {
         customAlert("Updated Successfully");
         allUserRefetch();
       }
-      setMakeUserRollModalActive(false);
+      setEditItemModalActive(false);
     } catch (error) {
       console.log(error);
       customAlert("Failed to update userRoll");
     } finally {
-      setUserActionLoading(false);
+      setItemActionLoading(false);
     }
   };
-  const handleDeleteUser = async (id) => {
-    setUserActionLoading(true);
+  const handleDeleteButtonClick = (_id) => {
+    if (!isUserRollPending && userRollData === "Admin") {
+      setClickedItemId(_id);
+      setDeleteItemModalActive(true);
+    } else if (!isUserRollPending && userRollData !== "Admin") {
+      return customAlert("Only Admin Can Delete Item");
+    }
+  };
+  const handleDeleteItem = async () => {
+    setItemActionLoading(true);
     try {
       if (!isUserRollPending && userRollData === "Admin") {
-        const deleteItem = await axiosProtected.delete(`/allUsers/${id}`);
+        const deleteItem = await axiosProtected.delete(
+          `/allMenu/${clickedItemId}`
+        );
         if (deleteItem.data.deletedCount) {
           customAlert("Item Deleted");
         }
-        allUserRefetch();
+        setAllMenuRefetch(true);
       } else if (!isUserRollPending && userRollData !== "Admin") {
         customAlert("Admin Access Only");
       }
     } catch (error) {
       console.log(error);
-      customAlert("Deleting Failed, try again");
+      customAlert("Error!!");
     } finally {
-      setUserActionLoading(false);
+      setItemActionLoading(false);
+      setDeleteItemModalActive(false);
     }
   };
 
   return (
     <div className="px-4 pt-8">
-      {/* ABSOLUTE MODAL Start */}
+      {/* ABSOLUTE MODAL to Edit Item Start */}
       <div
         className={`absolute bg-gray-500/30 flex inset-0 z-10 text-gray-800 lora-regular duration-500 ${
-          isUserRollModalActive
+          isEditItemModalActive
             ? "opacity-100"
             : "opacity-0 pointer-events-none"
         }`}
       >
         <div className="w-80 h-60 m-auto flex flex-col justify-center items-center gap-2 bg-gray-300 rounded-md relative">
           <button
-            onClick={() => setMakeUserRollModalActive(false)}
+            onClick={() => setEditItemModalActive(false)}
             className="absolute right-0 top-0 btn btn-error btn-sm"
           >
             X
@@ -118,7 +120,37 @@ const ManageItems = () => {
           </button>
         </div>
       </div>
-      {/* ABSOLUTE MODAL END  */}
+      {/* ABSOLUTE MODAL to Edit Item END  */}
+      {/* ABSOLUTE MODAL to DELETE Item Start */}
+      <div
+        className={`absolute bg-gray-500/30 flex inset-0 z-10 text-gray-800 lora-regular duration-500 ${
+          isDeleteItemModalActive
+            ? "opacity-100"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="w-80 h-60 m-auto flex flex-col justify-center items-center gap-2 bg-gray-300 rounded-md relative">
+          <button
+            onClick={() => setDeleteItemModalActive(false)}
+            className="absolute right-0 top-0 btn btn-error btn-sm"
+          >
+            X
+          </button>
+          <h4 className="cinzel-semibold mb-4">Are you sure?</h4>
+          <div className="flex gap-6">
+            <button className="btn btn-error" onClick={handleDeleteItem}>
+              Delete
+            </button>
+            <button
+              className="btn"
+              onClick={() => setDeleteItemModalActive(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+      {/* ABSOLUTE MODAL to DELETE Item END  */}
 
       <div className="mb-12">
         <SectionTitle
@@ -152,7 +184,7 @@ const ManageItems = () => {
             </div>
           </div>
           <div className="max-h-[400px] overflow-auto">
-            <table className="table">
+            <table className="table text-center">
               {/* head */}
               <thead>
                 <tr>
@@ -170,10 +202,11 @@ const ManageItems = () => {
                   <tr>
                     <th>{index + 1}</th>
                     <td>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-center">
                         <div className="avatar">
                           <div className="mask mask-squircle h-12 w-12">
                             <img
+                              className=""
                               src={item?.image}
                               alt="menu-item-image"
                               onError={(e) => {
@@ -187,7 +220,7 @@ const ManageItems = () => {
                     <td>
                       <p className="">{item.name}</p>
                     </td>
-                    <td>{item.price}</td>
+                    <td>${item.price}</td>
 
                     <td>
                       <button>
@@ -199,7 +232,7 @@ const ManageItems = () => {
 
                     <td>
                       <button
-                        onClick={() => handleDeleteUser(item._id)}
+                        onClick={() => handleDeleteButtonClick(item._id)}
                         className="text-2xl text-red-700"
                       >
                         <MdDelete></MdDelete>

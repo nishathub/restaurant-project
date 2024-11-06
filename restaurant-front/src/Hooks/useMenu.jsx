@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const useMenu = () => {
   const [allMenuItems, setAllMenuItems] = useState([]);
   const [isFetchMenuLoading, setFetchMenuLoading] = useState(true);
+  const [isAllMenuRefetch, setAllMenuRefetch] = useState(false);
   const [errorMenuFetchMessage, setErrorMenuFetchMessage] = useState("");
 
   useEffect(() => {
@@ -10,14 +11,16 @@ const useMenu = () => {
       .then((res) => res.json())
       .then((data) => {
         setAllMenuItems(data);
-        setFetchMenuLoading(false);
       })
       .catch((err) => {
-        console.log(err);
-        setFetchMenuLoading(false);
+        console.log("from useMenu catch block", err);
         setErrorMenuFetchMessage("error loading data");
+      })
+      .finally(() => {
+        setAllMenuRefetch(false);
+        setFetchMenuLoading(false);
       });
-  }, []);
+  }, [isAllMenuRefetch]);
 
   const getCategoryItems = (categoryName) => {
     return allMenuItems.filter((item) => item.category === categoryName);
@@ -27,6 +30,7 @@ const useMenu = () => {
     allMenuItems,
     isFetchMenuLoading,
     errorMenuFetchMessage,
+    setAllMenuRefetch,
     saladItems: getCategoryItems("salad"),
     pizzaItems: getCategoryItems("pizza"),
     soupItems: getCategoryItems("soup"),
