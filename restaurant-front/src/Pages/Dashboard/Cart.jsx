@@ -5,6 +5,7 @@ import useCart from "../../Hooks/useCart";
 import { useState } from "react";
 import useSavourYumContext from "../../Hooks/useSavourYumContext";
 import useAxiosHookProtected from "../../Hooks/useAxiosHookProtected";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const { customAlert } = useSavourYumContext();
@@ -23,7 +24,6 @@ const Cart = () => {
     setCartItemDeleteLoading(true);
     try {
       const deleteItem = await axiosHook.delete(`/allCartItems/${id}`);
-      console.log(deleteItem.data.deletedCount);
       if (deleteItem.data.deletedCount) {
         customAlert("Item Deleted");
       }
@@ -60,7 +60,15 @@ const Cart = () => {
             <h4 className="text-2xl cinzel-semibold">
               Total Price: ${totalCartPrice}
             </h4>
-            <button className="btn btn-accent">Pay</button>
+            {userCartItems?.length ? (
+              <Link to={"/dashboard/paymentGateway"}>
+                <button className="btn btn-accent">Pay</button>
+              </Link>
+            ) : (
+              <button disabled className="btn btn-accent">
+                Pay
+              </button>
+            )}
           </div>
           <div className="max-h-[400px] overflow-auto">
             <table className="table">
