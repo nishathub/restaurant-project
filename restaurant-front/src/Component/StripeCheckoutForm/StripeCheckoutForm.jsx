@@ -20,18 +20,22 @@ const StripeCheckoutForm = () => {
   const [transactionId, setTransactionId] = useState(null);
   const axiosProtected = useAxiosHookProtected();
   const { user, customAlert } = useSavourYumContext();
-  const { userCartItems } = useCart();
+  const { userCartItems, cartItemsRefetch } = useCart();
+
   const cartTotalPrice = userCartItems?.reduce((total, current) => {
     return (total += current.price);
   }, 0);
 
   useEffect(() => {
     const postStripeIntent = async () => {
+        if(!cartTotalPrice > 0){
+            console.log('useless attempt of useEffect, may cause error', cartTotalPrice);
+        }
       try {
         const result = await axiosProtected.post("/create-payment-intent", {
           price: cartTotalPrice,
         });
-        console.log(result);
+        console.log(result.data.clientSecret);
         setClientSecretKey(result.data.clientSecret);
       } catch (error) {
         console.log("error from stripe catch block", error);
@@ -76,13 +80,37 @@ const StripeCheckoutForm = () => {
         });
       if (confirmPaymentError) {
         console.log("stripe payment error : ", confirmPaymentError);
-        customAlert("Transaction Error!!")
+        customAlert("Transaction Error!!");
       } else {
         console.log("stripe payment success : ", paymentIntent);
         if (paymentIntent.status === "succeeded") {
-          console.log("transaction Id : ", paymentIntent.id);
           setTransactionId(paymentIntent.id);
-          customAlert("Payment Successful")
+          customAlert("Payment Successful");
+          // post payment history to the database:
+          const userPaymentDetails = {
+            paymentId: paymentIntent.id,
+            userEmail: user?.email,
+            date: new Date(),
+            cartItemsIds: userCartItems.map((item) => item._id),
+            menuItemsIds: userCartItems.map((item) => item.menuId),
+            price: cartTotalPrice,
+            status: "processing",
+          };
+          try {
+            const postToPaymentHistory = await axiosProtected.post(
+              "/userPaymentHistory",
+              userPaymentDetails
+            );
+            if(postToPaymentHistory.data.paymentResult.insertedId){
+                console.log("payment history posted to the database");
+            }
+            if(postToPaymentHistory.data.emptyCartItems.deletedCount){
+                console.log("cartItems are removed");
+                cartItemsRefetch();
+            }
+          } catch (error) {
+            console.error('error posting payment history ', error)
+          }
         }
       }
     } catch (error) {

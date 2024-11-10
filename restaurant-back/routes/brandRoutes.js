@@ -14,6 +14,7 @@ const {
   removeMenuItem,
   updateMenuItem,
   stripePaymentIntent,
+  setPaymentHistory,
 } = require("../controllers/brandControllers");
 
 const express = require("express");
@@ -75,6 +76,8 @@ router.post("/jwt", generateTokenJWT);
 router.get("/jwt/userRoll/:userEmail", verifyTokenJWT, getUserRoll);
 //STRIPE PAYMENT
 router.post("/create-payment-intent", stripePaymentIntent);
+// PaymentHistory
+router.post("/userPaymentHistory", setPaymentHistory);
 
 
 module.exports = router;

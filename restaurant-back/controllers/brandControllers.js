@@ -5,6 +5,7 @@ const menuCollection = () => getDB().collection("MENU"); // modified to a functi
 const reviewsCollection = () => getDB().collection("REVIEWS"); // modified to a function and will be called later.
 const cartItemCollection = () => getDB().collection("CART_ITEMS"); // modified to a function and will be called later.
 const userCollection = () => getDB().collection("USERS"); // modified to a function and will be called later.
+const paymentCollection = () => getDB().collection("PAYMENT"); // modified to a function and will be called later.
 
 const getAllMenu = async (req, res) => {
   try {
@@ -169,23 +170,44 @@ const removeUser = async (req, res) => {
     res.status(500).send(error);
   }
 };
+// Payment History
+const setPaymentHistory = async (req, res) => {
+  try {
+    const userPayment = req.body;
+    // keep the payment history in database
+    const paymentResult = await paymentCollection().insertOne(userPayment);
+    // delete all cart items of the user
+    const query = {_id : {
+     $in: userPayment.cartItemsIds.map(id => new ObjectId(id))
+    }};
+    const emptyCartItems = await cartItemCollection().deleteMany(query);
+    // send response
+    res.send({paymentResult, emptyCartItems});
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 // Stripe payment
 const stripe = require("stripe")(process.env.STRIPE_CLIENT_SECRET);
 const stripePaymentIntent = async (req, res) => {
-  const { price } = req.body;
-  const amount = parseInt(price * 100);
-  if(isNaN(amount)){
-    return res.status(400).send({errorMessage : "invalid amount"});
-  }
+  try {
+    const { price } = req.body;
+    const amount = parseInt(price * 100);
+    if (isNaN(amount)) {
+      return res.status(400).send({ errorMessage: "invalid amount" });
+    }
 
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: amount,
-    currency: "usd",
-    payment_method_types: ["card"],
-  });
-  res.send({
-    clientSecret: paymentIntent.client_secret,
-  });
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: "usd",
+      payment_method_types: ["card"],
+    });
+    res.send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
 module.exports = {
@@ -204,4 +226,5 @@ module.exports = {
   setUserRoll,
   getUserRoll,
   stripePaymentIntent,
+  setPaymentHistory,
 };
