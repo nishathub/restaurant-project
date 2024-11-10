@@ -38,8 +38,9 @@ const updateMenuItem = async (req, res) => {
           price: req.body.recipePrice,
         },
       };
-    } else { // if we selected new image, we update it
-      
+    } else {
+      // if we selected new image, we update it
+
       updateDoc = {
         $set: {
           name: req.body.recipeName,
@@ -49,7 +50,7 @@ const updateMenuItem = async (req, res) => {
           price: req.body.recipePrice,
         },
       };
-    }    
+    }
     const result = await menuCollection().updateOne(filter, updateDoc, options);
     res.send(result);
   } catch (error) {
@@ -168,6 +169,24 @@ const removeUser = async (req, res) => {
     res.status(500).send(error);
   }
 };
+// Stripe payment
+const stripe = require("stripe")(process.env.STRIPE_CLIENT_SECRET);
+const stripePaymentIntent = async (req, res) => {
+  const { price } = req.body;
+  const amount = parseInt(price * 100);
+  if(isNaN(amount)){
+    return res.status(400).send({errorMessage : "invalid amount"});
+  }
+
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: amount,
+    currency: "usd",
+    payment_method_types: ["card"],
+  });
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+};
 
 module.exports = {
   userCollection,
@@ -184,4 +203,5 @@ module.exports = {
   removeUser,
   setUserRoll,
   getUserRoll,
+  stripePaymentIntent,
 };

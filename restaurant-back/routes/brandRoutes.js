@@ -13,6 +13,7 @@ const {
   AddMenuItem,
   removeMenuItem,
   updateMenuItem,
+  stripePaymentIntent,
 } = require("../controllers/brandControllers");
 
 const express = require("express");
@@ -72,5 +73,8 @@ router.delete("/allUsers/:userId", verifyTokenJWT, verifyAdmin, removeUser);
 // JWT
 router.post("/jwt", generateTokenJWT);
 router.get("/jwt/userRoll/:userEmail", verifyTokenJWT, getUserRoll);
+//STRIPE PAYMENT
+router.post("/create-payment-intent", stripePaymentIntent);
+
 
 module.exports = router;
