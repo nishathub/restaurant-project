@@ -1,5 +1,5 @@
 import "./CustomLoadingStyle.css";
-const CustomLoading = ({ size = 16 }) => {
+const CustomLoading = ({size = 16}) => {
   const sizeInPixels = `${size}px`;
   return (
     <div

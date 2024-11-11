@@ -28,17 +28,16 @@ const StripeCheckoutForm = () => {
 
   useEffect(() => {
     const postStripeIntent = async () => {
-        if(!cartTotalPrice > 0){
-            console.log('useless attempt of useEffect, may cause error', cartTotalPrice);
+      if (cartTotalPrice > 0) {
+        try {
+          const result = await axiosProtected.post("/create-payment-intent", {
+            price: cartTotalPrice,
+          });
+          console.log(result.data.clientSecret);
+          setClientSecretKey(result.data.clientSecret);
+        } catch (error) {
+          console.log("error from stripe catch block", error);
         }
-      try {
-        const result = await axiosProtected.post("/create-payment-intent", {
-          price: cartTotalPrice,
-        });
-        console.log(result.data.clientSecret);
-        setClientSecretKey(result.data.clientSecret);
-      } catch (error) {
-        console.log("error from stripe catch block", error);
       }
     };
     postStripeIntent();
@@ -101,15 +100,15 @@ const StripeCheckoutForm = () => {
               "/userPaymentHistory",
               userPaymentDetails
             );
-            if(postToPaymentHistory.data.paymentResult.insertedId){
-                console.log("payment history posted to the database");
+            if (postToPaymentHistory.data.paymentResult.insertedId) {
+              console.log("payment history posted to the database");
             }
-            if(postToPaymentHistory.data.emptyCartItems.deletedCount){
-                console.log("cartItems are removed");
-                cartItemsRefetch();
+            if (postToPaymentHistory.data.emptyCartItems.deletedCount) {
+              console.log("cartItems are removed");
+              cartItemsRefetch();
             }
           } catch (error) {
-            console.error('error posting payment history ', error)
+            console.error("error posting payment history ", error);
           }
         }
       }

@@ -28,7 +28,7 @@ const CustomNavbar = () => {
     useContext(RestaurantContext);
   const { isCartItemsLoading, cartItemsLoadingError, userCartItems } =
     useCart();
-    const {isUserRollPending, userRollData} = useUserRoll();
+  const { isUserRollPending, userRollData } = useUserRoll();
   const [isCartOpen, setCartOpen] = useState(false);
   const [isProfileActive, setProfileActive] = useState(false);
   const [isMenuActive, setMenuActive] = useState(false);
@@ -72,13 +72,11 @@ const CustomNavbar = () => {
   };
   //   SMALL DEVICE NAV-CARD STYLE
   const navLinks = (
-    <>
-      <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 cinzel-regular">
-        <NavLink to={"/"}>Home</NavLink>
-        <NavLink to={"/menu"}>Menu</NavLink>
-        <NavLink to={"/shop"}>Shop</NavLink>
-      </div>
-    </>
+    <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 cinzel-regular">
+      <NavLink to={"/"}>Home</NavLink>
+      <NavLink to={"/menu"}>Menu</NavLink>
+      <NavLink to={"/shop"}>Shop</NavLink>
+    </div>
   );
 
   return (
@@ -135,7 +133,7 @@ const CustomNavbar = () => {
         </div>
         {/* RIGHT  */}
         <div className="justify-end w-60">
-          {userLoading? (
+          {userLoading ? (
             <CustomLoading></CustomLoading>
           ) : (
             <div>
@@ -165,13 +163,13 @@ const CustomNavbar = () => {
                   {/* CART  */}
                   <div ref={cartBoxRef} className="relative">
                     {/* ABSOLUTE BADGE */}
-                    <p className="absolute -top-2 -right-2 bg-gray-700 text-sm text-white px-2 rounded-full">
+                    <div className="absolute -top-2 -right-2 bg-gray-700 text-sm text-white px-2 rounded-full">
                       {isCartItemsLoading ? (
                         <CustomLoading size={12}></CustomLoading>
                       ) : (
-                        userCartItems?.length
+                       <span>{userCartItems?.length}</span> 
                       )}
-                    </p>
+                    </div>
                     {/* ABSOLUTE CART-BOX */}
                     <div className=" absolute top-16 right-0 w-52 md:w-80 rounded-md bg-base-100">
                       {isCartOpen && (
@@ -233,9 +231,7 @@ const CustomNavbar = () => {
                               <p>{userRollData}</p>
                             </div>
                           </div>
-                          <div className=" text-[#3BBFE3]">
-                            {user.email}
-                          </div>
+                          <div className=" text-[#3BBFE3]">{user.email}</div>
 
                           <div className={`${userRollData ? "" : "hidden"}`}>
                             <Link
