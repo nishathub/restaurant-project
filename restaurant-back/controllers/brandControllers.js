@@ -1,5 +1,6 @@
 const { ObjectId } = require("mongodb");
 const { getDB } = require("../config/db");
+const { response } = require("express");
 
 const menuCollection = () => getDB().collection("MENU"); // modified to a function and will be called later.
 const reviewsCollection = () => getDB().collection("REVIEWS"); // modified to a function and will be called later.
@@ -171,6 +172,21 @@ const removeUser = async (req, res) => {
   }
 };
 // Payment History
+const getPaymentHistory = async (req, res) => {
+  try {
+    const query = {userEmail : req.params.userEmail};
+    // AUTHORIZATION CHECK
+    if (req.params.userEmail !== req.decoded.userInfo.userEmail) {
+      return res
+        .status(403)
+        .send({ message: "UnAuthorized Access: Invalid Token" });
+    }
+    const paymentHistory = await paymentCollection().find(query).toArray();
+    res.send(paymentHistory);
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
 const setPaymentHistory = async (req, res) => {
   try {
     const userPayment = req.body;
@@ -227,4 +243,5 @@ module.exports = {
   getUserRoll,
   stripePaymentIntent,
   setPaymentHistory,
+  getPaymentHistory,
 };

@@ -188,7 +188,7 @@ const ManageItems = () => {
           <div className="max-h-[400px] overflow-auto">
             <table className="table text-center">
               {/* head */}
-              <thead>
+              <thead className="sticky top-0 bg-gray-700 z-10">
                 <tr>
                   <th>#</th>
                   <th>Image</th>

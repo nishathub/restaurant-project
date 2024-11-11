@@ -14,6 +14,7 @@ import AddItem from "../Pages/Dashboard/AddItem";
 import ManageItems from "../Pages/Dashboard/ManageItems";
 import UpdateItem from "../Pages/Dashboard/UpdateItem";
 import PaymentGateway from "../Pages/Dashboard/PaymentGateway";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
       {
         path: "paymentGateway",
         element: <PaymentGateway></PaymentGateway>,
+      },
+      {
+        path: "paymentHistory",
+        element: <PaymentHistory></PaymentHistory>,
       },
       {
         path: "allUsers",

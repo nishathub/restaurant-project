@@ -125,7 +125,7 @@ import useCart from "../../Hooks/useCart";
               My Cart <span className={`${userCartItems?.length ? 'inline-block' : 'hidden'}`}>({userCartItems?.length})</span>
             </p>
           </Link>
-          <button title="Payment History" className="flex items-center gap-4">
+          <Link to={'/dashboard/paymentHistory'} title="Payment History" className="flex items-center gap-4">
             <p className="text-3xl">
               <FaCreditCard />
             </p>
@@ -136,7 +136,7 @@ import useCart from "../../Hooks/useCart";
             >
               Payment History
             </p>
-          </button>
+          </Link>
           <button title="Add a Review" className="flex items-center gap-4">
             <p className="text-3xl">
               <MdRateReview />

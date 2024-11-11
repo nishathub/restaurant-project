@@ -33,8 +33,8 @@ const StripeCheckoutForm = () => {
           const result = await axiosProtected.post("/create-payment-intent", {
             price: cartTotalPrice,
           });
-          console.log(result.data.clientSecret);
-          setClientSecretKey(result.data.clientSecret);
+          console.log(result?.data?.clientSecret);
+          setClientSecretKey(result?.data?.clientSecret);
         } catch (error) {
           console.log("error from stripe catch block", error);
         }
@@ -100,10 +100,10 @@ const StripeCheckoutForm = () => {
               "/userPaymentHistory",
               userPaymentDetails
             );
-            if (postToPaymentHistory.data.paymentResult.insertedId) {
+            if (postToPaymentHistory?.data?.paymentResult?.insertedId) {
               console.log("payment history posted to the database");
             }
-            if (postToPaymentHistory.data.emptyCartItems.deletedCount) {
+            if (postToPaymentHistory?.data?.emptyCartItems?.deletedCount) {
               console.log("cartItems are removed");
               cartItemsRefetch();
             }
