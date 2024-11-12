@@ -16,6 +16,8 @@ const {
   stripePaymentIntent,
   setPaymentHistory,
   getPaymentHistory,
+  getAdminStats,
+  getOrderStats,
 } = require("../controllers/brandControllers");
 
 const express = require("express");
@@ -59,7 +61,6 @@ const generateTokenJWT = async (req, res) => {
     res.status(500).send(error)
   }
 };
-
 router.get("/allMenu", getAllMenu);
 router.post("/allMenu", verifyTokenJWT, verifyAdmin, AddMenuItem);
 router.patch("/allMenu/:menuItemId",verifyTokenJWT, verifyAdmin, updateMenuItem);
@@ -80,6 +81,9 @@ router.post("/create-payment-intent", stripePaymentIntent);
 // PaymentHistory
 router.post("/userPaymentHistory", setPaymentHistory);
 router.get("/userPaymentHistory/:userEmail",verifyTokenJWT, getPaymentHistory);
+// Stats
+router.get("/admin-stats", getAdminStats);
+router.get("/order-stats", getOrderStats);
 
 
 module.exports = router;

@@ -1,13 +1,79 @@
 const { ObjectId } = require("mongodb");
 const { getDB } = require("../config/db");
 const { response } = require("express");
-
+// Collections
 const menuCollection = () => getDB().collection("MENU"); // modified to a function and will be called later.
 const reviewsCollection = () => getDB().collection("REVIEWS"); // modified to a function and will be called later.
 const cartItemCollection = () => getDB().collection("CART_ITEMS"); // modified to a function and will be called later.
 const userCollection = () => getDB().collection("USERS"); // modified to a function and will be called later.
 const paymentCollection = () => getDB().collection("PAYMENT"); // modified to a function and will be called later.
-
+// Functions
+const getAdminStats = async (req, res) => {
+  try {
+    const totalUsers = await userCollection().estimatedDocumentCount();
+    const totalMenuItems = await menuCollection().estimatedDocumentCount();
+    const totalReviews = await reviewsCollection().estimatedDocumentCount();
+    const totalOrders = await paymentCollection().estimatedDocumentCount();
+    const aggregatePrice = await paymentCollection()
+      .aggregate([
+        {
+          $group: {
+            _id: null,
+            total: { $sum: "$price" },
+          },
+        },
+      ])
+      .toArray();
+    const totalRevenue = aggregatePrice[0]?.total || 0;
+    res.send({
+      totalUsers,
+      totalMenuItems,
+      totalOrders,
+      totalReviews,
+      totalRevenue,
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+const getOrderStats = async (req, res) => {
+  try {
+    const aggregateMenuCategory = await paymentCollection().aggregate([
+      {
+        $unwind: "$menuItemsIds",
+      },
+      {
+        $lookup: {
+          from: "MENU",
+          localField: "menuItemsIds",
+          foreignField: "_id",
+          as: "menuCategoryDetails",
+        },
+      },
+      {
+        $unwind: "$menuCategoryDetails",
+      },
+      {
+        $group: {
+          _id: "$menuCategoryDetails.category",
+          totalQuantity: { $sum: 1 },
+          totalRevenue: { $sum: "$menuCategoryDetails.price" },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          category: "$_id",
+          totalQuantity: 1,
+          totalRevenue: 1,
+        },
+      },
+    ]).toArray();
+    res.send(aggregateMenuCategory);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 const getAllMenu = async (req, res) => {
   try {
     const products = await menuCollection().find().toArray();
@@ -174,7 +240,7 @@ const removeUser = async (req, res) => {
 // Payment History
 const getPaymentHistory = async (req, res) => {
   try {
-    const query = {userEmail : req.params.userEmail};
+    const query = { userEmail: req.params.userEmail };
     // AUTHORIZATION CHECK
     if (req.params.userEmail !== req.decoded.userInfo.userEmail) {
       return res
@@ -184,21 +250,23 @@ const getPaymentHistory = async (req, res) => {
     const paymentHistory = await paymentCollection().find(query).toArray();
     res.send(paymentHistory);
   } catch (error) {
-    res.status(500).send(error)
+    res.status(500).send(error);
   }
-}
+};
 const setPaymentHistory = async (req, res) => {
   try {
     const userPayment = req.body;
     // keep the payment history in database
     const paymentResult = await paymentCollection().insertOne(userPayment);
     // delete all cart items of the user
-    const query = {_id : {
-     $in: userPayment.cartItemsIds.map(id => new ObjectId(id))
-    }};
+    const query = {
+      _id: {
+        $in: userPayment.cartItemsIds.map((id) => new ObjectId(id)),
+      },
+    };
     const emptyCartItems = await cartItemCollection().deleteMany(query);
     // send response
-    res.send({paymentResult, emptyCartItems});
+    res.send({ paymentResult, emptyCartItems });
   } catch (error) {
     res.status(500).send(error);
   }
@@ -227,6 +295,8 @@ const stripePaymentIntent = async (req, res) => {
 };
 
 module.exports = {
+  getAdminStats,
+  getOrderStats,
   userCollection,
   getAllMenu,
   AddMenuItem,

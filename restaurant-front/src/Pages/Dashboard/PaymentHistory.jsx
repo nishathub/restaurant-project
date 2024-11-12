@@ -18,7 +18,7 @@ const PaymentHistory = () => {
     data: paymentHistoryData,
     refetch: paymentHistoryRefetch,
   } = useQuery({
-    queryKey: ["paymentHistory"],
+    queryKey: ["paymentHistory", user?.email],
     queryFn: async () => {
       const result = await axiosProtected.get(
         `/userPaymentHistory/${user?.email}`
@@ -41,13 +41,13 @@ const PaymentHistory = () => {
           subHeading={"Invest on Health"}
         ></SectionTitle>
       </div>
-      {isPaymentHistoryPending  ? (
+      {isPaymentHistoryPending ? (
         <div className="flex justify-center items-center inset-0">
           <CustomLoading size={32}></CustomLoading>
         </div>
       ) : isPaymentHistoryError ? (
         <p className="text-red-700 text-2xl text-center">
-          Error Loading payment history! Try again 
+          Error Loading payment history! Try again
         </p>
       ) : (
         <div className="bg-gray-700 text-gray-200 p-4 rounded-md space-y-4">
@@ -69,6 +69,7 @@ const PaymentHistory = () => {
                   <th>Total Items</th>
                   <th>Total Price</th>
                   <th>Payment Date</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               {paymentHistoryData?.map((item, index) => (
@@ -80,11 +81,14 @@ const PaymentHistory = () => {
                       <p className="">{item.cartItemsIds.length}</p>
                     </td>
                     <td>${item.price}</td>
-                    <td>{new Date(item.date).toLocaleDateString("en-us", {
+                    <td>
+                      {new Date(item.date).toLocaleDateString("en-us", {
                         year: "numeric",
                         month: "long",
-                        day: "numeric"
-                    })}</td>
+                        day: "numeric",
+                      })}
+                    </td>
+                    <td>{item.status}</td>
                   </tr>
                 </tbody>
               ))}

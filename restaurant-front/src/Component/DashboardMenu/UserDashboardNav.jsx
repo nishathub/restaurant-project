@@ -89,7 +89,7 @@ import useCart from "../../Hooks/useCart";
         </div>
         {/* DASHBOARD NAV BUTTONS  */}
         <div className="p-2 space-y-6 mr-auto lora-regular border-b pb-8">
-          <Link title="User Home" className="flex items-center gap-4">
+          <Link to={'/dashboard/userDashboardHome'} title="User Home" className="flex items-center gap-4">
             <p className="text-3xl">
               <FaHome />
             </p>

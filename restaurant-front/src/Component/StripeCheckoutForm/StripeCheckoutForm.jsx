@@ -9,6 +9,7 @@ import useAxiosHookProtected from "../../Hooks/useAxiosHookProtected";
 import useCart from "../../Hooks/useCart";
 import useSavourYumContext from "../../Hooks/useSavourYumContext";
 import CustomLoading from "../Shared/CustomLoading/CustomLoading";
+import { useNavigate } from "react-router-dom";
 
 const StripeCheckoutForm = () => {
   const stripe = useStripe();
@@ -21,6 +22,7 @@ const StripeCheckoutForm = () => {
   const axiosProtected = useAxiosHookProtected();
   const { user, customAlert } = useSavourYumContext();
   const { userCartItems, cartItemsRefetch } = useCart();
+  const navigate = useNavigate();
 
   const cartTotalPrice = userCartItems?.reduce((total, current) => {
     return (total += current.price);
@@ -33,7 +35,6 @@ const StripeCheckoutForm = () => {
           const result = await axiosProtected.post("/create-payment-intent", {
             price: cartTotalPrice,
           });
-          console.log(result?.data?.clientSecret);
           setClientSecretKey(result?.data?.clientSecret);
         } catch (error) {
           console.log("error from stripe catch block", error);
@@ -63,8 +64,6 @@ const StripeCheckoutForm = () => {
       if (error) {
         console.log("payment error", error);
         setStripeErrorMessage(error.message);
-      } else {
-        console.log("payment successful", paymentMethod);
       }
       // confirm payment
       const { paymentIntent, error: confirmPaymentError } =
@@ -81,7 +80,6 @@ const StripeCheckoutForm = () => {
         console.log("stripe payment error : ", confirmPaymentError);
         customAlert("Transaction Error!!");
       } else {
-        console.log("stripe payment success : ", paymentIntent);
         if (paymentIntent.status === "succeeded") {
           setTransactionId(paymentIntent.id);
           customAlert("Payment Successful");
@@ -107,6 +105,9 @@ const StripeCheckoutForm = () => {
               console.log("cartItems are removed");
               cartItemsRefetch();
             }
+            setTimeout(() => {
+              navigate("/dashboard/paymentHistory");
+            }, 1000);
           } catch (error) {
             console.error("error posting payment history ", error);
           }
@@ -147,15 +148,6 @@ const StripeCheckoutForm = () => {
         <div className="mt-4">
           {stripeErrorMessage && (
             <p className="text-red-700">{stripeErrorMessage}</p>
-          )}
-        </div>
-        <div className="mt-4">
-          {transactionId && (
-            <p className="text-green-700">
-              Payment Successful!! <br />
-              Transaction Id :{" "}
-              <span className="font-bold">{transactionId}</span>
-            </p>
           )}
         </div>
       </form>

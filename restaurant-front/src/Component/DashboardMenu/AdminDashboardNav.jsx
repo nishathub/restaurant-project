@@ -86,7 +86,7 @@ const AdminDashboardNav = () => {
       </div>
       {/* DASHBOARD NAV BUTTONS  */}
       <div className="p-2 space-y-6 mr-auto lora-regular border-b pb-8">
-        <Link title="Admin Home" className="flex items-center gap-4">
+        <Link to={'/dashboard/adminDashboardHome'} title="Admin Home" className="flex items-center gap-4">
           <p className="text-3xl">
             <FaHome />
           </p>
