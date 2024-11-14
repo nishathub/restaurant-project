@@ -82,8 +82,8 @@ router.post("/create-payment-intent", stripePaymentIntent);
 router.post("/userPaymentHistory", setPaymentHistory);
 router.get("/userPaymentHistory/:userEmail",verifyTokenJWT, getPaymentHistory);
 // Stats
-router.get("/admin-stats", getAdminStats);
-router.get("/order-stats", getOrderStats);
+router.get("/admin-stats", verifyTokenJWT, verifyAdmin, getAdminStats);
+router.get("/order-stats", verifyTokenJWT, getOrderStats);
 
 
 module.exports = router;
