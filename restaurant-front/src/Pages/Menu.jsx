@@ -20,6 +20,7 @@ const Menu = () => {
     dessertItems,
     drinksItems,
     isFetchMenuLoading,
+    errorMenuFetchMessage,
   } = useMenu();
 
   return (
@@ -28,78 +29,88 @@ const Menu = () => {
         <title>Menu</title>
       </Helmet>
       <PageCover pageName="Our Menu" image={soupImage}></PageCover>
-      <SectionTitle
-        heading={"Today's Offer"}
-        subHeading={"Hurry up"}
-      ></SectionTitle>
-      {isFetchMenuLoading ? (
-        <div className="flex items-center justify-center py-8">
-          <CustomLoading size={32}></CustomLoading>
+      {errorMenuFetchMessage ? (
+        <div className="mt-8">
+          <p className="text-red-700 cinzel-regular text-center">
+            {errorMenuFetchMessage}!
+          </p>
         </div>
       ) : (
-        <MenuCategory categoryItem={offeredItems}></MenuCategory>
-      )}
+        <div>
+          <SectionTitle
+            heading={"Today's Offer"}
+            subHeading={"Hurry up"}
+          ></SectionTitle>
+          {isFetchMenuLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <CustomLoading size={32}></CustomLoading>
+            </div>
+          ) : (
+            <MenuCategory categoryItem={offeredItems}></MenuCategory>
+          )}
 
-      <SectionCover
-        image={soupImage}
-        SectionName="Soups"
-        details="Warm your soul with our hearty soups! Whether you crave creamy indulgence or a light broth, our selection of soups is the perfect start to your meal or a comforting choice on its own."
-      ></SectionCover>
-      {isFetchMenuLoading ? (
-        <div className="flex items-center justify-center py-8">
-          <CustomLoading size={32}></CustomLoading>
-        </div>
-      ) : (
-        <MenuCategory categoryItem={soupItems}></MenuCategory>
-      )}
-      <SectionCover
-        SectionName="Pizza"
-        image={pizzaImage}
-        details="Experience a slice of heaven! Our pizzas are hand-tossed, stone-baked, and topped with premium ingredients. From classic favorites to gourmet combinations, each bite is a celebration of flavor."
-      ></SectionCover>
+          <SectionCover
+            image={soupImage}
+            SectionName="Soups"
+            details="Warm your soul with our hearty soups! Whether you crave creamy indulgence or a light broth, our selection of soups is the perfect start to your meal or a comforting choice on its own."
+          ></SectionCover>
+          {isFetchMenuLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <CustomLoading size={32}></CustomLoading>
+            </div>
+          ) : (
+            <MenuCategory categoryItem={soupItems}></MenuCategory>
+          )}
+          <SectionCover
+            SectionName="Pizza"
+            image={pizzaImage}
+            details="Experience a slice of heaven! Our pizzas are hand-tossed, stone-baked, and topped with premium ingredients. From classic favorites to gourmet combinations, each bite is a celebration of flavor."
+          ></SectionCover>
 
-      {isFetchMenuLoading ? (
-        <div className="flex items-center justify-center py-8">
-          <CustomLoading size={32}></CustomLoading>
+          {isFetchMenuLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <CustomLoading size={32}></CustomLoading>
+            </div>
+          ) : (
+            <MenuCategory categoryItem={pizzaItems}></MenuCategory>
+          )}
+          <SectionCover
+            SectionName="salad"
+            image={saladImage}
+            details="Fresh, crisp, and full of flavor! Our salads are crafted from the finest seasonal ingredients, offering a perfect balance of healthy and delicious. Ideal as a light meal or the perfect complement to any dish."
+          ></SectionCover>
+          {isFetchMenuLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <CustomLoading size={32}></CustomLoading>
+            </div>
+          ) : (
+            <MenuCategory categoryItem={saladItems}></MenuCategory>
+          )}
+          <SectionCover
+            SectionName="Dessert"
+            image={dessertImage}
+            details="Indulge in sweetness! From decadent cakes to refreshing sorbets, our desserts are the perfect way to end your meal on a high note. Treat yourself to a little luxury with every bite."
+          ></SectionCover>
+          {isFetchMenuLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <CustomLoading size={32}></CustomLoading>
+            </div>
+          ) : (
+            <MenuCategory categoryItem={dessertItems}></MenuCategory>
+          )}
+          <SectionCover
+            SectionName="Drinks"
+            image={drinkImage}
+            details="Indulge in sweetness! From decadent cakes to refreshing sorbets, our desserts are the perfect way to end your meal on a high note. Treat yourself to a little luxury with every bite."
+          ></SectionCover>
+          {isFetchMenuLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <CustomLoading size={32}></CustomLoading>
+            </div>
+          ) : (
+            <MenuCategory categoryItem={drinksItems}></MenuCategory>
+          )}
         </div>
-      ) : (
-        <MenuCategory categoryItem={pizzaItems}></MenuCategory>
-      )}
-      <SectionCover
-        SectionName="salad"
-        image={saladImage}
-        details="Fresh, crisp, and full of flavor! Our salads are crafted from the finest seasonal ingredients, offering a perfect balance of healthy and delicious. Ideal as a light meal or the perfect complement to any dish."
-      ></SectionCover>
-      {isFetchMenuLoading ? (
-        <div className="flex items-center justify-center py-8">
-          <CustomLoading size={32}></CustomLoading>
-        </div>
-      ) : (
-        <MenuCategory categoryItem={saladItems}></MenuCategory>
-      )}
-      <SectionCover
-        SectionName="Dessert"
-        image={dessertImage}
-        details="Indulge in sweetness! From decadent cakes to refreshing sorbets, our desserts are the perfect way to end your meal on a high note. Treat yourself to a little luxury with every bite."
-      ></SectionCover>
-      {isFetchMenuLoading ? (
-        <div className="flex items-center justify-center py-8">
-          <CustomLoading size={32}></CustomLoading>
-        </div>
-      ) : (
-        <MenuCategory categoryItem={dessertItems}></MenuCategory>
-      )}
-      <SectionCover
-        SectionName="Drinks"
-        image={drinkImage}
-        details="Indulge in sweetness! From decadent cakes to refreshing sorbets, our desserts are the perfect way to end your meal on a high note. Treat yourself to a little luxury with every bite."
-      ></SectionCover>
-      {isFetchMenuLoading ? (
-        <div className="flex items-center justify-center py-8">
-          <CustomLoading size={32}></CustomLoading>
-        </div>
-      ) : (
-        <MenuCategory categoryItem={drinksItems}></MenuCategory>
       )}
     </div>
   );

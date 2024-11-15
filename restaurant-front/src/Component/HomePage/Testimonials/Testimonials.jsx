@@ -11,10 +11,11 @@ import "@smastrom/react-rating/style.css";
 import "./Testimonial.css";
 import { FaQuoteLeft } from "react-icons/fa";
 const Testimonials = () => {
+  const baseURL = import.meta.env.VITE_SAVOURYUM_API;
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
     try {
-      fetch("http://localhost:5000/allReviews")
+      fetch(`${baseURL}/allReviews`)
         .then((res) => res.json())
         .then((data) => setReviews(data))
         .catch((err) => console.log(err));

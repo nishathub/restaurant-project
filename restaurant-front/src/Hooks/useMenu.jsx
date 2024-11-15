@@ -5,9 +5,11 @@ const useMenu = () => {
   const [isFetchMenuLoading, setFetchMenuLoading] = useState(true);
   const [isAllMenuRefetch, setAllMenuRefetch] = useState(false);
   const [errorMenuFetchMessage, setErrorMenuFetchMessage] = useState("");
+  const baseURL = import.meta.env.VITE_SAVOURYUM_API;
+
 
   useEffect(() => {
-    fetch("http://localhost:5000/allMenu")
+    fetch(`${baseURL}/allMenu`)
       .then((res) => res.json())
       .then((data) => {
         setAllMenuItems(data);

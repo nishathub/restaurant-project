@@ -16,6 +16,7 @@ const Shop = () => {
     dessertItems,
     drinksItems,
     isFetchMenuLoading,
+    errorMenuFetchMessage,
   } = useMenu();
 
   const [displayMenuItems, setDisplayMenuItems] = useState(allMenuItems);
@@ -31,7 +32,10 @@ const Shop = () => {
   // Calculate the index range for the current page
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = displayMenuItems.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = displayMenuItems.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   // Calculate total pages
   const totalPages = Math.ceil(displayMenuItems.length / itemsPerPage);
@@ -63,24 +67,41 @@ const Shop = () => {
           </div>
         ) : (
           <div>
-            <div className="flex flex-wrap gap-8 items-center justify-center">
-              {currentItems.map((item) => (
-                <FoodItemCard key={item._id} item={item}></FoodItemCard>
-              ))}
-            </div>
+            {errorMenuFetchMessage ? (
+              <div>
+                <p className="text-red-700 text-center p-4">
+                  {errorMenuFetchMessage}!
+                </p>
+              </div>
+            ) : (
+              <div>
+                <div className="flex flex-wrap gap-8 items-center justify-center">
+                  {currentItems.map((item) => (
+                    <FoodItemCard key={item._id} item={item}></FoodItemCard>
+                  ))}
+                </div>
 
-            {/* Pagination */}
-            <div className="flex flex-wrap items-center justify-center gap-4 mt-12">
-              {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-                <button
-                  key={page}
-                  onClick={() => handlePageChange(page)}
-                  className={`px-4 py-2 ${page === currentPage ? 'bg-red-700 text-white' : 'bg-gray-200 text-gray-800'}`}
-                >
-                  {page}
-                </button>
-              ))}
-            </div>
+                {/* Pagination */}
+                <div className="flex flex-wrap items-center justify-center gap-4 mt-12">
+                  {Array.from(
+                    { length: totalPages },
+                    (_, index) => index + 1
+                  ).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => handlePageChange(page)}
+                      className={`px-4 py-2 ${
+                        page === currentPage
+                          ? "bg-red-700 text-white"
+                          : "bg-gray-200 text-gray-800"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
