@@ -82,7 +82,7 @@ const AdminDashboardHome = () => {
       <text
         x={x}
         y={y}
-        fill="white"
+        fill="black"
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
       >
@@ -93,12 +93,12 @@ const AdminDashboardHome = () => {
   return (
     <div className="px-4 pt-8 space-y-6">
       <div className="flex items-end justify-between">
-        <h2 className="text-2xl">
+        <h2 className="text-2xl text-gray-800">
           Welcome {user?.displayName && user?.displayName}!
         </h2>
         <div
           className={`${
-            userRollData ? "text-green-400 text-sm" : "hidden"
+            userRollData ? "bg-green-700 text-gray-100 text-sm px-2 py-[2px] rounded-md" : "hidden"
           } text-center`}
         >
           <div className="flex items-center gap-2 mx-auto">
@@ -115,8 +115,8 @@ const AdminDashboardHome = () => {
             <CustomLoading size={32}></CustomLoading>
           </div>
         ) : (
-          <div className="stats shadow w-full mx-auto">
-            <div className="stat place-items-center flex items-center justify-center">
+          <div className="stats shadow w-full mx-auto bg-[rgb(201,201,201)]">
+            <div className="stat place-items-center flex items-center justify-center text-gray-800 border-r border-black">
               <div>
                 <p className="text-3xl">
                   <MdMenuBook />
@@ -126,10 +126,10 @@ const AdminDashboardHome = () => {
                 <div className="stat-value">
                   {adminStatsData?.totalMenuItems}
                 </div>
-                <div className="stat-title">Menu Items</div>
+                <p className="lora-regular">Menu Items</p>
               </div>
             </div>
-            <div className="stat place-items-center flex items-center justify-center">
+            <div className="stat place-items-center flex items-center justify-center text-gray-800">
               <div>
                 <p className="text-3xl">
                   <FaUsers />
@@ -137,10 +137,10 @@ const AdminDashboardHome = () => {
               </div>
               <div>
                 <div className="stat-value">{adminStatsData?.totalUsers}</div>
-                <div className="stat-title">Consumers</div>
+                <p className="lora-regular">Consumers</p>
               </div>
             </div>
-            <div className="stat place-items-center flex items-center justify-center">
+            <div className="stat place-items-center flex items-center justify-center text-gray-800 border-r border-black">
               <div>
                 <p className="text-3xl">
                   <MdMenuBook />
@@ -148,10 +148,10 @@ const AdminDashboardHome = () => {
               </div>
               <div>
                 <div className="stat-value">{adminStatsData?.totalOrders}</div>
-                <div className="stat-title">Orders</div>
+                <p className="lora-regular">Orders</p>
               </div>
             </div>
-            <div className="stat place-items-center flex items-center justify-center">
+            <div className="stat place-items-center flex items-center justify-center text-gray-800 border-r border-black">
               <div>
                 <p className="text-3xl">
                   <FaDollarSign />
@@ -161,10 +161,10 @@ const AdminDashboardHome = () => {
                 <div className="stat-value">
                   {(adminStatsData?.totalRevenue).toFixed(2)}
                 </div>
-                <div className="stat-title">Revenue</div>
+                <p className="lora-regular">Revenue</p>
               </div>
             </div>
-            <div className="stat place-items-center flex items-center justify-center">
+            <div className="stat place-items-center flex items-center justify-center text-gray-800 border-r border-black">
               <div>
                 <p className="text-3xl">
                   <FaPenSquare />
@@ -172,7 +172,7 @@ const AdminDashboardHome = () => {
               </div>
               <div>
                 <div className="stat-value">{adminStatsData?.totalReviews}</div>
-                <div className="stat-title">Reviews</div>
+                <p className="lora-regular">Reviews</p>
               </div>
             </div>
           </div>
@@ -184,7 +184,7 @@ const AdminDashboardHome = () => {
             <CustomLoading size={32}></CustomLoading>
           </div>
         ) : (
-          <div className="flex flex-col items-center lg:flex-row gap-6">
+          <div className="flex flex-col items-center lg:flex-row gap-6 bg-[rgb(250,250,250)] rounded-sm">
             <div className="w-7/12">
               <BarChart
                 width={500}
@@ -197,7 +197,7 @@ const AdminDashboardHome = () => {
                   bottom: 5,
                 }}
               >
-                <CartesianGrid strokeDasharray="3 3" />
+                <CartesianGrid stroke="gray" strokeDasharray="3 3" />
                 <XAxis dataKey="category" />
                 <YAxis />
                 <Bar

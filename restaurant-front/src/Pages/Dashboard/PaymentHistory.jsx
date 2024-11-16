@@ -50,7 +50,7 @@ const PaymentHistory = () => {
           Error Loading payment history! Try again
         </p>
       ) : (
-        <div className="bg-gray-700 text-gray-200 p-4 rounded-md space-y-4">
+        <div className="bg-[rgb(250,250,250)] text-gray-800 p-4 rounded-md space-y-4">
           <div className="flex flex-col gap-4 lg:flex-row lg:justify-between items-end lg:items-center">
             <div className="text-right lg:text-left">
               <h4>{user?.displayName}</h4>
@@ -63,7 +63,7 @@ const PaymentHistory = () => {
           <div className="max-h-[400px] overflow-auto">
             <table className="table text-center">
               {/* head */}
-              <thead className="sticky top-0 bg-gray-700 z-10">
+              <thead className="sticky top-0 bg-gray-800 text-gray-100 z-10">
                 <tr>
                   <th>#</th>
                   <th>Total Items</th>

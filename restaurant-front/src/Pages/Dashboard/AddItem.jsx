@@ -73,10 +73,10 @@ const AddItem = () => {
         ></SectionTitle>
       </div>
 
-      <div className="bg-gray-700 text-gray-200 p-4 rounded-md space-y-4 relative">
+      <div className="bg-[rgb(201,201,201)] p-4 rounded-md space-y-4 relative">
         {/* ABSOLUTE CUSTOM LOADING START  */}
           {isAddItemLoading && (
-            <div className="absolute -top-4 left-0 h-full w-full flex justify-center items-center bg-white/30">
+            <div className="absolute -top-4 left-0 h-full w-full flex justify-center items-center bg-black/50">
               <CustomLoading size={32}></CustomLoading>
             </div>
           )}
@@ -84,7 +84,7 @@ const AddItem = () => {
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">Recipe Name*</span>
+              <span className="label-text text-gray-800">Recipe Name*</span>
             </div>
             <input
               {...register("name", { required: true })}
@@ -92,7 +92,7 @@ const AddItem = () => {
               type="text"
               maxLength={20}
               placeholder="Recipe Name"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full bg-[rgb(250,250,250)] text-gray-800"
             />
             {errors.name?.type === "required" && (
               <p className="text-red-500 ml-4 mt-1" role="alert">
@@ -104,12 +104,12 @@ const AddItem = () => {
             <div className="w-full">
               <label className="form-control">
                 <div className="label">
-                  <span className="label-text">Category*</span>
+                  <span className="label-text text-gray-800">Category*</span>
                 </div>
                 <select
                   {...register("category", { required: true })}
                   aria-invalid={errors.category ? "true" : "false"}
-                  className="select select-bordered"
+                  className="select select-bordered bg-[rgb(250,250,250)] text-gray-800"
                   defaultValue=""
                 >
                   <option value={""} disabled></option>
@@ -129,14 +129,15 @@ const AddItem = () => {
             <div className="w-full">
               <label className="form-control">
                 <div className="label">
-                  <span className="label-text">Price*</span>
+                  <span className="label-text text-gray-800">Price*</span>
                 </div>
                 <input
                   {...register("price", { required: true })}
                   aria-invalid={errors.price ? "true" : "false"}
                   type="number"
                   placeholder="Price"
-                  className="input input-bordered w-full"
+                  min={0}
+                  className="input input-bordered w-full bg-[rgb(250,250,250)] text-gray-800"
                 />
               </label>
               {errors.price?.type === "required" && (
@@ -148,13 +149,13 @@ const AddItem = () => {
           </div>
           <label className="form-control">
             <div className="label">
-              <span className="label-text">Recipe Details*</span>
+              <span className="label-text text-gray-800">Recipe Details*</span>
             </div>
             <textarea
               {...register("recipe", { required: true })}
               aria-invalid={errors.recipe ? "true" : "false"}
               maxLength={60}
-              className="textarea textarea-bordered h-32"
+              className="textarea textarea-bordered h-32 bg-[rgb(250,250,250)] text-gray-800"
               placeholder="Recipe Details"
             ></textarea>
             {errors.recipe?.type === "required" && (
@@ -167,7 +168,7 @@ const AddItem = () => {
             <input
               {...register("image", { required: true })}
               type="file"
-              className="file-input w-full max-w-xs"
+              className="file-input w-full max-w-xs bg-[rgb(250,250,250)] text-gray-800"
             />
             {errors.image?.type === "required" && (
               <p className="text-red-500 ml-4 mt-1" role="alert">
@@ -176,7 +177,7 @@ const AddItem = () => {
             )}
           </div>
           <div>
-            <button type="submit" className="btn cinzel-semibold">
+            <button type="submit" className="btn text-gray-100 cinzel-semibold">
               Add Item <FaUtensils />
             </button>
           </div>

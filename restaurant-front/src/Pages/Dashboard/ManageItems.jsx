@@ -20,19 +20,10 @@ const ManageItems = () => {
   } = useMenu();
   const [userActionLoading, setItemActionLoading] = useState(false);
   const [clickedItemId, setClickedItemId] = useState(null);
-  const [isEditItemModalActive, setEditItemModalActive] = useState(false);
   const [isDeleteItemModalActive, setDeleteItemModalActive] = useState(false);
   const axiosProtected = useAxiosHookProtected();
   const navigate = useNavigate();
 
-  const handleItemEditButtonClick = (_id) => {
-    if (!isUserRollPending && userRollData === "Admin") {
-      setClickedItemId(_id);
-      setEditItemModalActive(true);
-    } else if (!isUserRollPending && userRollData !== "Admin") {
-      return customAlert("Only Admin Can Edit Item");
-    }
-  };
   const handleMakeUserRoll = async (roll) => {
     try {
       setItemActionLoading(true);
@@ -45,7 +36,6 @@ const ManageItems = () => {
         customAlert("Updated Successfully");
         allUserRefetch();
       }
-      setEditItemModalActive(false);
     } catch (error) {
       console.log(error);
       customAlert("Failed to update userRoll");
@@ -86,65 +76,28 @@ const ManageItems = () => {
 
   return (
     <div className="px-4 pt-8">
-      {/* ABSOLUTE MODAL to Edit Item Start */}
-      <div
-        className={`absolute bg-gray-500/30 flex inset-0 z-10 text-gray-800 lora-regular duration-500 ${
-          isEditItemModalActive
-            ? "opacity-100"
-            : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="w-80 h-60 m-auto flex flex-col justify-center items-center gap-2 bg-gray-300 rounded-md relative">
-          <button
-            onClick={() => setEditItemModalActive(false)}
-            className="absolute right-0 top-0 btn btn-error btn-sm"
-          >
-            X
-          </button>
-          <h4 className="cinzel-semibold mb-4">Select a roll</h4>
-          <button
-            onClick={(e) => handleMakeUserRoll(e.target.innerText)}
-            className="btn w-32"
-          >
-            Admin
-          </button>
-          <button
-            onClick={(e) => handleMakeUserRoll(e.target.innerText)}
-            className="btn w-32"
-          >
-            Moderator
-          </button>
-          <button
-            onClick={(e) => handleMakeUserRoll(e.target.innerText)}
-            className="btn w-32"
-          >
-            Editor
-          </button>
-        </div>
-      </div>
-      {/* ABSOLUTE MODAL to Edit Item END  */}
       {/* ABSOLUTE MODAL to DELETE Item Start */}
       <div
-        className={`absolute bg-gray-500/30 flex inset-0 z-10 text-gray-800 lora-regular duration-500 ${
+        className={`absolute bg-gray-800/70 flex inset-0 z-20 text-gray-800 lora-regular duration-500 ${
           isDeleteItemModalActive
             ? "opacity-100"
             : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="w-80 h-60 m-auto flex flex-col justify-center items-center gap-2 bg-gray-300 rounded-md relative">
+        <div className="w-80 h-60 m-auto flex flex-col justify-center items-center gap-2 bg-gray-100 rounded-md relative">
           <button
             onClick={() => setDeleteItemModalActive(false)}
-            className="absolute right-0 top-0 btn btn-error btn-sm"
+            className="absolute right-0 top-0 bg-red-700 hover:bg-red-800 px-4 py-2 text-gray-100"
           >
             X
           </button>
           <h4 className="cinzel-semibold mb-4">Are you sure?</h4>
           <div className="flex gap-6">
-            <button className="btn btn-error" onClick={handleDeleteItem}>
+            <button className="btn btn-error text-gray-100" onClick={handleDeleteItem}>
               Delete
             </button>
             <button
-              className="btn"
+              className="btn text-gray-100"
               onClick={() => setDeleteItemModalActive(false)}
             >
               Cancel
@@ -167,14 +120,14 @@ const ManageItems = () => {
       ) : errorMenuFetchMessage ? (
         <p className="text-red-700 text-2xl text-center">Error Loading Menu</p>
       ) : (
-        <div className="bg-gray-700 text-gray-200 p-4 rounded-md space-y-4">
+        <div className="bg-[rgb(250,250,250)] text-gray-800 p-4 rounded-md space-y-4">
           <div className="flex flex-col gap-2 lg:flex-row lg:justify-between items-end lg:items-center">
             <h4 className="text-2xl cinzel-semibold">
               Total Menu Items: {allMenuItems?.length}
             </h4>
             <div
               className={`${
-                userRollData ? "text-green-400 text-sm" : "hidden"
+                userRollData ? "text-green-700 text-sm" : "hidden"
               } text-center`}
             >
               <div className="flex items-center gap-2 mx-auto">
@@ -188,7 +141,7 @@ const ManageItems = () => {
           <div className="max-h-[400px] overflow-auto">
             <table className="table text-center">
               {/* head */}
-              <thead className="sticky top-0 bg-gray-700 z-10">
+              <thead className="sticky top-0 bg-gray-800 text-gray-100 z-10">
                 <tr>
                   <th>#</th>
                   <th>Image</th>
@@ -225,7 +178,12 @@ const ManageItems = () => {
                     <td>${item.price}</td>
 
                     <td>
-                      <button onClick={()=> navigate(`/dashboard/updateItem/${item._id}`)}>
+                      <button
+                        title="Edit"
+                        onClick={() =>
+                          navigate(`/dashboard/updateItem/${item._id}`)
+                        }
+                      >
                         <p className="text-lg">
                           <FaEdit />
                         </p>
@@ -234,6 +192,7 @@ const ManageItems = () => {
 
                     <td>
                       <button
+                        title="Delete"
                         onClick={() => handleDeleteButtonClick(item._id)}
                         className="text-2xl text-red-700"
                       >

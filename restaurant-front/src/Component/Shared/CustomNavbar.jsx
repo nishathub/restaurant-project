@@ -235,7 +235,7 @@ const CustomNavbar = () => {
 
                           <div className={`${userRollData ? "" : "hidden"}`}>
                             <Link
-                              to={"/dashboard"}
+                              to={"/dashboard/adminDashboardHome"}
                               className="btn btn-sm btn-accent w-full"
                             >
                               Admin Dashboard

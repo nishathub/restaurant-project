@@ -11,23 +11,25 @@ const DashboardLayout = () => {
   const { userRollData, isUserRollPending } = useUserRoll();
 
   return (
-    <div className="max-w-7xl mx-auto flex ">
+    <div className=" bg-[rgb(230,230,230)]">
       <CustomToast></CustomToast>
-      <div>
-        {isUserRollPending ? (
-          <div className="h-full flex items-center justify-center">
-            <CustomLoading size={32}></CustomLoading>
-          </div>
-        ) : userRollData ? (
-          <AdminDashboardNav></AdminDashboardNav>
-        ) : user ? (
-          <UserDashboardNav></UserDashboardNav>
-        ) : (
-          ""
-        )}
-      </div>
-      <div className="flex-grow max-w-5xl mx-auto">
-        <Outlet></Outlet>
+      <div className=" mx-auto flex">
+        <div>
+          {isUserRollPending ? (
+            <div className="h-full flex items-center justify-center">
+              <CustomLoading size={32}></CustomLoading>
+            </div>
+          ) : userRollData ? (
+            <AdminDashboardNav></AdminDashboardNav>
+          ) : user ? (
+            <UserDashboardNav></UserDashboardNav>
+          ) : (
+            ""
+          )}
+        </div>
+        <div className="flex-grow max-w-5xl mx-auto">
+          <Outlet></Outlet>
+        </div>
       </div>
     </div>
   );

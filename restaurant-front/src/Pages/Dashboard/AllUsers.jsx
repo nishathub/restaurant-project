@@ -95,35 +95,35 @@ const AllUsers = () => {
     <div className="px-4 pt-8">
       {/* ABSOLUTE MODAL Start */}
       <div
-        className={`absolute bg-gray-500/30 flex inset-0 z-10 text-gray-800 lora-regular duration-500 ${
+        className={`absolute bg-gray-800/70 flex inset-0 z-20 text-gray-800 lora-regular duration-500 ${
           isUserRollModalActive
             ? "opacity-100"
             : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="w-80 h-60 m-auto flex flex-col justify-center items-center gap-2 bg-gray-300 rounded-md relative">
+        <div className="w-80 h-60 m-auto flex flex-col justify-center items-center gap-2 bg-gray-100 rounded-md relative">
           <button
             onClick={() => setMakeUserRollModalActive(false)}
-            className="absolute right-0 top-0 btn btn-error btn-sm"
+            className="absolute right-0 top-0 bg-red-700 hover:bg-red-800 px-4 py-2 text-gray-100"
           >
             X
           </button>
-          <h4 className="cinzel-semibold mb-4">Select a roll</h4>
+          <h4 className="cinzel-bold mb-4">Select a roll</h4>
           <button
             onClick={(e) => handleMakeUserRoll(e.target.innerText)}
-            className="btn w-32"
+            className="btn w-32 text-gray-100"
           >
             Admin
           </button>
           <button
             onClick={(e) => handleMakeUserRoll(e.target.innerText)}
-            className="btn w-32"
+            className="btn w-32 text-gray-100"
           >
             Moderator
           </button>
           <button
             onClick={(e) => handleMakeUserRoll(e.target.innerText)}
-            className="btn w-32"
+            className="btn w-32 text-gray-100"
           >
             Editor
           </button>
@@ -132,26 +132,26 @@ const AllUsers = () => {
       {/* ABSOLUTE MODAL END  */}
       {/* ABSOLUTE MODAL to DELETE Item Start */}
       <div
-        className={`absolute bg-gray-500/30 flex inset-0 z-10 text-gray-800 lora-regular duration-500 ${
+        className={`absolute bg-gray-800/70 flex inset-0 z-20 text-gray-800 lora-regular duration-500 ${
           isDeleteItemModalActive
             ? "opacity-100"
             : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="w-80 h-60 m-auto flex flex-col justify-center items-center gap-2 bg-gray-300 rounded-md relative">
+        <div className="w-80 h-60 m-auto flex flex-col justify-center items-center gap-2 bg-gray-100 rounded-md relative">
           <button
             onClick={() => setDeleteItemModalActive(false)}
-            className="absolute right-0 top-0 btn btn-error btn-sm"
+            className="absolute right-0 top-0 bg-red-700 hover:bg-red-800 px-4 py-2 text-gray-100"
           >
             X
           </button>
           <h4 className="cinzel-semibold mb-4">Are you sure?</h4>
           <div className="flex gap-6">
-            <button className="btn btn-error" onClick={handleDeleteUser}>
+            <button className="btn btn-error text-gray-100" onClick={handleDeleteUser}>
               Delete
             </button>
             <button
-              className="btn"
+              className="btn text-gray-100"
               onClick={() => setDeleteItemModalActive(false)}
             >
               Cancel
@@ -174,14 +174,14 @@ const AllUsers = () => {
       ) : isAllUserLoadingError ? (
         <p className="text-red-700 text-2xl text-center">Error Loading Users</p>
       ) : (
-        <div className="bg-gray-700 text-gray-200 p-4 rounded-md space-y-4">
+        <div className="bg-[rgb(250,250,250)] text-gray-800 p-4 rounded-md space-y-4">
           <div className="flex flex-col gap-2 lg:flex-row lg:justify-between items-end lg:items-center">
             <h4 className="text-2xl cinzel-semibold">
               Total Users: {allUsersData?.length}
             </h4>
             <div
               className={`${
-                userRollData ? "text-green-400 text-sm" : "hidden"
+                userRollData ? "text-green-700 text-sm" : "hidden"
               } text-center`}
             >
               <div className="flex items-center gap-2 mx-auto">
@@ -193,9 +193,9 @@ const AllUsers = () => {
             </div>
           </div>
           <div className="max-h-[400px] overflow-auto">
-            <table className="table">
+            <table className="table text-center">
               {/* head */}
-              <thead className="sticky top-0 bg-gray-700 z-10">
+              <thead className="sticky top-0 bg-gray-800 text-gray-100 z-10">
                 <tr>
                   <th>#</th>
                   <th>Image</th>
@@ -233,15 +233,16 @@ const AllUsers = () => {
                     <td>
                       {item?.userRoll ? (
                         <p
-                          className="text-green-400 hover:text-orange-400 cursor-pointer"
+                          className="text-green-700 hover:text-orange-700 cursor-pointer"
                           onClick={() => handleUserButtonClick(item._id)}
                         >
                           {item.userRoll}
                         </p>
                       ) : (
                         <button
+                        title="Change"
                           onClick={() => handleUserButtonClick(item._id)}
-                          className="text-2xl text-gray-400"
+                          className="text-2xl text-gray-800"
                         >
                           <FaUsers></FaUsers>
                         </button>
@@ -250,6 +251,7 @@ const AllUsers = () => {
 
                     <td>
                       <button
+                      title="Delete"
                         onClick={() => handleDeleteButtonClick(item._id)}
                         className="text-2xl text-red-700"
                       >

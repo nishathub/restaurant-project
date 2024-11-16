@@ -107,10 +107,10 @@ const UpdateItem = () => {
         ></SectionTitle>
       </div>
 
-      <div className="bg-gray-700 text-gray-200 p-4 rounded-md space-y-4 relative">
+      <div className="bg-[rgb(201,201,201)] p-4 rounded-md space-y-4 relative">
         {/* ABSOLUTE CUSTOM LOADING START  */}
         {isUpdateItemLoading && (
-          <div className="absolute -top-4 left-0 h-full w-full flex justify-center items-center bg-white/30">
+          <div className="absolute -top-4 left-0 h-full w-full flex justify-center items-center bg-black/50">
             <CustomLoading size={32}></CustomLoading>
           </div>
         )}
@@ -118,25 +118,25 @@ const UpdateItem = () => {
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">Recipe Name*</span>
+              <span className="label-text text-gray-800">Recipe Name*</span>
             </div>
             <input
               {...register("name")}
               type="text"
               maxLength={20}
               placeholder="Recipe Name"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full bg-[rgb(250,250,250)] text-gray-800"
             />
           </label>
           <div className="flex gap-6">
             <div className="w-full">
               <label className="form-control">
                 <div className="label">
-                  <span className="label-text">Category*</span>
+                  <span className="label-text text-gray-800">Category*</span>
                 </div>
                 <select
                   {...register("category")}
-                  className="select select-bordered"
+                  className="select select-bordered bg-[rgb(250,250,250)] text-gray-800"
                 >
                   <option value={""} disabled></option>
                   <option value={"soup"}>Soup</option>
@@ -150,7 +150,7 @@ const UpdateItem = () => {
             <div className="w-full">
               <label className="form-control">
                 <div className="label">
-                  <span className="label-text">Price*</span>
+                  <span className="label-text text-gray-800">Price*</span>
                 </div>
                 {/* TO BE ABLE TO SET FLOAT NUMBER, step: 'any' and valueAsNumber MENTIONED  */}
                 <input
@@ -158,19 +158,19 @@ const UpdateItem = () => {
                   type="number"
                   step="any"
                   placeholder="Price"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full bg-[rgb(250,250,250)] text-gray-800"
                 />
               </label>
             </div>
           </div>
           <label className="form-control">
             <div className="label">
-              <span className="label-text">Recipe Details*</span>
+              <span className="label-text text-gray-800">Recipe Details*</span>
             </div>
             <textarea
               {...register("recipe")}
               maxLength={60}
-              className="textarea textarea-bordered h-32"
+              className="textarea textarea-bordered h-32 bg-[rgb(250,250,250)] text-gray-800"
               placeholder="Recipe Details"
             ></textarea>
           </label>
@@ -178,12 +178,12 @@ const UpdateItem = () => {
             <input
               {...register("image")}
               type="file"
-              className="file-input w-full max-w-xs"
+              className="file-input w-full max-w-xs bg-[rgb(250,250,250)] text-gray-800"
             />
             
           </div>
           <div>
-            <button type="submit" className="btn cinzel-semibold">
+            <button type="submit" className="btn text-gray-100 cinzel-semibold">
               Update Item <FaUtensils />
             </button>
           </div>
