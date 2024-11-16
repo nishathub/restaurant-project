@@ -18,7 +18,7 @@ const CustomTab = ({ children, setDisplayMenuItems}) => {
           className: `${
             activeButton === index
               ? " text-red-500 border-b-2 border-red-500"
-              : " text-white"
+              : " text-black"
           } ${child.props.className || ""}`,
         })
       )}
