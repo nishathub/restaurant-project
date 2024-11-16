@@ -18,7 +18,7 @@ const Layout = () => {
   return (
     <div>
       <CustomToast></CustomToast>
-      <div className="flex flex-col min-h-screen lora-regular">
+      <div className="flex flex-col min-h-screen lora-regular bg-[rgb(245,248,250)]">
         <CustomNavbar></CustomNavbar>
         <div className="flex-grow">
             <ScrollToTop></ScrollToTop>

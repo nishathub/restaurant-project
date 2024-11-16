@@ -2,7 +2,7 @@
 const MenuItem = ({item}) => {
     const {name, price, image, recipe} = item;
     return (
-        <div className="flex gap-4 items-center justify-center max-w-[500px] text-gray-200">
+        <div className="flex gap-4 items-center justify-center max-w-[500px] text-gray-800">
             <div>
                 <img className="w-32 rounded-md" src={image} alt="menu-image" />
             </div>

@@ -49,8 +49,8 @@ const Testimonials = () => {
                   value={review.rating}
                   readOnly
                 />
-                <p className="text-gray-200 text-2xl lg:text-4xl"><FaQuoteLeft /></p>
-                <p className="text-justify text-gray-200 mx-20">
+                <p className="text-gray-800 text-2xl lg:text-4xl"><FaQuoteLeft /></p>
+                <p className="text-justify text-gray-800 mx-20">
                   {review.details}
                 </p>
                 <h4 className="text-xl lg:text-2xl text-red-500">
