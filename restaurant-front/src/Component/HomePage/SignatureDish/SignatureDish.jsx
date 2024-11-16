@@ -39,7 +39,7 @@ if(errorMenuFetchMessage){
       }}
     >
       <div className=" h-full w-full bg-black/60 pb-12 pt-2">
-        <section>
+        <section className="mb-12">
           <SectionTitle
             heading={"Signature Dish"}
             subHeading={"check it out"}

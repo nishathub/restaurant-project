@@ -37,10 +37,12 @@ const Menu = () => {
         </div>
       ) : (
         <div>
-          <SectionTitle
-            heading={"Today's Offer"}
-            subHeading={"Hurry up"}
-          ></SectionTitle>
+          <section className="mt-12">
+            <SectionTitle
+              heading={"Today's Offer"}
+              subHeading={"Hurry up"}
+            ></SectionTitle>
+          </section>
           {isFetchMenuLoading ? (
             <div className="flex items-center justify-center py-8">
               <CustomLoading size={32}></CustomLoading>

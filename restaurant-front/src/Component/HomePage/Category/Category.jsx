@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 const Category = () => {
   return (
-    <div className="pb-12">
-      <section>
+    <div className="my-12">
+      <section className="mb-12">
         <SectionTitle
           heading={"Order Online"}
           subHeading={"From 12PM to 12AM"}

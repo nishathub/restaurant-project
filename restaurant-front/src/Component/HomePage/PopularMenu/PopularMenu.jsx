@@ -13,8 +13,8 @@ const PopularMenu = () => {
     : allMenuItems.filter((item) => item.category === "popular");
 
   return (
-    <div className="max-w-7xl mx-auto my-12 px-4">
-      <section>
+    <div className="max-w-7xl mx-auto mb-12 px-4">
+      <section className="">
         <SectionTitle
           heading={"Fan Favorite Items"}
           subHeading={"Be Part of the trend now"}
