@@ -17,7 +17,7 @@ const PopularMenu = () => {
       <section className="">
         <SectionTitle
           heading={"Fan Favorite Items"}
-          subHeading={"Be Part of the trend now"}
+          subHeading={"Be a Part of the trend now"}
         ></SectionTitle>
       </section>
       {isFetchMenuLoading ? (

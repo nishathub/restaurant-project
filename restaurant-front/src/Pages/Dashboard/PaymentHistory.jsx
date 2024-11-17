@@ -1,16 +1,12 @@
 import SectionTitle from "../../Component/Shared/SectionTitle/SectionTitle";
-import { MdDelete } from "react-icons/md";
 import CustomLoading from "../../Component/Shared/CustomLoading/CustomLoading";
-import useCart from "../../Hooks/useCart";
 import { useState } from "react";
 import useSavourYumContext from "../../Hooks/useSavourYumContext";
 import useAxiosHookProtected from "../../Hooks/useAxiosHookProtected";
-import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 const PaymentHistory = () => {
-  const { customAlert, user } = useSavourYumContext();
-  const [isCartItemDeleteLoading, setCartItemDeleteLoading] = useState(false);
+  const { user } = useSavourYumContext();
   const axiosProtected = useAxiosHookProtected();
   const {
     isPending: isPaymentHistoryPending,
@@ -26,13 +22,6 @@ const PaymentHistory = () => {
       return result.data;
     },
   });
-
-  const {
-    cartItemsRefetch,
-    isCartItemsLoading,
-    cartItemsLoadingError,
-    userCartItems,
-  } = useCart();
   return (
     <div className="px-4 pt-8">
       <div className="mb-12">

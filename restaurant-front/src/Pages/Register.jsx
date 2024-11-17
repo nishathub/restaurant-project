@@ -181,9 +181,9 @@ const Register = () => {
               </Link>
             </div>
             <div className="mt-4 flex items-center gap-4">
-              <p className="border-t flex-grow"></p>
+              <p className="border-t border-gray-400 flex-grow"></p>
               <p className="">Or Sign in with</p>
-              <p className="border-t flex-grow"></p>
+              <p className="border-t border-gray-400 flex-grow"></p>
             </div>
             <div className="flex items-center justify-center">
               <button
