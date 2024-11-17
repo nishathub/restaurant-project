@@ -25,7 +25,7 @@ const PopularMenu = () => {
           <CustomLoading size={32}></CustomLoading>
         </div>
       ) : (
-        <div className="grid grid-col-1 lg:grid-cols-2 items-center lg:justify-items-center gap-8 mt-12 md:mt-20">
+        <div className="grid grid-col-1 lg:grid-cols-2 items-center lg:justify-items-center mt-12 md:mt-20">
           {popularItem.map((item) => (
             <MenuItem key={item._id} item={item}></MenuItem>
           ))}
