@@ -17,11 +17,13 @@ import PaymentGateway from "../Pages/Dashboard/PaymentGateway";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory";
 import UserDashboardHome from "../Pages/Dashboard/UserDashboardHome";
 import AdminDashboardHome from "../Pages/Dashboard/AdminDashboardHome";
+import NotFound from "../Pages/NotFound";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout></Layout>,
+    errorElement: <NotFound></NotFound>,
     children: [
       {
         path: "/",
@@ -53,6 +55,7 @@ export const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoutes>
     ),
+    errorElement: <NotFound></NotFound>,
     children: [
       {
         path: "userDashboardHome",

@@ -4,24 +4,11 @@ import { useState } from "react";
 import useSavourYumContext from "../../Hooks/useSavourYumContext";
 import useAxiosHookProtected from "../../Hooks/useAxiosHookProtected";
 import { useQuery } from "@tanstack/react-query";
+import usePaymentHistory from "../../Hooks/usePaymentHistory";
 
 const PaymentHistory = () => {
   const { user } = useSavourYumContext();
-  const axiosProtected = useAxiosHookProtected();
-  const {
-    isPending: isPaymentHistoryPending,
-    isError: isPaymentHistoryError,
-    data: paymentHistoryData,
-    refetch: paymentHistoryRefetch,
-  } = useQuery({
-    queryKey: ["paymentHistory", user?.email],
-    queryFn: async () => {
-      const result = await axiosProtected.get(
-        `/userPaymentHistory/${user?.email}`
-      );
-      return result.data;
-    },
-  });
+  const {isPaymentHistoryPending, isPaymentHistoryError, paymentHistoryData} = usePaymentHistory();
   return (
     <div className="px-4 pt-8">
       <div className="mb-12">

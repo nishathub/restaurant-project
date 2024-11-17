@@ -17,7 +17,7 @@ const UserDashboardHome = () => {
         </h2>
       </div>
       <div className="h-96 md:h-72 grid md:grid-cols-2 mt-12">
-        <div className="flex flex-col gap-2 lg:gap-6 lg:items-center justify-center bg-red-200 px-12">
+        <div className="flex flex-col gap-2 lg:gap-6 lg:items-center justify-center text-gray-100 bg-gray-800 px-12">
           <div className="w-20 h-20 lg:w-28 lg:h-28 rounded-full overflow-hidden">
             <img
               className="w-full h-full object-cover"
@@ -29,7 +29,7 @@ const UserDashboardHome = () => {
             {user?.displayName}
           </h4>
         </div>
-        <div className="flex flex-col gap-2 lg:gap-6 justify-center bg-green-200 px-12">
+        <div className="flex flex-col gap-2 lg:gap-6 justify-center bg-[rgb(255,255,255)] px-12">
           <h4 className="text-xl lg:text-2xl">My Activities</h4>
           <ul>
             <li className="flex items-center gap-2">
