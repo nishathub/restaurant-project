@@ -123,25 +123,28 @@ const StripeCheckoutForm = () => {
   return (
     <div>
       <form className="text-center" onSubmit={handleStripeFormSubmit}>
-        <CardElement
-          options={{
-            style: {
-              base: {
-                fontSize: "16px",
-                color: "#424770",
-                "::placeholder": {
-                  color: "#aab7c4",
+        <div className="border border-gray-400 p-1">
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  fontSize: "16px",
+                  color: "#424770",
+                  "::placeholder": {
+                    color: "gray",
+                    border: "",
+                  },
+                },
+                invalid: {
+                  color: "#9e2146",
                 },
               },
-              invalid: {
-                color: "#9e2146",
-              },
-            },
-          }}
-        />
+            }}
+          />
+        </div>
         <button
           disabled={!stripe || !elements || !clientSecretKey}
-          className="mt-8 px-16 py-2 rounded-md bg-green-700 hover:bg-green-800 disabled:bg-gray-500"
+          className="mt-8 px-16 py-2 rounded-md text-gray-100 bg-green-700 hover:bg-green-800 disabled:bg-gray-500"
         >
           Pay
         </button>

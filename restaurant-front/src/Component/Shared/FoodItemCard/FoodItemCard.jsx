@@ -35,7 +35,7 @@ const FoodItemCard = ({ item }) => {
         customAlert("Item already in the cart");
       } else {
         // Item not in the cart, proceed to add it
-        const addResponse = await axiosHook.post(`/allCartItems`, {
+        const addResponse = await axiosPublic.post(`/allCartItems`, {
           menuId: _id,
           name: name,
           price: price,

@@ -97,7 +97,7 @@ const Register = () => {
     // form.reset(); // clear the form
   };
   return (
-    <div className="mt-20 lg:mt-24 text-gray-200 relative">
+    <div className="mt-20 lg:mt-24 text-gray-800 relative">
       <section className="py-4 lg:py-8 bg-gray-300">
         <h4 className="max-w-7xl mx-auto px-4 text-2xl lg:text-4xl text-gray-800 cinzel-regular">
           My Account
@@ -126,7 +126,7 @@ const Register = () => {
                 <p className="text-sm mb-1">Name *</p>
               </label>
               <input
-                className="w-full px-6 py-3 rounded-sm bg-transparent border"
+                className="w-full px-6 py-3 rounded-sm bg-transparent border border-gray-300"
                 type="text"
                 name="name"
                 required
@@ -137,7 +137,7 @@ const Register = () => {
                 <p className="text-sm mb-1">Photo Url (optional)</p>
               </label>
               <input
-                className="w-full px-6 py-3 rounded-sm bg-transparent border"
+                className="w-full px-6 py-3 rounded-sm bg-transparent border border-gray-300"
                 type="text"
                 name="photo"
               />
@@ -147,7 +147,7 @@ const Register = () => {
                 <p className="text-sm mb-1">Email address *</p>
               </label>
               <input
-                className="w-full px-6 py-3 rounded-sm bg-transparent border"
+                className="w-full px-6 py-3 rounded-sm bg-transparent border border-gray-300"
                 type="email"
                 name="email"
                 required
@@ -158,7 +158,7 @@ const Register = () => {
                 <p className="text-sm mb-1">Password *</p>
               </label>
               <input
-                className="w-full px-6 py-3 rounded-sm bg-transparent border"
+                className="w-full px-6 py-3 rounded-sm bg-transparent border border-gray-300"
                 type="password"
                 name="password"
                 required
@@ -166,7 +166,7 @@ const Register = () => {
             </div>
             <div className="flex justify-between items-start">
               <input
-                className="py-2 px-6 rounded-sm btn bg-red-700 hover:bg-red-800"
+                className="py-2 px-6 rounded-sm btn text-gray-100 bg-red-700 hover:bg-red-800"
                 type="submit"
                 value="Create Account"
               />
@@ -176,7 +176,7 @@ const Register = () => {
           <div className="mt-4 space-y-4">
             <div className="flex gap-2">
               <p>Already have an account?</p>
-              <Link className="italic" to={"/login"}>
+              <Link className="italic text-red-700" to={"/login"}>
                 Sign in
               </Link>
             </div>
@@ -189,7 +189,7 @@ const Register = () => {
               <button
                 onClick={handleGoogleLogIn}
                 title="Google"
-                className="w-full flex rounded-l-sm items-center justify-center py-2 bg-green-700 hover:bg-green-800 duration-300"
+                className="w-full flex rounded-l-sm items-center justify-center py-2 text-gray-100 bg-green-700 hover:bg-green-800 duration-300"
               >
                 <p className="text-2xl">
                   <FaGoogle></FaGoogle>

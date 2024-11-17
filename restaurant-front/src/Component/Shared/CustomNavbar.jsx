@@ -11,12 +11,12 @@ import useCart from "../../Hooks/useCart";
 import useUserRoll from "../../Hooks/useUserRoll";
 
 const CustomNavbar = () => {
-  const [navBg, setNavBg] = useState(false);
+  const [navBgColor, setNavBgColor] = useState(false);
   const handleScroll = () => {
     if (window.scrollY > 200) {
-      setNavBg(true);
+      setNavBgColor(true);
     } else {
-      setNavBg(false);
+      setNavBgColor(false);
     }
   };
   useEffect(() => {
@@ -24,7 +24,7 @@ const CustomNavbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const { user, userLoading, isAdmin, logOutUser, customAlert } =
+  const { user, userLoading, logOutUser, customAlert } =
     useContext(RestaurantContext);
   const { isCartItemsLoading, cartItemsLoadingError, userCartItems } =
     useCart();
@@ -82,7 +82,7 @@ const CustomNavbar = () => {
   return (
     <div
       className={`${
-        navBg ? "bg-black" : "bg-black/50"
+        navBgColor ? "bg-black" : "bg-black/50"
       } h-20 lg:h-24 fixed w-full z-10`}
     >
       <div className="navbar max-w-7xl mx-auto md:px-4 px-1 flex justify-between items-center h-full my-auto">
@@ -103,7 +103,7 @@ const CustomNavbar = () => {
           <div className="lg:hidden pt-1">
             <button
               onClick={() => setMenuActive(!isMenuActive)}
-              className="text-3xl text-gray-200"
+              className="text-3xl text-gray-100"
             >
               {isMenuActive ? <CgMenuMotion /> : <IoMenu />}
             </button>
@@ -118,17 +118,17 @@ const CustomNavbar = () => {
           </Link>
           <Link to={"/"}>
             <div className="">
-              <h2 className="text-xl first-letter:text-2xl text-gray-200 uppercase tracking-wide cinzel-semibold">
+              <h2 className="text-xl first-letter:text-2xl text-gray-100 uppercase tracking-wide cinzel-semibold">
                 savouryum
               </h2>
-              <p className="text-gray-200 text-xs tracking-[6px] uppercase cinzel-regular">
+              <p className="text-gray-100 text-xs tracking-[6px] uppercase cinzel-regular">
                 Restaurant
               </p>
             </div>
           </Link>
         </div>
         {/* MIDDLE  */}
-        <div className="hidden lg:flex justify-center items-center gap-2 text-gray-200  tracking-wider">
+        <div className="hidden lg:flex justify-center items-center gap-2 text-gray-100  tracking-wider">
           {navLinks}
         </div>
         {/* RIGHT  */}
@@ -139,7 +139,7 @@ const CustomNavbar = () => {
             <div>
               {!user ? (
                 <Link to={"/login"}>
-                  <button className="hover:bg-gray-200 hover:text-gray-800 font-bold p-2 rounded-md bg-base-100 text-gray-200 duration-300">
+                  <button className="hover:bg-gray-200 hover:text-gray-800 font-bold p-2 rounded-md bg-base-100 text-gray-100 duration-300">
                     Login
                   </button>
                 </Link>
@@ -154,7 +154,7 @@ const CustomNavbar = () => {
                     >
                       <MdOutlineSecurity />
                     </h2>
-                    <h2 className={`text-gray-200`}>
+                    <h2 className={`text-gray-100`}>
                       {user?.displayName?.length < 10
                         ? user.displayName
                         : user.displayName?.slice(0, 10) + ".."}
@@ -167,14 +167,14 @@ const CustomNavbar = () => {
                       {isCartItemsLoading ? (
                         <CustomLoading size={12}></CustomLoading>
                       ) : (
-                       <span>{userCartItems?.length}</span> 
+                        <span>{userCartItems?.length}</span>
                       )}
                     </div>
                     {/* ABSOLUTE CART-BOX */}
                     <div className=" absolute top-16 right-0 w-52 md:w-80 rounded-md bg-base-100">
                       {isCartOpen && (
                         <div className="p-4 space-y-3">
-                          <span className="font-bold text-gray-200 md:text-lg">
+                          <span className="font-bold text-gray-100 md:text-lg">
                             {userCartItems?.length} Items
                           </span>
                           <div>
@@ -184,7 +184,7 @@ const CustomNavbar = () => {
                           </div>
                           <div className="w-full">
                             <Link to={"/dashboard/cart"}>
-                              <button className="bg-gray-200 text-gray-800 font-bold p-1 rounded-md hover:bg-base-100 hover:text-gray-200 duration-300 w-full">
+                              <button className="bg-gray-200 text-gray-800 font-bold p-1 rounded-md hover:bg-base-100 hover:text-gray-100 duration-300 w-full">
                                 View cart
                               </button>
                             </Link>
@@ -216,7 +216,7 @@ const CustomNavbar = () => {
                               />
                             </div>
                           </div>
-                          <div className="md:text-lg text-gray-200 ">
+                          <div className="md:text-lg text-gray-100 ">
                             {user.displayName}
                           </div>
                           <div
@@ -231,15 +231,23 @@ const CustomNavbar = () => {
                               <p>{userRollData}</p>
                             </div>
                           </div>
-                          <div className=" text-[#3BBFE3]">{user.email}</div>
-
-                          <div className={`${userRollData ? "" : "hidden"}`}>
-                            <Link
-                              to={"/dashboard/adminDashboardHome"}
-                              className="btn btn-sm btn-accent w-full"
-                            >
-                              Admin Dashboard
-                            </Link>
+                          <div className=" text-gray-300">{user.email}</div>
+                          <div>
+                            {userRollData ? (
+                              <Link
+                                to={"/dashboard/adminDashboardHome"}
+                                className="btn btn-sm btn-accent w-full"
+                              >
+                                Admin Dashboard
+                              </Link>
+                            ) : (
+                              <Link
+                                to={"/dashboard/userDashboardHome"}
+                                className="btn btn-sm btn-accent w-full"
+                              >
+                                My Dashboard
+                              </Link>
+                            )}
                           </div>
                           <div className="" onClick={handleLogOut}>
                             <a

@@ -83,7 +83,7 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="mt-20 lg:mt-24 text-gray-200 relative">
+    <div className="mt-20 lg:mt-24 text-gray-800 relative">
       <section className="py-4 lg:py-8 bg-gray-300">
         <h4 className="max-w-7xl mx-auto px-4 text-2xl lg:text-4xl text-gray-800 cinzel-regular">
           My Account
@@ -99,7 +99,7 @@ const Login = () => {
           {/* LOADING  */}
           <div>
             {isLoginLoading && (
-              <div className="absolute bg-white/40 inset-0 flex items-center justify-center ">
+              <div className="absolute bg-black/50 inset-0 flex items-center justify-center ">
                 <CustomLoading size={32}></CustomLoading>
               </div>
             )}
@@ -111,7 +111,7 @@ const Login = () => {
                 <p className="text-sm mb-1">Email address *</p>
               </label>
               <input
-                className="w-full px-6 py-3 rounded-sm bg-transparent border"
+                className="w-full px-6 py-3 rounded-sm bg-transparent border border-gray-300"
                 type="email"
                 name="email"
                 required
@@ -122,7 +122,7 @@ const Login = () => {
                 <p className="text-sm mb-1">Password *</p>
               </label>
               <input
-                className="w-full px-6 py-3 rounded-sm bg-transparent border"
+                className="w-full px-6 py-3 rounded-sm bg-transparent border border-gray-300"
                 type="password"
                 name="password"
                 required
@@ -133,11 +133,11 @@ const Login = () => {
                 <p className="text-sm mb-1">Verification *</p>
               </label>
               <div className="flex">
-                <div className="w-1/2 border">
+                <div className="w-1/2 border border-gray-300">
                   <LoadCanvasTemplate reloadColor="red" />
                 </div>
                 <input
-                  className="w-1/2 px-6 py-3 rounded-sm bg-transparent border"
+                  className="w-1/2 px-6 py-3 rounded-sm bg-transparent border border-gray-300"
                   type="text"
                   placeholder="Enter Captcha here"
                   name="captcha"
@@ -147,13 +147,13 @@ const Login = () => {
             </div>
             <div className="flex justify-between items-start">
               <input
-                className="py-2 px-6 rounded-sm btn bg-red-700 hover:bg-red-800"
+                className="py-2 px-6 rounded-sm btn text-white bg-red-700 hover:bg-red-800 disabled:bg-gray-300 disabled:text-gray-100"
                 type="submit"
                 value="Login"
                 disabled={isValidCaptcha}
               />
               <input
-                className="w-fit ml-auto py-1 px-4 rounded-sm bg-gray-700 hover:bg-gray-800 cursor-pointer"
+                className="w-fit ml-auto py-1 px-4 rounded-sm text-gray-100 bg-gray-700 hover:bg-gray-800 cursor-pointer"
                 type="button"
                 value="Verify"
                 onClick={handleValidateCaptcha}
@@ -164,7 +164,7 @@ const Login = () => {
           <div className="mt-4 space-y-4">
             <div className="flex gap-2">
               <p>New here?</p>
-              <Link className="italic" to={"/register"}>
+              <Link className="italic text-red-700" to={"/register"}>
                 Create a New Account
               </Link>
             </div>
@@ -177,7 +177,7 @@ const Login = () => {
               <button
                 onClick={handleGoogleLogIn}
                 title="Google"
-                className="w-full flex rounded-l-sm items-center justify-center py-2 bg-green-700 hover:bg-green-800 duration-300"
+                className="w-full flex rounded-l-sm items-center justify-center py-2 text-gray-100 bg-green-700 hover:bg-green-800 duration-300"
               >
                 <p className="text-2xl">
                   <FaGoogle></FaGoogle>

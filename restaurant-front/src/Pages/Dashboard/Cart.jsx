@@ -10,6 +10,9 @@ import { Link } from "react-router-dom";
 const Cart = () => {
   const { customAlert } = useSavourYumContext();
   const [isCartItemDeleteLoading, setCartItemDeleteLoading] = useState(false);
+  const [isDeleteItemModalActive, setDeleteItemModalActive] = useState(false);
+  const [clickedItemId, setClickedItemId] = useState(null);
+
   const axiosHook = useAxiosHookProtected();
   const {
     cartItemsRefetch,
@@ -20,10 +23,14 @@ const Cart = () => {
   const totalCartPrice = userCartItems?.reduce((total, current) => {
     return total + current.price;
   }, 0);
-  const handleDeleteCartItem = async (id) => {
+  const handleDeleteButtonClick = (_id) => {
+    setClickedItemId(_id);
+    setDeleteItemModalActive(true);
+  };
+  const handleDeleteCartItem = async () => {
     setCartItemDeleteLoading(true);
     try {
-      const deleteItem = await axiosHook.delete(`/allCartItems/${id}`);
+      const deleteItem = await axiosHook.delete(`/allCartItems/${clickedItemId}`);
       if (deleteItem.data.deletedCount) {
         customAlert("Item Deleted");
       }
@@ -32,11 +39,46 @@ const Cart = () => {
       console.log(error);
     } finally {
       setCartItemDeleteLoading(false);
+      setDeleteItemModalActive(false);
     }
   };
 
   return (
     <div className="px-4 pt-8">
+      {/* ABSOLUTE MODAL to DELETE Item Start */}
+      <div
+        className={`absolute bg-gray-800/70 flex inset-0 z-20 text-gray-800 lora-regular duration-500 ${
+          isDeleteItemModalActive
+            ? "opacity-100"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="w-80 h-60 m-auto flex flex-col justify-center items-center gap-2 bg-gray-100 rounded-md relative">
+          <button
+            onClick={() => setDeleteItemModalActive(false)}
+            className="absolute right-0 top-0 bg-red-700 hover:bg-red-800 px-4 py-2 text-gray-100"
+          >
+            X
+          </button>
+          <h4 className="cinzel-semibold mb-4">Are you sure?</h4>
+          <div className="flex gap-6">
+            <button
+              className="btn btn-error text-gray-100"
+              onClick={handleDeleteCartItem}
+            >
+              Delete
+            </button>
+            <button
+              className="btn text-gray-100"
+              onClick={() => setDeleteItemModalActive(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+      {/* ABSOLUTE MODAL to DELETE Item END  */}
+
       <div className="mb-12">
         <SectionTitle
           heading={"Happy Shopping"}
@@ -62,10 +104,10 @@ const Cart = () => {
             </h4>
             {userCartItems?.length ? (
               <Link to={"/dashboard/paymentGateway"}>
-                <button className="btn btn-accent">Pay</button>
+                <button className="px-4 py-2 bg-gray-800 text-gray-100 hover:bg-gray-700 rounded-md ">Pay</button>
               </Link>
             ) : (
-              <button disabled className="btn btn-accent">
+              <button disabled className="px-4 py-2 bg-gray-800 text-gray-100 hover:bg-gray-700 rounded-md ">
                 Pay
               </button>
             )}
@@ -102,7 +144,7 @@ const Cart = () => {
                     <td>${item.price}</td>
                     <th>
                       <button
-                        onClick={() => handleDeleteCartItem(item._id)}
+                        onClick={() => handleDeleteButtonClick(item._id)}
                         className="text-2xl text-red-700"
                       >
                         <MdDelete></MdDelete>

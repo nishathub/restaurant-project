@@ -94,7 +94,7 @@ const AdminDashboardHome = () => {
     <div className="px-4 pt-8 space-y-6">
       <div className="flex items-end justify-between">
         <h2 className="text-2xl text-gray-800">
-          Welcome {user?.displayName && user?.displayName}!
+          Welcome {user?.displayName && user?.displayName} !
         </h2>
         <div
           className={`${
