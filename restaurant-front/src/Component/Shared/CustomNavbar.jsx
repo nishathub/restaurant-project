@@ -95,7 +95,25 @@ const CustomNavbar = () => {
               : "opacity-0 -translate-x-10 pointer-events-none"
           } duration-300 top-[64px] left-0 w-[200px] h-[calc(100vh-64px)] bg-base-100 items-start`}
         >
-          <div className="flex flex-col gap-4 w-fit">{navLinks}</div>
+          <div className="flex flex-col gap-2 w-fit text-gray-200">
+            {navLinks}
+            {userRollData && (
+              <NavLink
+                className="cinzel-regular"
+                to={"/dashboard/adminDashboardHome"}
+              >
+                Dashboard
+              </NavLink>
+            )}
+            {user && (
+              <NavLink
+                className="cinzel-regular"
+                to={"/dashboard/userDashboardHome"}
+              >
+                Dashboard
+              </NavLink>
+            )}
+          </div>
         </div>
         {/* LEFT  */}
         <div className="flex gap-2 items-center w-60">
@@ -171,15 +189,27 @@ const CustomNavbar = () => {
                       )}
                     </div>
                     {/* ABSOLUTE CART-BOX */}
-                    <div className=" absolute top-16 right-0 w-52 md:w-80 rounded-md bg-base-100">
+                    <div className=" absolute top-16 right-0 w-60 md:w-80 rounded-md bg-base-100">
                       {isCartOpen && (
                         <div className="p-4 space-y-3">
                           <span className="font-bold text-gray-100 md:text-lg">
                             {userCartItems?.length} Items
                           </span>
-                          <div>
+                          <div className="max-h-52 overflow-auto space-y-2">
                             {userCartItems?.map((item) => (
-                              <h4 key={item._id}>{item.name}</h4>
+                              <div key={item._id} className="flex gap-4 items-center justify-between py-2 border-b border-gray-400 text-gray-200">
+                                <div className="">
+                                  <h4>{item?.name}</h4>
+                                  <p>{item?.quantity} * <span className="">${item?.price}</span> </p>
+                                </div>
+                                <div>
+                                  <img
+                                    className="w-12 h-8 object-cover"
+                                    src={item?.image}
+                                    alt="menu-image"
+                                  />
+                                </div>
+                              </div>
                             ))}
                           </div>
                           <div className="w-full">
@@ -203,7 +233,7 @@ const CustomNavbar = () => {
                     {/* ABSOLUTE PROFILE CARD  */}
                     <div className="absolute top-16 right-0">
                       {isProfileActive && (
-                        <div className="mt-1 p-4 bg-base-100 rounded-sm w-52 md:w-80 space-y-3 ">
+                        <div className="mt-1 p-4 bg-base-100 rounded-sm w-72 md:w-80 space-y-3 ">
                           <div>
                             <div className="w-20 rounded-full mx-auto p-2">
                               <img

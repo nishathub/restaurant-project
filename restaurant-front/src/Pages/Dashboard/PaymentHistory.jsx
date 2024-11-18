@@ -27,16 +27,16 @@ const PaymentHistory = () => {
         </p>
       ) : (
         <div className="bg-[rgb(250,250,250)] text-gray-800 p-4 rounded-md space-y-4">
-          <div className="flex flex-col gap-4 lg:flex-row lg:justify-between items-end lg:items-center">
-            <div className="text-right lg:text-left">
+          <div className="flex flex-col gap-4 lg:flex-row lg:justify-between items-start lg:items-center">
+            <div className="">
               <h4>{user?.displayName}</h4>
               <h4 className="text-sm">{user?.email}</h4>
             </div>
-            <h4 className="text-2xl cinzel-semibold">
+            <h4 className="text-lg lg:text-2xl cinzel-semibold">
               Total Payments: {paymentHistoryData?.length}
             </h4>
           </div>
-          <div className="max-h-[400px] overflow-auto">
+          <div className="max-h-[360px] md:max-h-[400px] max-w-[270px] md:max-w-full overflow-auto">
             <table className="table text-center">
               {/* head */}
               <thead className="sticky top-0 bg-gray-800 text-gray-100 z-10">

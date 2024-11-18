@@ -95,12 +95,12 @@ const Cart = () => {
         </p>
       ) : (
         <div className="bg-[rgb(250,250,250)] text-gray-800 p-4 rounded-md space-y-4">
-          <div className="flex flex-col gap-2 lg:flex-row lg:justify-between items-end lg:items-center">
-            <h4 className="text-2xl cinzel-semibold">
+          <div className="flex flex-col gap-2 lg:flex-row lg:justify-between items-start lg:items-center">
+            <h4 className="text-lg lg:text-2xl cinzel-semibold">
               Total Items: {userCartItems?.length}
             </h4>
-            <h4 className="text-2xl cinzel-semibold">
-              Total Price: ${totalCartPrice}
+            <h4 className="text-lg lg:text-2xl cinzel-semibold">
+              Total Price: ${totalCartPrice.toFixed(2)}
             </h4>
             {userCartItems?.length ? (
               <Link to={"/dashboard/paymentGateway"}>
@@ -112,8 +112,7 @@ const Cart = () => {
               </button>
             )}
           </div>
-          <div className="max-h-[400px] overflow-auto">
-            <table className="table">
+          <div className="max-h-[320px] md:max-h-[400px] max-w-[270px] md:max-w-full overflow-auto">            <table className="table">
               {/* head */}
               <thead className="sticky top-0 bg-gray-800 text-gray-100 z-10">
                 <tr>
