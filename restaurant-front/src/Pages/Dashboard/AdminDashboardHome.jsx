@@ -91,14 +91,16 @@ const AdminDashboardHome = () => {
     );
   };
   return (
-    <div className="px-4 pt-8 space-y-6">
+    <div className="px-4 space-y-6">
       <div className="flex items-end justify-between">
         <h2 className="text-2xl text-gray-800">
           Welcome {user?.displayName && user?.displayName} !
         </h2>
         <div
           className={`${
-            userRollData ? "bg-green-700 text-gray-100 text-sm px-2 py-[2px] rounded-md" : "hidden"
+            userRollData
+              ? "bg-green-700 text-gray-100 text-sm px-2 py-[2px] rounded-md"
+              : "hidden"
           } text-center`}
         >
           <div className="flex items-center gap-2 mx-auto">
@@ -185,34 +187,34 @@ const AdminDashboardHome = () => {
           </div>
         ) : (
           <div className="flex flex-col items-center lg:flex-row gap-6 bg-[rgb(250,250,250)] rounded-sm">
-            <div className="w-7/12">
-              <BarChart
-                width={500}
-                height={300}
-                data={orderData}
-                margin={{
-                  top: 20,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid stroke="gray" strokeDasharray="3 3" />
-                <XAxis dataKey="category" />
-                <YAxis />
-                <Bar
-                  dataKey="totalQuantity"
-                  fill="#8884d8"
-                  shape={<TriangleBar />}
-                  label={{ position: "top" }}
+            <div className="lg:w-7/12 h-72">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={orderData}
+                  margin={{
+                    top: 20,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
                 >
-                  {orderData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={colors[index % 6]} />
-                  ))}
-                </Bar>
-              </BarChart>
+                  <CartesianGrid stroke="gray" strokeDasharray="3 3" />
+                  <XAxis dataKey="category" />
+                  <YAxis />
+                  <Bar
+                    dataKey="totalQuantity"
+                    fill="#8884d8"
+                    shape={<TriangleBar />}
+                    label={{ position: "top" }}
+                  >
+                    {orderData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={colors[index % 6]} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
             </div>
-            <div className="w-5/12 h-72">
+            <div className="lg:w-5/12 h-72">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart width={400} height={400}>
                   <Pie

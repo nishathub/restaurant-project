@@ -65,7 +65,7 @@ const AddItem = () => {
     }
   };
   return (
-    <div className="px-4 pt-8">
+    <div className="px-4 lg:pt-8">
       <div className="mb-12">
         <SectionTitle
           heading={"Add an item"}

@@ -75,7 +75,7 @@ const ManageItems = () => {
   };
 
   return (
-    <div className="px-4 pt-8">
+    <div className="px-4 lg:pt-8">
       {/* ABSOLUTE MODAL to DELETE Item Start */}
       <div
         className={`absolute bg-gray-800/70 flex inset-0 z-20 text-gray-800 lora-regular duration-500 ${
@@ -121,8 +121,8 @@ const ManageItems = () => {
         <p className="text-red-700 text-2xl text-center">Error Loading Menu</p>
       ) : (
         <div className="bg-[rgb(250,250,250)] text-gray-800 p-4 rounded-md space-y-4">
-          <div className="flex flex-col gap-2 lg:flex-row lg:justify-between items-end lg:items-center">
-            <h4 className="text-2xl cinzel-semibold">
+          <div className="flex flex-col gap-2 lg:flex-row lg:justify-between items-start lg:items-center">
+            <h4 className="text-lg lg:text-2xl cinzel-semibold">
               Total Menu Items: {allMenuItems?.length}
             </h4>
             <div
@@ -138,7 +138,7 @@ const ManageItems = () => {
               </div>
             </div>
           </div>
-          <div className="max-h-[400px] overflow-auto">
+          <div className="max-h-[360px] lg:max-h-[400px] overflow-auto">
             <table className="table text-center">
               {/* head */}
               <thead className="sticky top-0 bg-gray-800 text-gray-100 z-10">

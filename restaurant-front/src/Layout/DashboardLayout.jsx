@@ -13,8 +13,8 @@ const DashboardLayout = () => {
   return (
     <div className=" bg-[rgb(230,230,230)]">
       <CustomToast></CustomToast>
-      <div className=" mx-auto flex">
-        <div className="absolute z-20">
+      <div>
+        <div className="fixed top-0 left-0 z-20">
           {isUserRollPending ? (
             <div className="h-full flex items-center justify-center">
               <CustomLoading size={32}></CustomLoading>
@@ -27,7 +27,7 @@ const DashboardLayout = () => {
             ""
           )}
         </div>
-        <div className="flex-grow max-w-5xl ml-12 lg:ml-0 mx-auto min-h-screen">
+        <div className="max-w-5xl ml-12 lg:mx-auto min-h-screen py-8">
           <Outlet></Outlet>
         </div>
       </div>

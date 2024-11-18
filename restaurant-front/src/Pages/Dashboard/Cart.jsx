@@ -30,7 +30,9 @@ const Cart = () => {
   const handleDeleteCartItem = async () => {
     setCartItemDeleteLoading(true);
     try {
-      const deleteItem = await axiosHook.delete(`/allCartItems/${clickedItemId}`);
+      const deleteItem = await axiosHook.delete(
+        `/allCartItems/${clickedItemId}`
+      );
       if (deleteItem.data.deletedCount) {
         customAlert("Item Deleted");
       }
@@ -44,7 +46,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="px-4 pt-8">
+    <div className="px-4 lg:pt-8">
       {/* ABSOLUTE MODAL to DELETE Item Start */}
       <div
         className={`absolute bg-gray-800/70 flex inset-0 z-20 text-gray-800 lora-regular duration-500 ${
@@ -104,15 +106,22 @@ const Cart = () => {
             </h4>
             {userCartItems?.length ? (
               <Link to={"/dashboard/paymentGateway"}>
-                <button className="px-4 py-2 bg-gray-800 text-gray-100 hover:bg-gray-700 rounded-md ">Pay</button>
+                <button className="px-4 py-2 bg-gray-800 text-gray-100 hover:bg-gray-700 rounded-md ">
+                  Pay
+                </button>
               </Link>
             ) : (
-              <button disabled className="px-4 py-2 bg-gray-800 text-gray-100 hover:bg-gray-700 rounded-md ">
+              <button
+                disabled
+                className="px-4 py-2 bg-gray-800 text-gray-100 hover:bg-gray-700 rounded-md "
+              >
                 Pay
               </button>
             )}
           </div>
-          <div className="max-h-[320px] md:max-h-[400px] max-w-[270px] md:max-w-full overflow-auto">            <table className="table">
+          <div className="max-h-[320px] md:max-h-[400px] overflow-auto">
+            {" "}
+            <table className="table">
               {/* head */}
               <thead className="sticky top-0 bg-gray-800 text-gray-100 z-10">
                 <tr>

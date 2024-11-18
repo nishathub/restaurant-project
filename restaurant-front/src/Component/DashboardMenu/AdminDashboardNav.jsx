@@ -1,8 +1,4 @@
-import {
-  MdHome,
-  MdMenuBook,
-  MdRestaurant,
-} from "react-icons/md";
+import { MdHome, MdMenuBook, MdRestaurant } from "react-icons/md";
 import { BiSolidFoodMenu } from "react-icons/bi";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 import { FaEnvelope, FaHome, FaShoppingBag, FaUsers } from "react-icons/fa";
@@ -33,12 +29,26 @@ const AdminDashboardNav = () => {
   return (
     <div
       className={`${
-        isDashboardExpand ? "lg:w-60 w-12 px-4 pt-8 pb-8" : "w-12 pt-8 pb-8"
-      } duration-300 min-h-[100vh] bg-gray-900 text-gray-100`}
+        isDashboardExpand ? "w-64 px-4 pt-8 lg:pb-8" : "w-16 pt-8 lg:pb-8"
+      } duration-300 min-h-[100vh] overflow-auto bg-gray-900 text-gray-100`}
     >
       {/* HEADING  */}
       <div className="mb-8">
-        <div className="flex items-center justify-between p-2 w-full text-center font-semibold">
+        <div className="flex flex-col gap-4 p-2 w-full font-semibold">
+          <button
+            className=""
+            onClick={() => setDashboardExpand(!isDashboardExpand)}
+          >
+            {isDashboardExpand ? (
+              <p title="Minimize" className="text-3xl">
+                <IoIosArrowDropleftCircle />
+              </p>
+            ) : (
+              <p title="Expand" className="text-3xl">
+                <IoIosArrowDroprightCircle />
+              </p>
+            )}
+          </button>
           <button title="Menu" className="flex items-center gap-2">
             <div
               className={`w-8 rounded-full ${
@@ -55,11 +65,7 @@ const AdminDashboardNav = () => {
               />
             </div>
 
-            <div
-              className={`${
-                isDashboardExpand ? "hidden lg:inline-block" : "hidden"
-              }`}
-            >
+            <div className={`${isDashboardExpand ? "" : "hidden"}`}>
               <h2 className="text-xl first-letter:text-2xl text-gray-200 uppercase tracking-wide cinzel-semibold">
                 savouryum
               </h2>
@@ -68,83 +74,57 @@ const AdminDashboardNav = () => {
               </p>
             </div>
           </button>
-          <button
-            className="hidden lg:inline-block"
-            onClick={() => setDashboardExpand(!isDashboardExpand)}
-          >
-            {isDashboardExpand ? (
-              <p title="Minimize" className="text-3xl">
-                <IoIosArrowDropleftCircle />
-              </p>
-            ) : (
-              <p title="Expand" className="text-3xl">
-                <IoIosArrowDroprightCircle />
-              </p>
-            )}
-          </button>
         </div>
       </div>
       {/* DASHBOARD NAV BUTTONS  */}
       <div className="p-2 space-y-6 mr-auto lora-regular border-b pb-8">
-        <Link to={'/dashboard/adminDashboardHome'} title="Admin Home" className="flex items-center gap-4">
+        <Link
+          to={"/dashboard/adminDashboardHome"}
+          title="Admin Home"
+          className="flex items-center gap-4"
+        >
           <p className="text-3xl">
             <FaHome />
           </p>
-          <p
-            className={`${
-              isDashboardExpand ? "hidden lg:inline-block" : "hidden"
-            }`}
-          >
-            Admin Home
-          </p>
+          <p className={`${isDashboardExpand ? "" : "hidden"}`}>Admin Home</p>
         </Link>
-        <Link to={'/dashboard/addItem'} title="Add Items" className="flex items-center gap-4">
+        <Link
+          to={"/dashboard/addItem"}
+          title="Add Items"
+          className="flex items-center gap-4"
+        >
           <p className="text-3xl">
             <MdRestaurant />
           </p>
-          <p
-            className={`${
-              isDashboardExpand ? "hidden lg:inline-block" : "hidden"
-            }`}
-          >
-            Add Items
-          </p>
+          <p className={`${isDashboardExpand ? "" : "hidden"}`}>Add Items</p>
         </Link>
-        <Link to={'/dashboard/manageItems'} title="Manage Items" className="flex items-center gap-4">
+        <Link
+          to={"/dashboard/manageItems"}
+          title="Manage Items"
+          className="flex items-center gap-4"
+        >
           <p className="text-3xl">
             <MdMenuBook />
           </p>
-          <p
-            className={`${
-              isDashboardExpand ? "hidden lg:inline-block" : "hidden"
-            }`}
-          >
-            Manage Items
-          </p>
+          <p className={`${isDashboardExpand ? "" : "hidden"}`}>Manage Items</p>
         </Link>
         <button title="Manage Bookings" className="flex items-center gap-4">
           <p className="text-3xl">
             <BsFillBookmarkStarFill />
           </p>
-          <p
-            className={`${
-              isDashboardExpand ? "hidden lg:inline-block" : "hidden"
-            }`}
-          >
+          <p className={`${isDashboardExpand ? "" : "hidden"}`}>
             Manage Bookings
           </p>
         </button>
-        <Link to={'/dashboard/allUsers'} title="Users" className="flex items-center gap-4">
+        <Link
+          to={"/dashboard/allUsers"}
+          title="Users"
+          className="flex items-center gap-4"
+        >
           <p className="text-3xl">
             <FaUsers />
           </p>
-          <p
-            className={`${
-              isDashboardExpand ? "hidden lg:inline-block" : "hidden"
-            }`}
-          >
-            All Users
-          </p>
+          <p className={`${isDashboardExpand ? "" : "hidden"}`}>All Users</p>
         </Link>
       </div>
       <div className="p-2 space-y-6 mr-auto lora-regular pt-8">
@@ -152,13 +132,7 @@ const AdminDashboardNav = () => {
           <p className="text-3xl">
             <MdHome />
           </p>
-          <p
-            className={`${
-              isDashboardExpand ? "hidden lg:inline-block" : "hidden"
-            }`}
-          >
-            Home
-          </p>
+          <p className={`${isDashboardExpand ? "" : "hidden"}`}>Home</p>
         </Link>
         <Link
           to={"/menu"}
@@ -168,37 +142,19 @@ const AdminDashboardNav = () => {
           <p className="text-3xl">
             <BiSolidFoodMenu />
           </p>
-          <p
-            className={`${
-              isDashboardExpand ? "hidden lg:inline-block" : "hidden"
-            }`}
-          >
-            Menu
-          </p>
+          <p className={`${isDashboardExpand ? "" : "hidden"}`}>Menu</p>
         </Link>
         <Link to={"/shop"} title="Shop" className="flex items-center gap-4">
           <p className="text-3xl">
             <FaShoppingBag />
           </p>
-          <p
-            className={`${
-              isDashboardExpand ? "hidden lg:inline-block" : "hidden"
-            }`}
-          >
-            Shop
-          </p>
+          <p className={`${isDashboardExpand ? "" : "hidden"}`}>Shop</p>
         </Link>
         <Link title="Contact" className="flex items-center gap-4">
           <p className="text-3xl">
             <FaEnvelope />
           </p>
-          <p
-            className={`${
-              isDashboardExpand ? "hidden lg:inline-block" : "hidden"
-            }`}
-          >
-            Contact
-          </p>
+          <p className={`${isDashboardExpand ? "" : "hidden"}`}>Contact</p>
         </Link>
       </div>
     </div>

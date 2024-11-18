@@ -17,6 +17,7 @@ import {
 } from "react-icons/io";
 import { useEffect, useState } from "react";
 import useCart from "../../Hooks/useCart";
+import './DashboardStyle.css';
 
 const UserDashboardNav = () => {
   const [isDashboardExpand, setDashboardExpand] = useState(true);
@@ -38,8 +39,8 @@ const UserDashboardNav = () => {
   return (
     <div
       className={`${
-        isDashboardExpand ? "w-60 lg:px-4 pt-8 lg:pb-8" : "w-12 pt-8 lg:pb-8"
-      } duration-300 max-h-[100vh] overflow-auto bg-gray-900 text-gray-100`}
+        isDashboardExpand ? "w-64 lg:px-4 pt-8 lg:pb-8" : "w-16 pt-8 lg:pb-8"
+      } duration-300 max-h-[100vh] overflow-auto bg-gray-900 text-gray-100 dashboard`}
     >
       {/* HEADING  */}
       <div className="mb-8">
