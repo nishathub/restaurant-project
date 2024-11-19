@@ -11,7 +11,9 @@ const SectionCover = ({
   // Parallax Effect of Signature bg
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      if (window.innerWidth > 1024) {
+        setScrollY(window.scrollY);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
