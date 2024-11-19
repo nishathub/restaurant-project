@@ -120,12 +120,12 @@ const AdminDashboardHome = () => {
           <div className="flex justify-start items-center gap-6 lg:gap-0 lg:rounded-md flex-wrap w-full mx-auto">
             <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-[rgb(201,201,201)]">
               <div>
-                <p className="text-3xl">
+                <p className="text-2xl sm:text-3xl">
                   <MdMenuBook />
                 </p>
               </div>
               <div>
-                <div className="stat-value">
+                <div className="text-2xl cinzel-bold sm:stat-value">
                   {adminStatsData?.totalMenuItems}
                 </div>
                 <p className="lora-regular">Menu Items</p>
@@ -133,34 +133,34 @@ const AdminDashboardHome = () => {
             </div>
             <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-[rgb(201,201,201)]">
               <div>
-                <p className="text-3xl">
+                <p className="text-2xl sm:text-3xl">
                   <FaUsers />
                 </p>
               </div>
               <div>
-                <div className="stat-value">{adminStatsData?.totalUsers}</div>
+                <div className="text-2xl cinzel-bold sm:stat-value">{adminStatsData?.totalUsers}</div>
                 <p className="lora-regular">Consumers</p>
               </div>
             </div>
             <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-[rgb(201,201,201)]">
               <div>
-                <p className="text-3xl">
+                <p className="text-2xl sm:text-3xl">
                   <MdMenuBook />
                 </p>
               </div>
               <div>
-                <div className="stat-value">{adminStatsData?.totalOrders}</div>
+                <div className="text-2xl cinzel-bold sm:stat-value">{adminStatsData?.totalOrders}</div>
                 <p className="lora-regular">Orders</p>
               </div>
             </div>
             <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-[rgb(201,201,201)]">
               <div>
-                <p className="text-3xl">
+                <p className="text-2xl sm:text-3xl">
                   <FaDollarSign />
                 </p>
               </div>
               <div>
-                <div className="stat-value">
+                <div className="text-2xl cinzel-bold sm:stat-value">
                   {(adminStatsData?.totalRevenue).toFixed(2)}
                 </div>
                 <p className="lora-regular">Revenue</p>
@@ -168,12 +168,12 @@ const AdminDashboardHome = () => {
             </div>
             <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow bg-[rgb(201,201,201)]">
               <div>
-                <p className="text-3xl">
+                <p className="text-2xl sm:text-3xl">
                   <FaPenSquare />
                 </p>
               </div>
               <div>
-                <div className="stat-value">{adminStatsData?.totalReviews}</div>
+                <div className="text-2xl cinzel-bold sm:stat-value">{adminStatsData?.totalReviews}</div>
                 <p className="lora-regular">Reviews</p>
               </div>
             </div>

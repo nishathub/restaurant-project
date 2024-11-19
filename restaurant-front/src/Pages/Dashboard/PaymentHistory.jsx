@@ -37,7 +37,7 @@ const PaymentHistory = () => {
               Total Payments: {paymentHistoryData?.length}
             </h4>
           </div>
-          <div className="max-h-[360px] md:max-h-[400px] max-w-[270px] md:max-w-full overflow-auto">
+          <div className="max-h-[360px] md:max-h-[400px] overflow-auto">
             <table className="table text-center">
               {/* head */}
               <thead className="sticky top-0 bg-gray-800 text-gray-100 z-10">

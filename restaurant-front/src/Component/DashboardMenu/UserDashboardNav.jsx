@@ -39,14 +39,14 @@ const UserDashboardNav = () => {
   return (
     <div
       className={`${
-        isDashboardExpand ? "w-64 lg:px-4 pt-8 lg:pb-8" : "w-16 pt-8 lg:pb-8"
-      } duration-300 max-h-[100vh] overflow-auto bg-gray-900 text-gray-100 dashboard`}
+        isDashboardExpand ? "w-64 px-4 pt-8 lg:pb-8" : "w-0 pt-8 lg:pb-8"
+      } duration-300 min-h-[100vh] overflow-auto bg-gray-900 text-gray-100 dashboard`}
     >
       {/* HEADING  */}
       <div className="mb-8">
         <div className="flex flex-col gap-4 p-2 w-full font-semibold">
           <button
-            className="ml-auto"
+            className="absolute z-10 -right-10 top-2 bg-black rounded-full"
             onClick={() => setDashboardExpand(!isDashboardExpand)}
           >
             {isDashboardExpand ? (

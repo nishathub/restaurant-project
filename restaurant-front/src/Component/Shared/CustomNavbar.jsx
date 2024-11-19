@@ -113,7 +113,7 @@ const CustomNavbar = () => {
               </NavLink>
             ) : (
               <Link to={"/login"}>
-                <button className="bg-gray-300 text-gray-800 px-2 py-1 rounded-md hover:bg-base-100 hover:text-gray-100 duration-300">
+                <button className="bg-gray-300 text-black px-2 py-1 rounded-md hover:bg-base-100 hover:text-gray-100 duration-300">
                   Login
                 </button>
               </Link>
@@ -168,15 +168,15 @@ const CustomNavbar = () => {
                 </Link>
               ) : (
                 <div className="flex items-center gap-4">
-                  <div className="hidden md:flex items-center gap-1">
-                    <h2
+                  <div className="hidden md:flex items-center gap-1 relative">
+                    <div
                       title="Admin"
                       className={`text-xl ${
-                        userRollData ? "text-green-500" : "hidden"
+                        userRollData ? "text-green-300 absolute -right-4 -top-3" : "hidden"
                       }`}
                     >
                       <MdOutlineSecurity />
-                    </h2>
+                    </div>
                     <h2 className={`text-gray-100`}>
                       {user?.displayName?.length < 10
                         ? user.displayName
@@ -225,7 +225,7 @@ const CustomNavbar = () => {
                           </div>
                           <div className="w-full">
                             <Link to={"/dashboard/cart"}>
-                              <button className="bg-gray-200 text-gray-800 font-bold p-1 rounded-md hover:bg-base-100 hover:text-gray-100 duration-300 w-full">
+                              <button className="bg-gray-300 text-black text-center px-2 py-1 block w-full rounded-sm hover:bg-base-100 hover:text-gray-100 duration-300">
                                 View cart
                               </button>
                             </Link>
@@ -246,7 +246,7 @@ const CustomNavbar = () => {
                       {isProfileActive && (
                         <div className="mt-1 p-4 bg-base-100 rounded-sm w-72 md:w-80 space-y-3 ">
                           <div>
-                            <div className="w-20 rounded-full mx-auto p-2">
+                            <div className="w-16 rounded-full">
                               <img
                                 className="rounded-full"
                                 alt="User-Photo"
@@ -262,7 +262,7 @@ const CustomNavbar = () => {
                           </div>
                           <div
                             className={`${
-                              userRollData ? "text-green-400 text-sm" : "hidden"
+                              userRollData ? "text-green-300 text-sm" : "hidden"
                             } text-center`}
                           >
                             <div className="flex items-center gap-2 mx-auto">
@@ -277,26 +277,26 @@ const CustomNavbar = () => {
                             {userRollData ? (
                               <Link
                                 to={"/dashboard/adminDashboardHome"}
-                                className="btn btn-sm btn-accent w-full"
+                                className="bg-gray-300 text-black text-center px-2 py-1 block rounded-sm hover:bg-base-100 hover:text-gray-100 duration-300"
                               >
                                 Admin Dashboard
                               </Link>
                             ) : (
                               <Link
                                 to={"/dashboard/userDashboardHome"}
-                                className="btn btn-sm btn-accent w-full"
+                                className="bg-gray-300 text-black text-center px-2 py-1 block rounded-sm hover:bg-base-100 hover:text-gray-100 duration-300"
                               >
                                 My Dashboard
                               </Link>
                             )}
                           </div>
                           <div className="" onClick={handleLogOut}>
-                            <a
+                            <button
                               onClick={handleLogOut}
-                              className="btn btn-sm btn-error w-full"
-                            >
+                              className="bg-red-700 text-gray-100 text-center px-2 py-1 w-full block rounded-sm hover:bg-red-800 duration-300"
+                              >
                               Logout
-                            </a>
+                            </button>
                           </div>
                         </div>
                       )}
