@@ -6,7 +6,7 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 
-import { FaGoogle } from "react-icons/fa";
+import { FaEye, FaEyeDropper, FaGoogle, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { VscGithub } from "react-icons/vsc";
 import { useContext, useEffect, useState } from "react";
 import { RestaurantContext } from "../ContextProvider/ContextProvider";
@@ -21,6 +21,7 @@ const Login = () => {
   const [isValidCaptcha, setValidCaptcha] = useState(true);
   const [captchaInput, setCaptchaInput] = useState("");
   const [isLoginLoading, setLoginLoading] = useState(false);
+  const [isPasswordShown, setPasswordShown] = useState(false);
   const [errorText, setErrorText] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -117,13 +118,16 @@ const Login = () => {
                 required
               />
             </div>
-            <div>
+            <div className="relative">
+              <button onClick={()=> setPasswordShown(!isPasswordShown)} className="absolute right-5 top-1/2">
+                {!isPasswordShown ? <p><FaRegEye></FaRegEye></p> : <p><FaRegEyeSlash></FaRegEyeSlash></p>}
+              </button>
               <label>
                 <p className="text-sm mb-1">Password *</p>
               </label>
               <input
                 className="w-full px-6 py-3 rounded-sm bg-transparent border border-gray-300"
-                type="password"
+                type={isPasswordShown ? "text" : "password"}
                 name="password"
                 required
               />

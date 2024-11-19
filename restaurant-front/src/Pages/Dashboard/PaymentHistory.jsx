@@ -56,7 +56,7 @@ const PaymentHistory = () => {
                     <td>
                       <p className="">{item.cartItemsIds.length}</p>
                     </td>
-                    <td>${item.price}</td>
+                    <td>${item.price.toFixed(2)}</td>
                     <td>
                       {new Date(item.date).toLocaleDateString("en-us", {
                         year: "numeric",

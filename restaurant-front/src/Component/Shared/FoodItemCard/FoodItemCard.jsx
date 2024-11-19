@@ -70,7 +70,7 @@ const FoodItemCard = ({ item }) => {
           alt="food-image"
         />
       </div>
-      <div className="h-60 p-8 flex flex-col gap-2 items-center justify-center lg:gap-4 text-center bg-[#f3f0f3] text-gray-800">
+      <div className="h-60 p-8 flex flex-col gap-2 items-center justify-center lg:gap-4 text-center bg-pink-100 text-gray-800">
         <h4 className="text-lg lg:text-xl font-semibold">{name}</h4>
         <p className="text-sm lora-regular">
           {recipe.length > 80 ? recipe.slice(0, 80) : recipe}...

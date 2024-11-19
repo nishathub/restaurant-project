@@ -83,7 +83,7 @@ const CustomNavbar = () => {
     <div
       className={`${
         navBgColor ? "bg-black" : "bg-black/50"
-      } h-20 lg:h-24 fixed w-full z-10`}
+      } h-20 lg:h-24 w-full fixed z-10`}
     >
       <div className="navbar max-w-7xl mx-auto md:px-4 px-1 flex justify-between items-center h-full my-auto">
         {/* ABSOLUTE MENU  */}
@@ -93,25 +93,30 @@ const CustomNavbar = () => {
             isMenuActive
               ? "opacity-100 translate-x-0 pointer-events-auto"
               : "opacity-0 -translate-x-10 pointer-events-none"
-          } duration-300 top-[64px] left-0 w-[200px] h-[calc(100vh-64px)] bg-base-100 items-start`}
+          } duration-300 top-[68px] left-0 w-[200px] h-[calc(100vh-68px)] bg-base-100 items-start`}
         >
           <div className="flex flex-col gap-2 w-fit text-gray-200">
             {navLinks}
-            {userRollData && (
+            {userRollData ? (
               <NavLink
                 className="cinzel-regular"
                 to={"/dashboard/adminDashboardHome"}
               >
                 Dashboard
               </NavLink>
-            )}
-            {user && (
+            ) : user ? (
               <NavLink
                 className="cinzel-regular"
                 to={"/dashboard/userDashboardHome"}
               >
                 Dashboard
               </NavLink>
+            ) : (
+              <Link to={"/login"}>
+                <button className="bg-gray-300 text-gray-800 px-2 py-1 rounded-md hover:bg-base-100 hover:text-gray-100 duration-300">
+                  Login
+                </button>
+              </Link>
             )}
           </div>
         </div>
@@ -156,7 +161,7 @@ const CustomNavbar = () => {
           ) : (
             <div>
               {!user ? (
-                <Link to={"/login"}>
+                <Link className="hidden lg:inline-block" to={"/login"}>
                   <button className="hover:bg-gray-200 hover:text-gray-800 font-bold p-2 rounded-md bg-base-100 text-gray-100 duration-300">
                     Login
                   </button>
@@ -197,10 +202,16 @@ const CustomNavbar = () => {
                           </span>
                           <div className="max-h-52 overflow-auto space-y-2">
                             {userCartItems?.map((item) => (
-                              <div key={item._id} className="flex gap-4 items-center justify-between py-2 border-b border-gray-400 text-gray-200">
+                              <div
+                                key={item._id}
+                                className="flex gap-4 items-center justify-between py-2 border-b border-gray-400 text-gray-200"
+                              >
                                 <div className="">
                                   <h4>{item?.name}</h4>
-                                  <p>{item?.quantity} * <span className="">${item?.price}</span> </p>
+                                  <p>
+                                    {item?.quantity} *{" "}
+                                    <span className="">${item?.price}</span>{" "}
+                                  </p>
                                 </div>
                                 <div>
                                   <img
