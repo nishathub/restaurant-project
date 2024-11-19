@@ -99,7 +99,7 @@ const AdminDashboardHome = () => {
         <div
           className={`${
             userRollData
-              ? "bg-green-700 text-gray-100 text-sm px-2 py-[2px] rounded-md"
+              ? "bg-green-700 text-gray-100 text-sm px-2 py-[2px] rounded-md lg:rounded-none"
               : "hidden"
           } text-center`}
         >
@@ -117,8 +117,8 @@ const AdminDashboardHome = () => {
             <CustomLoading size={32}></CustomLoading>
           </div>
         ) : (
-          <div className="stats shadow w-full mx-auto bg-[rgb(201,201,201)]">
-            <div className="stat place-items-center flex items-center justify-center text-gray-800 border-r border-black">
+          <div className="flex justify-start items-center gap-6 lg:gap-0 lg:rounded-md flex-wrap w-full mx-auto">
+            <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-[rgb(201,201,201)]">
               <div>
                 <p className="text-3xl">
                   <MdMenuBook />
@@ -131,7 +131,7 @@ const AdminDashboardHome = () => {
                 <p className="lora-regular">Menu Items</p>
               </div>
             </div>
-            <div className="stat place-items-center flex items-center justify-center text-gray-800">
+            <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-[rgb(201,201,201)]">
               <div>
                 <p className="text-3xl">
                   <FaUsers />
@@ -142,7 +142,7 @@ const AdminDashboardHome = () => {
                 <p className="lora-regular">Consumers</p>
               </div>
             </div>
-            <div className="stat place-items-center flex items-center justify-center text-gray-800 border-r border-black">
+            <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-[rgb(201,201,201)]">
               <div>
                 <p className="text-3xl">
                   <MdMenuBook />
@@ -153,7 +153,7 @@ const AdminDashboardHome = () => {
                 <p className="lora-regular">Orders</p>
               </div>
             </div>
-            <div className="stat place-items-center flex items-center justify-center text-gray-800 border-r border-black">
+            <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-[rgb(201,201,201)]">
               <div>
                 <p className="text-3xl">
                   <FaDollarSign />
@@ -166,7 +166,7 @@ const AdminDashboardHome = () => {
                 <p className="lora-regular">Revenue</p>
               </div>
             </div>
-            <div className="stat place-items-center flex items-center justify-center text-gray-800 border-r border-black">
+            <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow bg-[rgb(201,201,201)]">
               <div>
                 <p className="text-3xl">
                   <FaPenSquare />
