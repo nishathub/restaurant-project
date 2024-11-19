@@ -75,7 +75,7 @@ const ManageItems = () => {
   };
 
   return (
-    <div className="px-4 lg:pt-8">
+    <div className="px-4 py-12">
       {/* ABSOLUTE MODAL to DELETE Item Start */}
       <div
         className={`absolute bg-gray-800/70 flex inset-0 z-20 text-gray-800 lora-regular duration-500 ${
@@ -93,7 +93,10 @@ const ManageItems = () => {
           </button>
           <h4 className="cinzel-semibold mb-4">Are you sure?</h4>
           <div className="flex gap-6">
-            <button className="btn btn-error text-gray-100" onClick={handleDeleteItem}>
+            <button
+              className="btn btn-error text-gray-100"
+              onClick={handleDeleteItem}
+            >
               Delete
             </button>
             <button

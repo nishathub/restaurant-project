@@ -46,7 +46,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="px-4 lg:pt-8">
+    <div className="px-4 py-12">
       {/* ABSOLUTE MODAL to DELETE Item Start */}
       <div
         className={`absolute bg-gray-800/70 flex inset-0 z-20 text-gray-800 lora-regular duration-500 ${

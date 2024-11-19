@@ -8,9 +8,10 @@ import usePaymentHistory from "../../Hooks/usePaymentHistory";
 
 const PaymentHistory = () => {
   const { user } = useSavourYumContext();
-  const {isPaymentHistoryPending, isPaymentHistoryError, paymentHistoryData} = usePaymentHistory();
+  const { isPaymentHistoryPending, isPaymentHistoryError, paymentHistoryData } =
+    usePaymentHistory();
   return (
-    <div className="px-4 pt-8">
+    <div className="px-4 py-12">
       <div className="mb-12">
         <SectionTitle
           heading={"Payment History"}

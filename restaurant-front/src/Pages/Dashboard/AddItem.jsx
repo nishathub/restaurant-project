@@ -65,7 +65,7 @@ const AddItem = () => {
     }
   };
   return (
-    <div className="px-4 lg:pt-8">
+    <div className="px-4 py-12">
       <div className="mb-12">
         <SectionTitle
           heading={"Add an item"}
@@ -75,12 +75,12 @@ const AddItem = () => {
 
       <div className="bg-[rgb(201,201,201)] p-4 rounded-md space-y-4 relative">
         {/* ABSOLUTE CUSTOM LOADING START  */}
-          {isAddItemLoading && (
-            <div className="absolute -top-4 left-0 h-full w-full flex justify-center items-center bg-black/50">
-              <CustomLoading size={32}></CustomLoading>
-            </div>
-          )}
-          {/* ABSOLUTE CUSTOM LOADING END  */}
+        {isAddItemLoading && (
+          <div className="absolute -top-4 left-0 h-full w-full flex justify-center items-center bg-black/50">
+            <CustomLoading size={32}></CustomLoading>
+          </div>
+        )}
+        {/* ABSOLUTE CUSTOM LOADING END  */}
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
           <label className="form-control w-full">
             <div className="label">

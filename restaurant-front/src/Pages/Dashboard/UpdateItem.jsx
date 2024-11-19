@@ -84,9 +84,8 @@ const UpdateItem = () => {
           customAlert("Menu Updated");
           reset();
           setTimeout(() => {
-            navigate('/dashboard/manageItems');
+            navigate("/dashboard/manageItems");
           }, 1000);
-          
         }
       } else {
         customAlert("Admin Access Only!");
@@ -99,7 +98,7 @@ const UpdateItem = () => {
     }
   };
   return (
-    <div className="px-4 pt-8">
+    <div className="px-4 py-12">
       <div className="mb-12">
         <SectionTitle
           heading={`Update ${editMenuItem?.name}`}
@@ -180,7 +179,6 @@ const UpdateItem = () => {
               type="file"
               className="file-input w-full max-w-xs bg-[rgb(250,250,250)] text-gray-800"
             />
-            
           </div>
           <div>
             <button type="submit" className="btn text-gray-100 cinzel-semibold">

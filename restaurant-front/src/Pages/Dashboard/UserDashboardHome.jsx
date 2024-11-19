@@ -1,16 +1,21 @@
-import { FaCalendarCheck, FaShoppingCart, FaStar, FaWallet } from "react-icons/fa";
+import {
+  FaCalendarCheck,
+  FaShoppingCart,
+  FaStar,
+  FaWallet,
+} from "react-icons/fa";
 import useSavourYumContext from "../../Hooks/useSavourYumContext";
 import useCart from "../../Hooks/useCart";
 import usePaymentHistory from "../../Hooks/usePaymentHistory";
 
 const UserDashboardHome = () => {
   const { user } = useSavourYumContext();
-  const {userCartItems} = useCart();
-  const {paymentHistoryData} = usePaymentHistory();
+  const { userCartItems } = useCart();
+  const { paymentHistoryData } = usePaymentHistory();
   const altUserPhoto =
     "https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg";
   return (
-    <div className="px-4 pt-8 text-gray-800">
+    <div className="px-4 py-12 text-gray-800">
       <div>
         <h2 className="text-2xl text-gray-800">
           Welcome {user?.displayName && user?.displayName} !

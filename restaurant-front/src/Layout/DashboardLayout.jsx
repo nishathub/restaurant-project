@@ -27,7 +27,7 @@ const DashboardLayout = () => {
             ""
           )}
         </div>
-        <div className="max-w-5xl ml-12 lg:mx-auto min-h-screen py-8">
+        <div className="max-w-5xl lg:mx-auto min-h-screen">
           <Outlet></Outlet>
         </div>
       </div>

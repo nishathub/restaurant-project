@@ -29,14 +29,14 @@ const AdminDashboardNav = () => {
   return (
     <div
       className={`${
-        isDashboardExpand ? "w-64 px-4 pt-8 lg:pb-8" : "w-16 pt-8 lg:pb-8"
+        isDashboardExpand ? "w-64 px-4 pt-8 lg:pb-8" : "w-0 pt-8 lg:pb-8"
       } duration-300 min-h-[100vh] overflow-auto bg-gray-900 text-gray-100`}
     >
       {/* HEADING  */}
       <div className="mb-8">
         <div className="flex flex-col gap-4 p-2 w-full font-semibold">
           <button
-            className=""
+            className="absolute z-10 -right-10 top-2 bg-black rounded-full"
             onClick={() => setDashboardExpand(!isDashboardExpand)}
           >
             {isDashboardExpand ? (

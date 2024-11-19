@@ -92,7 +92,7 @@ const AllUsers = () => {
   };
 
   return (
-    <div className="px-4 lg:pt-8">
+    <div className="px-4 py-12">
       {/* ABSOLUTE MODAL Start */}
       <div
         className={`absolute bg-gray-800/70 flex inset-0 z-20 text-gray-800 lora-regular duration-500 ${
@@ -147,7 +147,10 @@ const AllUsers = () => {
           </button>
           <h4 className="cinzel-semibold mb-4">Are you sure?</h4>
           <div className="flex gap-6">
-            <button className="btn btn-error text-gray-100" onClick={handleDeleteUser}>
+            <button
+              className="btn btn-error text-gray-100"
+              onClick={handleDeleteUser}
+            >
               Delete
             </button>
             <button
@@ -175,7 +178,7 @@ const AllUsers = () => {
         <p className="text-red-700 text-2xl text-center">Error Loading Users</p>
       ) : (
         <div className="bg-[rgb(250,250,250)] text-gray-800 p-4 rounded-md space-y-4">
-          <div className="flex flex-col gap-2 lg:flex-row lg:justify-between items-end lg:items-center">
+          <div className="flex flex-col gap-2 lg:flex-row lg:justify-between items-start lg:items-center">
             <h4 className="text-lg lg:text-2xl cinzel-semibold">
               Total Users: {allUsersData?.length}
             </h4>
@@ -240,7 +243,7 @@ const AllUsers = () => {
                         </p>
                       ) : (
                         <button
-                        title="Change"
+                          title="Change"
                           onClick={() => handleUserButtonClick(item._id)}
                           className="text-2xl text-gray-800"
                         >
@@ -251,7 +254,7 @@ const AllUsers = () => {
 
                     <td>
                       <button
-                      title="Delete"
+                        title="Delete"
                         onClick={() => handleDeleteButtonClick(item._id)}
                         className="text-2xl text-red-700"
                       >

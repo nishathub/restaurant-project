@@ -91,7 +91,7 @@ const AdminDashboardHome = () => {
     );
   };
   return (
-    <div className="px-4 space-y-6">
+    <div className="px-4 py-12 space-y-6">
       <div className="flex items-end justify-between">
         <h2 className="text-2xl text-gray-800">
           Welcome {user?.displayName && user?.displayName} !
