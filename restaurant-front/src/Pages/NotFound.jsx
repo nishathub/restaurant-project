@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import CustomNavbar from "../Component/Shared/CustomNavbar";
+import CustomNavbar from "../Component/Shared/CustomNavbar/CustomNavbar";
 import Footer from "../Component/Shared/Footer";
 
 const NotFound = () => {

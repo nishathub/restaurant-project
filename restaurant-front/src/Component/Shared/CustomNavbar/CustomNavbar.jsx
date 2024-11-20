@@ -4,11 +4,12 @@ import { CgMenuMotion } from "react-icons/cg";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { MdOutlineSecurity } from "react-icons/md";
-import { RestaurantContext } from "../../ContextProvider/ContextProvider";
-import CustomLoading from "./CustomLoading/CustomLoading";
-import savouryumLogo from "../../../src/assets/restaurant-logo.png";
-import useCart from "../../Hooks/useCart";
-import useUserRoll from "../../Hooks/useUserRoll";
+import { RestaurantContext } from "../../../ContextProvider/ContextProvider";
+import CustomLoading from "../../../Component/Shared/CustomLoading/CustomLoading";
+import savouryumLogo from "../../../../src/assets/restaurant-logo.png";
+import useCart from "../../../Hooks/useCart";
+import useUserRoll from "../../../Hooks/useUserRoll";
+import NavCartBox from "./NavCartBox";
 
 const CustomNavbar = () => {
   const [navBgColor, setNavBgColor] = useState(false);
@@ -172,7 +173,9 @@ const CustomNavbar = () => {
                     <div
                       title="Admin"
                       className={`text-xl ${
-                        userRollData ? "text-green-300 absolute -right-4 -top-3" : "hidden"
+                        userRollData
+                          ? "text-green-300 absolute -right-4 -top-3"
+                          : "hidden"
                       }`}
                     >
                       <MdOutlineSecurity />
@@ -184,60 +187,13 @@ const CustomNavbar = () => {
                     </h2>
                   </div>
                   {/* CART  */}
-                  <div ref={cartBoxRef} className="relative">
-                    {/* ABSOLUTE BADGE */}
-                    <div className="absolute -top-2 -right-2 bg-gray-700 text-sm text-white px-2 rounded-full">
-                      {isCartItemsLoading ? (
-                        <CustomLoading size={12}></CustomLoading>
-                      ) : (
-                        <span>{userCartItems?.length}</span>
-                      )}
-                    </div>
-                    {/* ABSOLUTE CART-BOX */}
-                    <div className=" absolute top-16 right-0 w-60 md:w-80 rounded-md bg-base-100">
-                      {isCartOpen && (
-                        <div className="p-4 space-y-3">
-                          <span className="font-bold text-gray-100 md:text-lg">
-                            {userCartItems?.length} Items
-                          </span>
-                          <div className="max-h-52 overflow-auto space-y-2">
-                            {userCartItems?.map((item) => (
-                              <div
-                                key={item._id}
-                                className="flex gap-4 items-center justify-between py-2 border-b border-gray-400 text-gray-200"
-                              >
-                                <div className="">
-                                  <h4>{item?.name}</h4>
-                                  <p>
-                                    {item?.quantity} *{" "}
-                                    <span className="">${item?.price}</span>{" "}
-                                  </p>
-                                </div>
-                                <div>
-                                  <img
-                                    className="w-12 h-8 object-cover"
-                                    src={item?.image}
-                                    alt="menu-image"
-                                  />
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                          <div className="w-full">
-                            <Link to={"/dashboard/cart"}>
-                              <button className="bg-gray-300 text-black text-center px-2 py-1 block w-full rounded-sm hover:bg-base-100 hover:text-gray-100 duration-300">
-                                View cart
-                              </button>
-                            </Link>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    <button onClick={() => setCartOpen(!isCartOpen)}>
-                      <p className="hover:text-gray-300 text-xl p-2 text-white duration-300 rounded-full">
-                        <MdOutlineShoppingCart />
-                      </p>
-                    </button>
+                  <div>
+                    <NavCartBox
+                      cartItems={userCartItems}
+                      isCartOpen={isCartOpen}
+                      setCartOpen={setCartOpen}
+                      cartBoxRef={cartBoxRef}
+                    ></NavCartBox>
                   </div>
                   {/* Profile  */}
                   <div ref={profileBoxRef} className="relative">
@@ -294,7 +250,7 @@ const CustomNavbar = () => {
                             <button
                               onClick={handleLogOut}
                               className="bg-red-700 text-gray-100 text-center px-2 py-1 w-full block rounded-sm hover:bg-red-800 duration-300"
-                              >
+                            >
                               Logout
                             </button>
                           </div>
