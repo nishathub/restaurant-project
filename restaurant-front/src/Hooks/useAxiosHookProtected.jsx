@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
 });
 
 const useAxiosHookProtected = () => {
-  const { user, userLoading, customAlert } = useSavourYumContext();
+  const { user, userLoading, customAlert, logOutUser} = useSavourYumContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,7 +35,8 @@ const useAxiosHookProtected = () => {
         const statusCode = error.response?.status;
         if (statusCode === 401 || statusCode === 403) {
           customAlert("Unauthorized Access!");
-          navigate("/");
+          logOutUser();
+          navigate("/login");
         }
         return Promise.reject(error);
       }

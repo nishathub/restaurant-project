@@ -10,6 +10,8 @@ import savouryumLogo from "../../../../src/assets/restaurant-logo.png";
 import useCart from "../../../Hooks/useCart";
 import useUserRoll from "../../../Hooks/useUserRoll";
 import NavCartBox from "./NavCartBox";
+import NavSideMenu from "./NavSideMenu";
+import NavProfileBox from "./NavProfileBox";
 
 const CustomNavbar = () => {
   const [navBgColor, setNavBgColor] = useState(false);
@@ -88,39 +90,13 @@ const CustomNavbar = () => {
     >
       <div className="navbar max-w-7xl mx-auto md:px-4 px-1 flex justify-between items-center h-full my-auto">
         {/* ABSOLUTE MENU  */}
-        <div
-          ref={navMenuRef}
-          className={`absolute p-4 space-y-4 lg:hidden overflow-y-auto ${
-            isMenuActive
-              ? "opacity-100 translate-x-0 pointer-events-auto"
-              : "opacity-0 -translate-x-10 pointer-events-none"
-          } duration-300 top-[68px] left-0 w-[200px] h-[calc(100vh-68px)] bg-base-100 items-start`}
-        >
-          <div className="flex flex-col gap-2 w-fit text-gray-200">
-            {navLinks}
-            {userRollData ? (
-              <NavLink
-                className="cinzel-regular"
-                to={"/dashboard/adminDashboardHome"}
-              >
-                Dashboard
-              </NavLink>
-            ) : user ? (
-              <NavLink
-                className="cinzel-regular"
-                to={"/dashboard/userDashboardHome"}
-              >
-                Dashboard
-              </NavLink>
-            ) : (
-              <Link to={"/login"}>
-                <button className="bg-gray-300 text-black px-2 py-1 rounded-md hover:bg-base-100 hover:text-gray-100 duration-300">
-                  Login
-                </button>
-              </Link>
-            )}
-          </div>
-        </div>
+        <NavSideMenu
+          navMenuRef={navMenuRef}
+          isMenuActive={isMenuActive}
+          navLinks={navLinks}
+          user={user}
+          userRollData={userRollData}
+        ></NavSideMenu>
         {/* LEFT  */}
         <div className="flex gap-2 items-center w-60">
           {/* NAV-ICON FOR SMALL DEVICE  */}
@@ -196,81 +172,15 @@ const CustomNavbar = () => {
                     ></NavCartBox>
                   </div>
                   {/* Profile  */}
-                  <div ref={profileBoxRef} className="relative">
-                    {/* ABSOLUTE PROFILE CARD  */}
-                    <div className="absolute top-16 right-0">
-                      {isProfileActive && (
-                        <div className="mt-1 p-4 bg-base-100 rounded-sm w-72 md:w-80 space-y-3 ">
-                          <div>
-                            <div className="w-16 rounded-full">
-                              <img
-                                className="rounded-full"
-                                alt="User-Photo"
-                                src={user?.photoURL}
-                                onError={(e) => {
-                                  e.target.src = altUserPhoto;
-                                }}
-                              />
-                            </div>
-                          </div>
-                          <div className="md:text-lg text-gray-100 ">
-                            {user.displayName}
-                          </div>
-                          <div
-                            className={`${
-                              userRollData ? "text-green-300 text-sm" : "hidden"
-                            } text-center`}
-                          >
-                            <div className="flex items-center gap-2 mx-auto">
-                              <p>
-                                <MdOutlineSecurity />
-                              </p>
-                              <p>{userRollData}</p>
-                            </div>
-                          </div>
-                          <div className=" text-gray-300">{user.email}</div>
-                          <div>
-                            {userRollData ? (
-                              <Link
-                                to={"/dashboard/adminDashboardHome"}
-                                className="bg-gray-300 text-black text-center px-2 py-1 block rounded-sm hover:bg-base-100 hover:text-gray-100 duration-300"
-                              >
-                                Admin Dashboard
-                              </Link>
-                            ) : (
-                              <Link
-                                to={"/dashboard/userDashboardHome"}
-                                className="bg-gray-300 text-black text-center px-2 py-1 block rounded-sm hover:bg-base-100 hover:text-gray-100 duration-300"
-                              >
-                                My Dashboard
-                              </Link>
-                            )}
-                          </div>
-                          <div className="" onClick={handleLogOut}>
-                            <button
-                              onClick={handleLogOut}
-                              className="bg-red-700 text-gray-100 text-center px-2 py-1 w-full block rounded-sm hover:bg-red-800 duration-300"
-                            >
-                              Logout
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    <button
-                      onClick={() => setProfileActive(!isProfileActive)}
-                      className="w-10  rounded-full"
-                    >
-                      <img
-                        className="rounded-full"
-                        alt="User-Photo"
-                        src={user?.photoURL}
-                        onError={(e) => {
-                          e.target.src = altUserPhoto;
-                        }}
-                      />
-                    </button>
-                  </div>
+                  <NavProfileBox
+                    profileBoxRef={profileBoxRef}
+                    isProfileActive={isProfileActive}
+                    setProfileActive={setProfileActive}
+                    user={user}
+                    userRollData={userRollData}
+                    altUserPhoto={altUserPhoto}
+                    handleLogOut={handleLogOut}
+                  ></NavProfileBox>
                 </div>
               )}
             </div>

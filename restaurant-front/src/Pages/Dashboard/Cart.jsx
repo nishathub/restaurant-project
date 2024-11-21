@@ -23,6 +23,8 @@ const Cart = () => {
   const totalCartPrice = userCartItems?.reduce((total, current) => {
     return total + current.price;
   }, 0);
+  const formattedPrice = parseFloat(totalCartPrice).toFixed(2);
+  
   const handleDeleteButtonClick = (_id) => {
     setClickedItemId(_id);
     setDeleteItemModalActive(true);
@@ -102,7 +104,7 @@ const Cart = () => {
               Total Items: {userCartItems?.length}
             </h4>
             <h4 className="text-lg lg:text-2xl cinzel-semibold">
-              Total Price: ${totalCartPrice.toFixed(2)}
+              Total Price: ${formattedPrice}
             </h4>
             {userCartItems?.length ? (
               <Link to={"/dashboard/paymentGateway"}>
