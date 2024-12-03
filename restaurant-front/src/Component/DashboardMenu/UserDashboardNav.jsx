@@ -9,7 +9,7 @@ import {
   FaShoppingCart,
   FaUsers,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import savouryumLogo from "../../../src/assets/restaurant-logo.png";
 import {
   IoIosArrowDropleftCircle,
@@ -40,7 +40,7 @@ const UserDashboardNav = () => {
     <div
       className={`${
         isDashboardExpand ? "w-64 px-4 pt-8 lg:pb-8" : "w-0 pt-8 lg:pb-8"
-      } duration-300 min-h-[100vh] overflow-auto bg-gray-900 text-gray-100 dashboard`}
+      } duration-300 min-h-[100vh] overflow-auto bg-gray-900/95 text-gray-100 dashboard`}
     >
       {/* HEADING  */}
       <div className="mb-8">
@@ -92,7 +92,7 @@ const UserDashboardNav = () => {
       </div>
       {/* DASHBOARD NAV BUTTONS  */}
       <div className="p-2 space-y-6 mr-auto lora-regular border-b pb-8">
-        <Link
+        <NavLink
           to={"/dashboard/userDashboardHome"}
           title="User Home"
           className="flex items-center gap-4"
@@ -107,8 +107,8 @@ const UserDashboardNav = () => {
           >
             User Home
           </p>
-        </Link>
-        <Link title="Reservation" className="flex items-center gap-4">
+        </NavLink>
+        <button title="Reservation" className="flex items-center gap-4">
           <p className="text-3xl">
             <MdDateRange />
           </p>
@@ -119,8 +119,8 @@ const UserDashboardNav = () => {
           >
             Reservation
           </p>
-        </Link>
-        <Link
+        </button>
+        <NavLink
           to={"/dashboard/cart"}
           title="My Cart"
           className="flex items-center gap-4"
@@ -140,8 +140,8 @@ const UserDashboardNav = () => {
               ({userCartItems?.length})
             </span>
           </p>
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to={"/dashboard/paymentHistory"}
           title="Payment History"
           className="flex items-center gap-4"
@@ -156,7 +156,7 @@ const UserDashboardNav = () => {
           >
             Payment History
           </p>
-        </Link>
+        </NavLink>
         <button title="Add a Review" className="flex items-center gap-4">
           <p className="text-3xl">
             <MdRateReview />
@@ -183,7 +183,7 @@ const UserDashboardNav = () => {
         </button>
       </div>
       <div className="p-2 space-y-6 mr-auto lora-regular pt-8">
-        <Link to={"/"} title="Home" className="flex items-center gap-4">
+        <NavLink to={"/"} title="Home" className="flex items-center gap-4">
           <p className="text-3xl">
             <MdHome />
           </p>
@@ -192,49 +192,9 @@ const UserDashboardNav = () => {
               isDashboardExpand ? "" : "hidden"
             }`}
           >
-            Home
+           Back to Home
           </p>
-        </Link>
-        <Link
-          to={"/menu"}
-          title="Menu Items"
-          className="flex items-center gap-4"
-        >
-          <p className="text-3xl">
-            <BiSolidFoodMenu />
-          </p>
-          <p
-            className={`${
-              isDashboardExpand ? "" : "hidden"
-            }`}
-          >
-            Menu
-          </p>
-        </Link>
-        <Link to={"/shop"} title="Shop" className="flex items-center gap-4">
-          <p className="text-3xl">
-            <FaShoppingBag />
-          </p>
-          <p
-            className={`${
-              isDashboardExpand ? "" : "hidden"
-            }`}
-          >
-            Shop
-          </p>
-        </Link>
-        <Link title="Contact" className="flex items-center gap-4">
-          <p className="text-3xl">
-            <FaEnvelope />
-          </p>
-          <p
-            className={`${
-              isDashboardExpand ? "" : "hidden"
-            }`}
-          >
-            Contact
-          </p>
-        </Link>
+        </NavLink>
       </div>
     </div>
   );

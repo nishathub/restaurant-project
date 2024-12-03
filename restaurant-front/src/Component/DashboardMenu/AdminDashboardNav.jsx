@@ -2,7 +2,7 @@ import { MdHome, MdMenuBook, MdRestaurant } from "react-icons/md";
 import { BiSolidFoodMenu } from "react-icons/bi";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 import { FaEnvelope, FaHome, FaShoppingBag, FaUsers } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import savouryumLogo from "../../../src/assets/restaurant-logo.png";
 import {
   IoIosArrowDropleftCircle,
@@ -30,7 +30,7 @@ const AdminDashboardNav = () => {
     <div
       className={`${
         isDashboardExpand ? "w-64 px-4 pt-8 lg:pb-8" : "w-0 pt-8 lg:pb-8"
-      } duration-300 min-h-[100vh] overflow-auto bg-gray-900 text-gray-100`}
+      } duration-300 min-h-[100vh] overflow-auto bg-gray-900/95 text-gray-100`}
     >
       {/* HEADING  */}
       <div className="mb-8">
@@ -78,7 +78,7 @@ const AdminDashboardNav = () => {
       </div>
       {/* DASHBOARD NAV BUTTONS  */}
       <div className="p-2 space-y-6 mr-auto lora-regular border-b pb-8">
-        <Link
+        <NavLink
           to={"/dashboard/adminDashboardHome"}
           title="Admin Home"
           className="flex items-center gap-4"
@@ -87,8 +87,8 @@ const AdminDashboardNav = () => {
             <FaHome />
           </p>
           <p className={`${isDashboardExpand ? "" : "hidden"}`}>Admin Home</p>
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to={"/dashboard/addItem"}
           title="Add Items"
           className="flex items-center gap-4"
@@ -97,8 +97,8 @@ const AdminDashboardNav = () => {
             <MdRestaurant />
           </p>
           <p className={`${isDashboardExpand ? "" : "hidden"}`}>Add Items</p>
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to={"/dashboard/manageItems"}
           title="Manage Items"
           className="flex items-center gap-4"
@@ -107,7 +107,7 @@ const AdminDashboardNav = () => {
             <MdMenuBook />
           </p>
           <p className={`${isDashboardExpand ? "" : "hidden"}`}>Manage Items</p>
-        </Link>
+        </NavLink>
         <button title="Manage Bookings" className="flex items-center gap-4">
           <p className="text-3xl">
             <BsFillBookmarkStarFill />
@@ -116,7 +116,7 @@ const AdminDashboardNav = () => {
             Manage Bookings
           </p>
         </button>
-        <Link
+        <NavLink
           to={"/dashboard/allUsers"}
           title="Users"
           className="flex items-center gap-4"
@@ -125,36 +125,14 @@ const AdminDashboardNav = () => {
             <FaUsers />
           </p>
           <p className={`${isDashboardExpand ? "" : "hidden"}`}>All Users</p>
-        </Link>
+        </NavLink>
       </div>
       <div className="p-2 space-y-6 mr-auto lora-regular pt-8">
         <Link to={"/"} title="Home" className="flex items-center gap-4">
           <p className="text-3xl">
             <MdHome />
           </p>
-          <p className={`${isDashboardExpand ? "" : "hidden"}`}>Home</p>
-        </Link>
-        <Link
-          to={"/menu"}
-          title="Menu Items"
-          className="flex items-center gap-4"
-        >
-          <p className="text-3xl">
-            <BiSolidFoodMenu />
-          </p>
-          <p className={`${isDashboardExpand ? "" : "hidden"}`}>Menu</p>
-        </Link>
-        <Link to={"/shop"} title="Shop" className="flex items-center gap-4">
-          <p className="text-3xl">
-            <FaShoppingBag />
-          </p>
-          <p className={`${isDashboardExpand ? "" : "hidden"}`}>Shop</p>
-        </Link>
-        <Link title="Contact" className="flex items-center gap-4">
-          <p className="text-3xl">
-            <FaEnvelope />
-          </p>
-          <p className={`${isDashboardExpand ? "" : "hidden"}`}>Contact</p>
+          <p className={`${isDashboardExpand ? "" : "hidden"}`}>Back to Home</p>
         </Link>
       </div>
     </div>

@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosHookProtected from "../../Hooks/useAxiosHookProtected";
 import useSavourYumContext from "../../Hooks/useSavourYumContext";
 import useUserRoll from "../../Hooks/useUserRoll";
-import { MdMenuBook, MdOutlineSecurity } from "react-icons/md";
+import { MdMenuBook, MdMenuOpen, MdOutlineSecurity } from "react-icons/md";
 import CustomLoading from "../../Component/Shared/CustomLoading/CustomLoading";
-import { FaDollarSign, FaPenSquare, FaUsers } from "react-icons/fa";
+import { FaDollarSign, FaPenSquare, FaShoppingCart, FaUsers } from "react-icons/fa";
 import {
   BarChart,
   Bar,
@@ -99,7 +99,7 @@ const AdminDashboardHome = () => {
         <div
           className={`${
             userRollData
-              ? "bg-green-700 text-gray-100 text-sm px-2 py-[2px] rounded-md lg:rounded-none"
+              ? " text-green-800 text-sm lora-semibold"
               : "hidden"
           } text-center`}
         >
@@ -118,63 +118,69 @@ const AdminDashboardHome = () => {
           </div>
         ) : (
           <div className="flex justify-start items-center gap-6 lg:gap-0 lg:rounded-md flex-wrap w-full mx-auto">
-            <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-[rgb(201,201,201)]">
+            <div className="w-52 lg:w-fit flex items-center justify-between gap-4 px-4 py-4 lg:px-6 lg:py-6 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-purple-300">
               <div>
-                <p className="text-2xl sm:text-3xl">
+                <p className="text-3xl md:text-4xl">
                   <MdMenuBook />
                 </p>
               </div>
-              <div>
-                <div className="text-2xl cinzel-bold sm:stat-value">
+              <div className="text-right">
+                <p className="text-xl md:text-3xl cinzel-bold leading-none">
                   {adminStatsData?.totalMenuItems}
-                </div>
-                <p className="lora-regular">Menu Items</p>
+                </p>
+                <p className="lora-regular leading-none">Menu Items</p>
               </div>
             </div>
-            <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-[rgb(201,201,201)]">
+            <div className="w-52 lg:w-fit flex items-center justify-between gap-4 px-4 py-4 lg:px-6 lg:py-6 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-green-300">
               <div>
-                <p className="text-2xl sm:text-3xl">
+                <p className="text-3xl md:text-4xl leading-none">
                   <FaUsers />
                 </p>
               </div>
-              <div>
-                <div className="text-2xl cinzel-bold sm:stat-value">{adminStatsData?.totalUsers}</div>
-                <p className="lora-regular">Consumers</p>
+              <div className="text-right">
+                <div className="text-xl md:text-3xl cinzel-bold leading-none">
+                  {adminStatsData?.totalUsers}
+                </div>
+                <p className="lora-regular leading-none">Consumers</p>
               </div>
             </div>
-            <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-[rgb(201,201,201)]">
+            <div className="w-52 lg:w-fit flex items-center justify-between gap-4 px-4 py-4 lg:px-6 lg:py-6 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-orange-300">
               <div>
-                <p className="text-2xl sm:text-3xl">
-                  <MdMenuBook />
+                <p className="text-3xl md:text-4xl leading-none">
+                  <FaShoppingCart />
                 </p>
               </div>
-              <div>
-                <div className="text-2xl cinzel-bold sm:stat-value">{adminStatsData?.totalOrders}</div>
-                <p className="lora-regular">Orders</p>
+              <div className="text-right">
+                <div className="text-xl md:text-3xl cinzel-bold leading-none">
+                  {adminStatsData?.totalOrders}
+                </div>
+                <p className="lora-regular leading-none">Orders</p>
               </div>
             </div>
-            <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-[rgb(201,201,201)]">
+            <div className="w-52 lg:w-fit flex items-center justify-between gap-4 px-4 py-4 lg:px-6 lg:py-6 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow lg:border-r lg:border-gray-400 bg-cyan-300">
               <div>
-                <p className="text-2xl sm:text-3xl">
+                <p className="text-3xl md:text-4xl leading-none">
                   <FaDollarSign />
                 </p>
               </div>
-              <div>
-                <div className="text-2xl cinzel-bold sm:stat-value">
-                  {(adminStatsData?.totalRevenue).toFixed(2)}
+              <div className="text-right">
+                <div className="text-xl md:text-3xl cinzel-bold leading-none">
+                  {Math.ceil(adminStatsData?.totalRevenue)}
                 </div>
-                <p className="lora-regular">Revenue</p>
+                <p className="lora-regular leading-none">Revenue</p>
               </div>
             </div>
-            <div className="w-52 lg:w-fit flex items-center justify-start md:justify-center gap-4 px-4 py-2 lg:px-6 lg:py-4 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow bg-[rgb(201,201,201)]">
+            <div className="w-52 lg:w-fit flex items-center justify-between gap-4 px-4 py-4 lg:px-6 lg:py-6 text-gray-800 rounded-md lg:rounded-none shadow lg:shadow-none lg:flex-grow bg-red-300">
               <div>
-                <p className="text-2xl sm:text-3xl">
+                <p className="text-3xl md:text-4xl leading-none">
                   <FaPenSquare />
                 </p>
               </div>
-              <div>
-                <div className="text-2xl cinzel-bold sm:stat-value">{adminStatsData?.totalReviews}</div>
-                <p className="lora-regular">Reviews</p>
+              <div className="text-right">
+                <div className="text-xl md:text-3xl cinzel-bold leading-none">
+                  {adminStatsData?.totalReviews}
+                </div>
+                <p className="lora-regular leading-none">Reviews</p>
               </div>
             </div>
           </div>
